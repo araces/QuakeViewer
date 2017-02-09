@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuakeViewer.Models", "Quake
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuakeVIewer.Service", "QuakeVIewer.Service\QuakeVIewer.Service.csproj", "{148528EE-0404-48DB-BDC1-739195C8319E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuakeViewer.Utils", "QuakeViewer.Utils\QuakeViewer.Utils.csproj", "{42219A02-FF08-435F-8266-381501349B76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,5 +33,9 @@ Global
 		{148528EE-0404-48DB-BDC1-739195C8319E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{148528EE-0404-48DB-BDC1-739195C8319E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{148528EE-0404-48DB-BDC1-739195C8319E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42219A02-FF08-435F-8266-381501349B76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42219A02-FF08-435F-8266-381501349B76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42219A02-FF08-435F-8266-381501349B76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42219A02-FF08-435F-8266-381501349B76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

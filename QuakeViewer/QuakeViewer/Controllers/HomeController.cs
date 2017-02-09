@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using QuakeViewer.Models;
 using System.Web.Mvc;
 using QuakeViewer.DAL;
-using QuakeViewer.Models;
 using System.Web.Mvc.Ajax;
 
 namespace QuakeViewer.Controllers
@@ -15,14 +15,15 @@ namespace QuakeViewer.Controllers
         {
             var mvcName = typeof(Controller).Assembly.GetName();
 
+            LoginModel model = new LoginModel();
 
             var context = new BaseContext();
 
-            var sample = context.Dict.FirstOrDefault(p => p.Keys == 1);
+            var sample = context.Choices.Count();
 
-            ViewData["Version"] = mvcName.Version.Major + "." + mvcName.Version.Minor + "." + sample.Values;
+            ViewData["Version"] = mvcName.Version.Major + "." + mvcName.Version.Minor + "." + sample;
 
-            return View();
+            return View(model);
         }
     }
 }

@@ -15,6 +15,8 @@ namespace QuakeViewer.DAL
         {
         }
 
-        public DbSet<Dict> Dict { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<AreaParam> AreaParams { get; set; }
+        public DbSet<Choice> Choices { get; set; }
     }
 }
