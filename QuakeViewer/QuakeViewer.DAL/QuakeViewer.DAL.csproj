@@ -37,13 +37,19 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseContext.cs" />
+    <Compile Include="AccountContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AreaParamContext.cs" />
+    <Compile Include="ChroiceContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuakeViewer.Models\QuakeViewer.Models.csproj">
       <Project>{237B8C86-039F-4831-828C-29E2C2DFCF83}</Project>
       <Name>QuakeViewer.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuakeViewer.Utils\QuakeViewer.Utils.csproj">
+      <Project>{42219A02-FF08-435F-8266-381501349B76}</Project>
+      <Name>QuakeViewer.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

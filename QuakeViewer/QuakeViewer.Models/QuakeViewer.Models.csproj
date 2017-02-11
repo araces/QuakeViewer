@@ -36,9 +36,12 @@
     <Compile Include="AreaParam.cs" />
     <Compile Include="Choice.cs" />
     <Compile Include="DisplayModel\LoginModel.cs" />
+    <Compile Include="EnumModel\EnumAccountType.cs" />
+    <Compile Include="EnumModel\EnumUserType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DisplayModel\" />
+    <Folder Include="EnumModel\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

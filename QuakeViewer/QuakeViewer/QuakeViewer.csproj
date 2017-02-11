@@ -82,6 +82,7 @@
     <Folder Include="Content\" />
     <Folder Include="Scripts\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Quake\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
@@ -89,32 +90,41 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\QuakeController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="img\glyphicons-halflings.png" />
-    <Content Include="img\glyphicons-halflings-white.png" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap-responsive.min.css" />
-    <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4-vsdoc.js" />
     <Content Include="img\login_bg.jpg" />
     <Content Include="img\title_bar.png" />
+    <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Views\Home\Regist.cshtml" />
+    <Content Include="Views\Quake\Questions.cshtml" />
+    <Content Include="Content\app.min.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\jquery-1.12.4.min.map" />
+    <None Include="Content\bootstrap.css.map" />
+    <None Include="Content\bootstrap-theme.css.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuakeViewer.Models\QuakeViewer.Models.csproj">
@@ -124,6 +134,14 @@
     <ProjectReference Include="..\QuakeViewer.DAL\QuakeViewer.DAL.csproj">
       <Project>{03450541-E2E5-4560-B62C-EDA85458C709}</Project>
       <Name>QuakeViewer.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuakeVIewer.Service\QuakeVIewer.Service.csproj">
+      <Project>{148528EE-0404-48DB-BDC1-739195C8319E}</Project>
+      <Name>QuakeViewer.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuakeViewer.Utils\QuakeViewer.Utils.csproj">
+      <Project>{42219A02-FF08-435F-8266-381501349B76}</Project>
+      <Name>QuakeViewer.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

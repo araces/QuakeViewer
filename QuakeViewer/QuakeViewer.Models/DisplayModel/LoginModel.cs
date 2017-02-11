@@ -10,6 +10,11 @@ namespace QuakeViewer.Models
     {
         public string UserName { get; set; }
         public string Password { get; set; }
+
+        public string RegistUserName { get; set; }
+        public string RegistPassword { get; set; }
+        public string RegistConfirmPassword { get; set; }
         public string Mobile { get; set; }
+
     }
 }

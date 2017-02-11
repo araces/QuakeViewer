@@ -11,7 +11,7 @@ namespace QuakeViewer.Models
     public class AreaParam
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string ParentId { get; set; }
         public int? GroupNo { get; set; }

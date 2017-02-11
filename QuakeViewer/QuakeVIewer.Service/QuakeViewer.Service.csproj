@@ -28,9 +28,35 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AccountService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuakeViewer.DAL\QuakeViewer.DAL.csproj">
+      <Project>{03450541-E2E5-4560-B62C-EDA85458C709}</Project>
+      <Name>QuakeViewer.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuakeViewer.Models\QuakeViewer.Models.csproj">
+      <Project>{237B8C86-039F-4831-828C-29E2C2DFCF83}</Project>
+      <Name>QuakeViewer.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuakeViewer.Utils\QuakeViewer.Utils.csproj">
+      <Project>{42219A02-FF08-435F-8266-381501349B76}</Project>
+      <Name>QuakeViewer.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

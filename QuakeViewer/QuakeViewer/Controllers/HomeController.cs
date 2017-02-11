@@ -4,26 +4,141 @@ using System.Linq;
 using System.Web;
 using QuakeViewer.Models;
 using System.Web.Mvc;
-using QuakeViewer.DAL;
-using System.Web.Mvc.Ajax;
+using QuakeViewer.Service;
+using QuakeViewer.Utils;
+
 
 namespace QuakeViewer.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        AccountService accountService { get; set; }
+
+        public HomeController()
         {
-            var mvcName = typeof(Controller).Assembly.GetName();
+            accountService = new AccountService();
+        }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
 
             LoginModel model = new LoginModel();
 
-            var context = new BaseContext();
+            return View(model);
+        }
 
-            var sample = context.Choices.Count();
+        [HttpPost]
+        public ActionResult Login(LoginModel model)
+        {
 
-            ViewData["Version"] = mvcName.Version.Major + "." + mvcName.Version.Minor + "." + sample;
+            if (string.IsNullOrEmpty(model.UserName))
+            {
+                ModelState.AddModelError("login_error", "用户名不能为空！");
+
+                return View(model);
+            }
+
+            if (string.IsNullOrEmpty(model.Password))
+            {
+
+                ModelState.AddModelError("login_error", "密码不能为空！");
+
+                return View(model);
+            }
+
+            var account = accountService.GetAccountByUserName(model.UserName);
+
+            if (null == account)
+            {
+                ModelState.AddModelError("login_error", "用户不存在，请先注册！");
+                return View(model);
+            }
+
+            if (account.Password.Equals(SecurityHelper.EncryptToSHA1(model.Password)))
+            {
+                System.Web.Security.FormsAuthentication.SetAuthCookie(model.UserName, true);
+
+                account.LastLoginDate = DateTime.Now;
+
+                accountService.UpdateAccount(account);
+                return RedirectToAction("Questions", "Quake", null);
+            }
+
+            ModelState.AddModelError("login_error", "用户名或密码错误！");
 
             return View(model);
         }
+
+        [HttpGet]
+        public ActionResult Regist()
+        {
+
+            LoginModel model = new LoginModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Regist(LoginModel model)
+        {
+            if (string.IsNullOrEmpty(model.RegistUserName))
+            {
+                ModelState.AddModelError("regist_error", "用户名不能为空！");
+
+                return View(model);
+            }
+
+            if (string.IsNullOrEmpty(model.RegistPassword))
+            {
+
+                ModelState.AddModelError("regist_error", "密码不能为空！");
+
+                return View(model);
+            }
+
+            if (string.IsNullOrEmpty(model.Mobile))
+            {
+
+                ModelState.AddModelError("regist_error", "手机号码不能为空！");
+
+                return View(model);
+            }
+
+            var account = accountService.CheckIfAccountNameExists(model.RegistUserName);
+
+            if (null != account)
+            {
+                ModelState.AddModelError("regist_error", "用户名已经被占用，请使用修改新用户名！");
+
+                return View(model);
+            }
+
+            account = accountService.CheckIfAccountMobileExists(model.Mobile);
+
+            if (null != account)
+            {
+                ModelState.AddModelError("regist_error", "手机号码已经被占用，请使用修改新用户名！");
+
+                return View(model);
+            }
+
+            account = new Account();
+
+            account.Id = StringHelper.GuidString();
+            account.UserName = model.RegistUserName;
+            account.Password = model.RegistPassword;
+            account.Mobile = model.Mobile;
+            account.UserType = (int)EnumUserType.Web;
+            account.status = 1;
+            account.Password = SecurityHelper.EncryptToSHA1(account.Password);
+            account.CreateDate = DateTime.Now;
+            account.AccountType = (int)EnumAccountType.User;
+
+            accountService.CreateAccount(account);
+
+            return RedirectToAction("Login");
+        }
+
     }
 }

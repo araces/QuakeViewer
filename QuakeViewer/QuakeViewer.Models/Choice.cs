@@ -10,7 +10,7 @@ namespace QuakeViewer.Models
     public class Choice
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string UserId { get; set; }
         public string UserName { get; set; }
         public string FirstChoice { get; set; }

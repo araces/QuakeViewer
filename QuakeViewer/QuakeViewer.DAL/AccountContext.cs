@@ -9,14 +9,13 @@ using QuakeViewer.Models;
 
 namespace QuakeViewer.DAL
 {
-    public class BaseContext : DbContext
+    public class AccountContext : DbContext
     {
-        public BaseContext() : base("name=defaultConnectionString")
+        public AccountContext() : base("name=defaultConnectionString")
         {
         }
 
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<AreaParam> AreaParams { get; set; }
-        public DbSet<Choice> Choices { get; set; }
+
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Security.Cryptography;
 
-namespace NextStep.Utils
+namespace QuakeViewer.Utils
 {
     /// <summary>
     /// 封装安全相关，加密，解密方法
@@ -117,7 +117,7 @@ namespace NextStep.Utils
         ///  <param name="sKey" >密钥 </param > 
         ///  <param name="sIV" >矢量 </param > 
         ///  <returns >加密后字符串 </returns > 
-        public static string EncryptTo3DES(string inputStr,string sKey,string sIV)
+        public static string EncryptTo3DES(string inputStr, string sKey, string sIV)
         {
             //构造对称算法 
             SymmetricAlgorithm mCSP = new DESCryptoServiceProvider();
@@ -154,7 +154,7 @@ namespace NextStep.Utils
         ///  <param name="sKey" >密钥 </param > 
         ///  <param name="sIV" >矢量 </param > 
         ///  <returns >解密后字符串 </returns > 
-        public static string DecryptTo3DES(string inputStr,string sKey,string sIV)
+        public static string DecryptTo3DES(string inputStr, string sKey, string sIV)
         {
             inputStr = inputStr.Replace("-", "/");
             inputStr = inputStr.Replace("_", "+");
