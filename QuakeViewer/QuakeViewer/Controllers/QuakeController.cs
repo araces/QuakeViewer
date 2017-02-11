@@ -27,6 +27,11 @@ namespace QuakeViewer.Controllers
         {
             return View();
         }
+
+        public ActionResult QuakeResult()
+        {
+            return View();
+        }
     }
 }
 
