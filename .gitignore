@@ -7,3 +7,7 @@
 /QuakeViewer/QuakeViewer.Service/bin/Debug/*
 /QuakeViewer/QuakeViewer.Service/obj/Debug/*
 /QuakeViewer/packages/*
+*.dll
+*.mdb
+*.cache
+*.pb
