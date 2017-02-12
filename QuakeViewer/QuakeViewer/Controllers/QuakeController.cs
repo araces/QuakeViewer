@@ -120,9 +120,26 @@ namespace QuakeViewer.Controllers
 
             var choice = choiceService.GetChoiceByUserId(session.Id, (int)EnumUserType.Web);
 
+            if (null == choice)
+            {
+                choice = new Choice();
+                choice.CreateDate = DateTime.Now;
+                choice.UserId = choice.UserId;
+                choice.UserName = choice.UserName;
+                choice.MajorResult = -1;
+                choice.ThirdChoice = -1;
+                choice.ForthChoice = -1;
+                choice.FifthChoice = -1;
+            }
 
+            ResultModel model = new ResultModel();
+            model.UserName = choice.UserName;
+            model.MajorLevel = choice.MajorResult.Value;
+            model.Reason1 = choice.ThirdChoice.Value;
+            model.Reason2 = choice.ForthChoice.Value;
+            model.Reason3 = choice.FifthChoice.Value;
 
-            return View();
+            return View(model);
         }
     }
 }
