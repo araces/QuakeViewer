@@ -1,5 +1,0 @@
-/Users/Ares/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Models/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/Users/Ares/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Models/bin/Debug/QuakeViewer.Models.dll.mdb
-/Users/Ares/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Models/bin/Debug/QuakeViewer.Models.dll
-/Users/Ares/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Models/obj/Debug/QuakeViewer.Models.dll
-/Users/Ares/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Models/obj/Debug/QuakeViewer.Models.dll.mdb
