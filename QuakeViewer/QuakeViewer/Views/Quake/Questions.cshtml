@@ -1,83 +1,121 @@
-﻿@{
-    ViewBag.Title = "Questions";
+﻿@model QuakeViewer.Models.QuestionModel
+@{
+    var provinceList = ViewData["Province"] as List<SelectListItem>;
 }
 		<div class="row">
 		<div class="col-sm-12"> <h2 class="text-center"> 所查房屋的基本信息 </h2></div>
 	</div>
 
   	<div class="row">	
-  	<div class="col-sm-offset-1 col-sm-11">
-  		<div class="divider-header"></div>
-		<form class="form-horizontal" role="form">
-		 <div class="form-group">
-		    <label>房屋所在的位置：</label>
-		    <div>
-		    				<label for="provincial" class="col-sm-1 control-label">省</label>
-		    				<div class="col-sm-2">
-		     				<select class="form-control" id="provincial"><option value="" >--选择省--</option></select>
-		    				</div>
-		   				<label for="provincial" class="col-sm-1 control-label">市</label>
-		    				<div class="col-sm-2">
-		     				<select class="form-control" id="city"><option value="">--选择市--</option></select>
-		    				</div>
-		    				<label for="provincial" class="col-sm-1 control-label">区县</label>
-		    				<div class="col-sm-2">
-		     				<select class="form-control" id="region"><option value="">--选择区县--</option></select>
-		    				</div>
-		    </div>
-  	</div>
-  	<div class="divider-div"></div>
-  	 <div class="form-group">
-		    <label>房屋总层数:</label>
-		    <div class="col-sm-offset-1">
-		    				<div class="col-sm-4">
-		     				 <select class="form-control" id="buildLevel"><option value="">--选择房屋总层数--</option></select>
-		    				</div>
-		    </div>
-  	</div>
-		  	<div class="divider-div"></div>
+	  <div class="col-sm-offset-1 col-sm-11">
+	      <div class="divider-header"></div>
+	      @Html.BeginForm("", "", new { }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })
+        {
+        @Html.AntiForgeryToken()
+	          <div class="form-group">
+	              <label>房屋所在的位置：</label>
+	              <div>
+	                  <label for="provincial" class="col-sm-1 control-label">省</label>
+	                  <div class="col-sm-2">
+                          @Html.DropDownListFor(p=>p.Provincial, provinceList,new {@class="form-control"})
+	                  </div>
+	                  <label for="provincial" class="col-sm-1 control-label">市</label>
+	                  <div class="col-sm-2">
+                        @Html.DropDownListFor(p => p.City, new List<SelectListItem>(), new { @class = "form-control" })
+	                  </div>
+	                  <label for="provincial" class="col-sm-1 control-label">区县</label>
+	                  <div class="col-sm-2">
+                        @Html.DropDownListFor(p => p.Region, new List<SelectListItem>(), new { @class = "form-control" })
+	                  </div>
+	              </div>
+	          </div>
+	          <div class="divider-div"></div>
+	          <div class="form-group">
+	              <label>房屋总层数:</label>
+	              <div class="col-sm-offset-1">
+	                  <div class="col-sm-4">
+                        @Html.DropDownListFor(p => p.BuildLevel, new List<SelectListItem>(), new { @class = "form-control" })
+	                  </div>
+	              </div>
+	          </div>
+	          <div class="divider-div"></div>
 
-		  <div class="form-group">
-		    <label>房屋结构类型:</label>
-		      <div  class="col-sm-offset-1">
-		      	<div class="col-sm-3"><input type="radio" value="1" name="struct" checked="checked">&nbsp;&nbsp;钢结构</div>
-		      	<div class="col-sm-3"><input type="radio" value="2" name="struct">&nbsp;&nbsp;钢筋混凝土</div>
-		      	<div class="col-sm-3"><input type="radio" value="3" name="struct">&nbsp;&nbsp;砖砌</div>
-		      	<div class="col-sm-3"><input type="radio" value="4" name="struct">&nbsp;&nbsp;土石</div>
-		      </div>
-		  </div>
-		   	<div class="divider-div"></div>
-		 <div class="form-group">
-		    <label>房屋是否经过专业设计:</label>
-		      <div  class="col-sm-offset-1">
-		      	<div class="col-sm-3"><input type="radio" value="1" name="designed" checked="checked">&nbsp;&nbsp;是</div>
-		      	<div class="col-sm-3"><input type="radio" value="0" name="designed">&nbsp;&nbsp;否</div>
-		      </div>
-		  </div>
-		  	<div class="divider-div"></div>
-		  	<div class="form-group">
-		    <label>房屋的施工质量情况:</label>
-		      <div  class="col-sm-offset-1">
-		      	<div class="col-sm-3"><input type="radio" value="3" name="jobstatus" checked="checked">&nbsp;&nbsp;好</div>
-		      	<div class="col-sm-3"><input type="radio" value="2" name="jobstatus">&nbsp;&nbsp;一般</div>
-		      	<div class="col-sm-3"><input type="radio" value="1" name="jobstatus">&nbsp;&nbsp;差</div>
-		      </div>
-		  </div>
-		  	<div class="divider-div"></div>
-		<div class="form-group">
-		    <label>房屋建造的年代:</label>
-		      <div class="col-sm-offset-1">
-		      	<div class="col-sm-3"><input type="radio" name="yearLevel" checked="checked">&nbsp;&nbsp;1980年前</div>
-		      	<div class="col-sm-3"><input type="radio" name="yearLevel">&nbsp;&nbsp;1980-1990年</div>
-		      	<div class="col-sm-3"><input type="radio" name="yearLevel">&nbsp;&nbsp;1990-2000年</div>
-		      	<div class="col-sm-3"><input type="radio" name="yearLevel">&nbsp;&nbsp;2000年后</div>
-		      </div>
-		 </div>
-		  	<div class="divider-div"></div>
-		  <div class="form-group" style="margin-top: 50px;">
-		    <div class="col-sm-offset-4 col-sm-4">
-		      <button type="button" class="btn btn-lg btn-success"  id="calculate">房屋抗震能力查询</button>
-		    </div>
-		  </div>
-		</form>
-</div>
+	          <div class="form-group">
+	              <label>房屋结构类型:</label>
+	              <div  class="col-sm-offset-1">
+	                  <div class="col-sm-3">
+	                      @Html.RadioButtonFor(p=>p.StructLevel,1,new { @checked= "checked"});&nbsp;&nbsp;钢结构
+	                  </div>
+	                  <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.StructLevel, 2);&nbsp;&nbsp;钢筋混凝土
+	                  </div>
+	                  <div class="col-sm-3">
+	                      @Html.RadioButtonFor(p => p.StructLevel, 3);&nbsp;&nbsp;砖砌
+	                  </div>
+	                  <div class="col-sm-3">
+	                      @Html.RadioButtonFor(p => p.StructLevel, 4);&nbsp;&nbsp;土石
+	                  </div>
+	              </div>
+	          </div>
+	          <div class="divider-div"></div>
+	          <div class="form-group">
+	              <label>房屋是否经过专业设计:</label>
+	              <div  class="col-sm-offset-1">
+	                  <div class="col-sm-3">
+	                      @Html.RadioButtonFor(p => p.Designed, 1, new { @checked = "checked" });&nbsp;&nbsp;是
+	                  </div>
+	                  <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.Designed, 0);&nbsp;&nbsp;否
+	                  </div>
+	              </div>
+	          </div>
+	          <div class="divider-div"></div>
+	          <div class="form-group">
+	              <label>房屋的施工质量情况:</label>
+	              <div  class="col-sm-offset-1">
+	                  <div class="col-sm-3">
+	                      @Html.RadioButtonFor(p => p.Jobstatus, 3, new { @checked = "checked" });&nbsp;&nbsp;好
+	                  </div>
+	                  <div class="col-sm-3">
+	                      @Html.RadioButtonFor(p => p.Jobstatus, 2);&nbsp;&nbsp;一般
+	                  </div>
+	                  <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.Jobstatus, 1);&nbsp;&nbsp;差
+	                  </div>
+	              </div>
+	          </div>
+	          <div class="divider-div"></div>
+	          <div class="form-group">
+	              <label>房屋建造的年代:</label>
+	              <div class="col-sm-offset-1">
+	                  <div class="col-sm-3">
+	                      @Html.RadioButtonFor(p => p.YearLevel, 1, new { @checked = "checked" });&nbsp;&nbsp;1980年前
+	                  </div>
+	                  <div class="col-sm-3">
+	                      @Html.RadioButtonFor(p => p.YearLevel, 2);&nbsp;&nbsp;1980-1990年
+	                  </div>
+	                  <div class="col-sm-3">
+	                      @Html.RadioButtonFor(p => p.YearLevel, 3);&nbsp;&nbsp;1990-2000年
+	                  </div>
+	                  <div class="col-sm-3">
+	                      @Html.RadioButtonFor(p => p.YearLevel, 4);&nbsp;&nbsp;2000年后
+	                  </div>
+	              </div>
+	          </div>
+	          <div class="divider-div"></div>
+	          <div class="form-group" style="margin-top: 50px;">
+	              <div class="col-sm-offset-4 col-sm-4">
+	                  <button type="submit" class="btn btn-lg btn-success"  id="calculate">房屋抗震能力查询</button>
+	              </div>
+	          </div>
+	      }
+	  </div>
+          </div>
+	<script>
+	$(document).ready(function(){
+		 		for(var i=0;i<=200;i++){
+		 			$('#BuildLevel').append('<option value="'+i+'">'+i+'层</option>');
+		 		}
+		 	});
+
+	</script>

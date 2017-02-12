@@ -13,6 +13,8 @@ namespace QuakeViewer.Service
 {
     public class AccountService
     {
+        public static string NS_Session_Account_Key = "NS_Session_Account_Key";
+
         AccountContext accountContext { get; set; }
 
         public AccountService() : this(new AccountContext())

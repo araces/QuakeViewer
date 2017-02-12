@@ -6,6 +6,7 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using QuakeViewer.Models;
 
 namespace QuakeViewer
 {
@@ -13,6 +14,7 @@ namespace QuakeViewer
     {
         protected void Application_Start()
         {
+            ModelBinders.Binders.Add(typeof(Account), new NSSessionAccountModelBuilder());
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

@@ -38,6 +38,7 @@
     <Compile Include="DateTimeUtils.cs" />
     <Compile Include="LogHelper.cs" />
     <Compile Include="SecurityHelper.cs" />
+    <Compile Include="QuakeViewerCalculate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

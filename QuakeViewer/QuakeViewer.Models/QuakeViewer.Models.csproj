@@ -38,6 +38,8 @@
     <Compile Include="DisplayModel\LoginModel.cs" />
     <Compile Include="EnumModel\EnumAccountType.cs" />
     <Compile Include="EnumModel\EnumUserType.cs" />
+    <Compile Include="DisplayModel\QuestionModel.cs" />
+    <Compile Include="DisplayModel\ResultModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DisplayModel\" />
