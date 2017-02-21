@@ -41,6 +41,7 @@
     <Compile Include="AccountService.cs" />
     <Compile Include="AreaParamService.cs" />
     <Compile Include="ChoiceService.cs" />
+    <Compile Include="QuakeViewerCalculate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuakeViewer.DAL\QuakeViewer.DAL.csproj">

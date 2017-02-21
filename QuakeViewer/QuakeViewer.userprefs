@@ -1,10 +1,11 @@
 ﻿<Properties StartupConfiguration="{445A765C-E755-48D6-A555-E8F76CC13832}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="QuakeViewer/Views/Quake/QuakeResult.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="QuakeVIewer.Service/QuakeViewerCalculate.cs">
     <Files>
       <File FileName="QuakeViewer/Controllers/QuakeController.cs" Line="132" Column="41" />
       <File FileName="QuakeViewer.Models/DisplayModel/ResultModel.cs" Line="71" Column="16" />
       <File FileName="QuakeViewer/Views/Quake/Questions.cshtml" Line="5" Column="1" />
       <File FileName="QuakeViewer/Views/Quake/QuakeResult.cshtml" Line="7" Column="9" />
+      <File FileName="QuakeVIewer.Service/QuakeViewerCalculate.cs" Line="159" Column="53" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
