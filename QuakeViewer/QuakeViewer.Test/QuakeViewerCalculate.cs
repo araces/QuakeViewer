@@ -4,7 +4,7 @@
 //  created	By	Ares.Zhao
 //
 using System;
-namespace QuakeViewer.Utils
+namespace QuakeViewer.Test
 {
     public class QuakeViewerCalculate
     {
@@ -43,7 +43,11 @@ namespace QuakeViewer.Utils
         {
         }
 
-
+        public static void Calculate(int groupNo, int siteType, int intensityDegree, int second, int third, int forth, int fifth, int sixth, out int minor, out int major)
+        {
+            minor = 1;
+            major = 2;
+        }
 
         /// <summary>
         /// Inputs the data.
@@ -79,7 +83,7 @@ namespace QuakeViewer.Utils
 
 
         }
-        void FormStructure()
+        public void FormStructure()
         {
             double ductility = 5.0;
             double reduction = 0.35;
@@ -99,7 +103,7 @@ namespace QuakeViewer.Utils
             if (contructionQuality == 1) reduction = 1.1 * reduction;
             else if (builtYearGroup == 2) reduction = 1.0 * reduction;
             else if (builtYearGroup == 3) reduction = 0.9 * reduction;
-            else;
+
 
 
             Fy = reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05); //Unit: Acel,g,相当于无量纲
@@ -228,6 +232,7 @@ namespace QuakeViewer.Utils
             {
                 SiteType = 2;
             }
+            Console.WriteLine("GetTg" + tgData[GroupType - 1, SiteType - 1]);
             return tgData[GroupType - 1, SiteType - 1];
         }
 
@@ -251,6 +256,7 @@ namespace QuakeViewer.Utils
             {
                 maxAlpha = maxAlphaDataMajor[1];
             }
+            Console.WriteLine("GetMaxAlphaMajor" + maxAlpha);
             return maxAlpha;
         }
 
@@ -274,6 +280,7 @@ namespace QuakeViewer.Utils
             {
                 maxAlpha = maxAlphaDataMinor[1];
             }
+            Console.WriteLine("GetMaxAlphaMinor" + maxAlpha);
             return maxAlpha;
         }
 
@@ -296,6 +303,7 @@ namespace QuakeViewer.Utils
             else if (T >= Tg && T < 5.0 * Tg) seismicFactor = Math.Pow(Tg / T, gama) * eta2 * MaxAlpha;
             else if (T >= 5.0 * Tg && T <= 6.0) seismicFactor = (Math.Pow(0.2, gama) * eta2 - eta1 * (T - 5.0 * Tg)) * MaxAlpha;// the design is limited to 6.0s, extrapolation is used
             else seismicFactor = eta2 * MaxAlpha;
+            Console.WriteLine("GetSpectralSeismicFactor" + seismicFactor);
             return seismicFactor;
         }
 
@@ -312,6 +320,8 @@ namespace QuakeViewer.Utils
                 T = 0.1 * storyNum;
             else
                 T = 0.1 * storyNum;
+
+            Console.WriteLine("GetT" + T);
             return T;
 
         }
@@ -333,11 +343,13 @@ namespace QuakeViewer.Utils
             else if (Alpha < Math.Pow(0.2, gama) * eta2 * MaxAlpha)
                 T = 1.0 / eta1 * (eta2 * Math.Pow(0.2, gama) - Alpha / MaxAlpha) + 5.0 * Tg;
             else T = Tg;
+            Console.WriteLine("GetTbaseAlpha" + T);
             return T;
         }
 
         double GetAdditionalDampingRatio(double dy, double d)
         {
+            Console.WriteLine("GetAdditionalDampingRatio" + (d / dy - 1) / 3.14 / (d / dy));
             return (d / dy - 1) / 3.14 / (d / dy);
         }
 

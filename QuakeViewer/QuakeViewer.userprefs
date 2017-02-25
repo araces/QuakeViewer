@@ -1,13 +1,16 @@
 ﻿<Properties StartupConfiguration="{445A765C-E755-48D6-A555-E8F76CC13832}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="QuakeVIewer.Service/QuakeViewerCalculate.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="QuakeViewer/Controllers/HomeController.cs">
     <Files>
-      <File FileName="QuakeViewer/Controllers/QuakeController.cs" Line="132" Column="41" />
-      <File FileName="QuakeViewer.Models/DisplayModel/ResultModel.cs" Line="71" Column="16" />
-      <File FileName="QuakeViewer/Views/Quake/Questions.cshtml" Line="5" Column="1" />
-      <File FileName="QuakeViewer/Views/Quake/QuakeResult.cshtml" Line="7" Column="9" />
-      <File FileName="QuakeVIewer.Service/QuakeViewerCalculate.cs" Line="159" Column="53" />
+      <File FileName="QuakeViewer/Controllers/QuakeController.cs" Line="58" Column="14" />
+      <File FileName="QuakeViewer.Test/QuakeViewerCalculate.cs" Line="335" Column="31" />
+      <File FileName="QuakeViewer.Test/Program.cs" Line="19" Column="70" />
+      <File FileName="QuakeVIewer.Service/QuakeViewerCalculate.cs" Line="45" Column="9" />
+      <File FileName="QuakeViewer/Views/Quake/QuakeResult.cshtml" Line="17" Column="128" />
+      <File FileName="QuakeViewer/Controllers/HomeController.cs" Line="16" Column="9" />
+      <File FileName="QuakeViewer/Controllers/APIController.cs" Line="17" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.QuakeViewer.Test PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

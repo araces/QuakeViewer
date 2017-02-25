@@ -93,6 +93,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\QuakeController.cs" />
     <Compile Include="Controllers\Extension\NSSessionAccountModelBuilder.cs" />
+    <Compile Include="Controllers\APIController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

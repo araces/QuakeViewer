@@ -92,18 +92,21 @@ namespace QuakeViewer.Controllers
             int minor = -1;
             int major = -1;
 
-            QuakeViewerCalculate.Calculate(areaParam.GroupNo.Value,
+            QuakeViewerCalculate quakeViewerCalculate = new QuakeViewerCalculate();
+
+            quakeViewerCalculate.InputData(areaParam.GroupNo.Value,
                                            areaParam.SiteType.Value,
                                            areaParam.IntensityDegree.Value,
                                            choice.SecondChoice.Value,
                                            choice.ThirdChoice.Value,
                                            choice.ForthChoice.Value,
                                            choice.FifthChoice.Value,
-                                           choice.Sixth.Value,
-                                           out minor,
-                                           out major);
-            choice.MinorResult = minor;
-            choice.MajorResult = major;
+                                           choice.Sixth.Value == 1);
+            quakeViewerCalculate.ResponseMinor();
+            quakeViewerCalculate.ResponseMinor();
+
+            choice.MinorResult = quakeViewerCalculate.DamageDgreeMinor;
+            choice.MajorResult = quakeViewerCalculate.DamageDgreeMajor;
 
             choiceService.SaveChoice(choice);
 

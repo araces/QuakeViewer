@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C2FF00E5-E199-4845-B276-A608399A0F34}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>QuakeViewer.Test</RootNamespace>
+    <AssemblyName>QuakeViewer.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuakeViewerCalculate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuakeViewer.DAL\QuakeViewer.DAL.csproj">
+      <Project>{03450541-E2E5-4560-B62C-EDA85458C709}</Project>
+      <Name>QuakeViewer.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuakeViewer.Models\QuakeViewer.Models.csproj">
+      <Project>{237B8C86-039F-4831-828C-29E2C2DFCF83}</Project>
+      <Name>QuakeViewer.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuakeVIewer.Service\QuakeVIewer.Service.csproj">
+      <Project>{148528EE-0404-48DB-BDC1-739195C8319E}</Project>
+      <Name>QuakeVIewer.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
