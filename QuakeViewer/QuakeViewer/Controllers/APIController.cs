@@ -29,7 +29,7 @@ namespace QuakeViewer.Controllers
         [HttpPost]
         public ActionResult Login(string userName, string password)
         {
-
+            Response.ContentType = "application/json";
             JObject result = new JObject();
             JObject obj = new JObject();
 
@@ -91,6 +91,7 @@ namespace QuakeViewer.Controllers
         [HttpPost]
         public ActionResult Regist(string userName, string password, string mobile)
         {
+            Response.ContentType = "application/json";
             JObject result = new JObject();
             JObject obj = new JObject();
 
@@ -175,7 +176,7 @@ namespace QuakeViewer.Controllers
 
         public ActionResult GetAllProvince(string token)
         {
-
+            Response.ContentType = "application/json";
             JObject result = new JObject();
             JObject obj = new JObject();
 
@@ -205,6 +206,7 @@ namespace QuakeViewer.Controllers
 
         public ActionResult CheckIfHasResult(string token)
         {
+            Response.ContentType = "application/json";
             JObject result = new JObject();
             JObject obj = new JObject();
 
@@ -256,6 +258,7 @@ namespace QuakeViewer.Controllers
                                             int FifthChoice,
                                             int Sixth)
         {
+            Response.ContentType = "application/json";
             JObject result = new JObject();
             JObject obj = new JObject();
 
