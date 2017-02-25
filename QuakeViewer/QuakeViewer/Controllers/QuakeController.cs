@@ -89,8 +89,6 @@ namespace QuakeViewer.Controllers
             choice.FromType = (int)EnumUserType.Web;
 
 
-            int minor = -1;
-            int major = -1;
 
             QuakeViewerCalculate quakeViewerCalculate = new QuakeViewerCalculate();
 

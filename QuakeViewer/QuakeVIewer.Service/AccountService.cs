@@ -35,6 +35,12 @@ namespace QuakeViewer.Service
 
         }
 
+        public Account GetAccountById(string id)
+        {
+            var account = accountContext.Accounts.FirstOrDefault(p => p.Id == id);
+            return account;
+        }
+
         public Account CheckIfAccountNameExists(string userName)
         {
 

@@ -6,6 +6,7 @@
 using System;
 namespace QuakeViewer.Models
 {
+    [Serializable]
     public class ResultModel
     {
         public string UserName { get; set; }
