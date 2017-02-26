@@ -97,9 +97,9 @@ namespace QuakeViewer.Controllers
                                            areaParam.IntensityDegree.Value,
                                            choice.SecondChoice.Value,
                                            choice.ThirdChoice.Value,
-                                           choice.ForthChoice.Value,
+                                           choice.ForthChoice.Value == 1,
                                            choice.FifthChoice.Value,
-                                           choice.Sixth.Value == 1);
+                                           choice.Sixth.Value);
             quakeViewerCalculate.ResponseMinor();
             quakeViewerCalculate.ResponseMinor();
 

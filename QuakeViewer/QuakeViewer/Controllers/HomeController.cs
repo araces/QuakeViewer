@@ -60,9 +60,9 @@ namespace QuakeViewer.Controllers
                 System.Web.Security.FormsAuthentication.SetAuthCookie(model.UserName, true);
 
                 account.LastLoginDate = DateTime.Now;
-
+                accountService.SaveSession(account);
                 accountService.UpdateAccount(account);
-                return RedirectToAction("Questions", "Quake", null);
+                return RedirectToAction("Questions", "Quake");
             }
 
             ModelState.AddModelError("login_error", "用户名或密码错误！");

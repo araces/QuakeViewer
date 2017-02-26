@@ -1,15 +1,16 @@
 ﻿<Properties StartupConfiguration="{445A765C-E755-48D6-A555-E8F76CC13832}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="QuakeViewer/Controllers/APIController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="QuakeViewer/Views/Shared/_Layout.cshtml">
     <Files>
-      <File FileName="QuakeViewer/Controllers/QuakeController.cs" Line="136" Column="10" />
-      <File FileName="QuakeViewer/Controllers/APIController.cs" Line="18" Column="17" />
-      <File FileName="QuakeViewer/Views/Quake/QuakeResult.cshtml" Line="16" Column="180" />
+      <File FileName="QuakeViewer/Views/Quake/QuakeResult.cshtml" Line="25" Column="26" />
+      <File FileName="QuakeViewer/Views/Shared/_Layout.cshtml" Line="19" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.QuakeViewer.Test PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer/Controllers/APIController.cs" relfile="QuakeViewer/Controllers/APIController.cs" line="262" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />

@@ -56,6 +56,11 @@ namespace QuakeViewer.Service
             return account;
         }
 
+        public void SaveSession(Account session)
+        {
+            System.Web.HttpContext.Current.Session[NS_Session_Account_Key] = session;
+        }
+
         public void UpdateAccount(Account model)
         {
             accountContext.Accounts.Attach(model);

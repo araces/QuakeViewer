@@ -73,6 +73,7 @@ namespace QuakeViewer.Controllers
 
                 obj.Add("success", true);
                 obj.Add("msg", string.Empty);
+                obj.Add("token", account.Id);
 
                 result.Add("result", obj);
 
@@ -245,7 +246,7 @@ namespace QuakeViewer.Controllers
             obj.Add("msg", string.Empty);
             obj.Add("success", false);
             result.Add("result", obj.ToString());
-            return
+            return Content(result.ToString());
 
 
         }
@@ -296,14 +297,23 @@ namespace QuakeViewer.Controllers
 
             QuakeViewerCalculate quakeViewerCalculate = new QuakeViewerCalculate();
 
-            quakeViewerCalculate.InputData(areaParam.GroupNo.Value,
-                                           areaParam.SiteType.Value,
-                                           areaParam.IntensityDegree.Value,
+            /* quakeViewerCalculate.InputData(areaParam.GroupNo.Value,
+                                            areaParam.SiteType.Value,
+                                            areaParam.IntensityDegree.Value,
+                                            choice.SecondChoice.Value,
+                                            choice.ThirdChoice.Value,
+                                            choice.ForthChoice.Value,
+                                            choice.FifthChoice.Value,
+                                            choice.Sixth.Value == 1); */
+
+            quakeViewerCalculate.InputData(1,
+                                           3,
+                                           7,
                                            choice.SecondChoice.Value,
                                            choice.ThirdChoice.Value,
-                                           choice.ForthChoice.Value,
+                                           choice.ForthChoice.Value == 1,
                                            choice.FifthChoice.Value,
-                                           choice.Sixth.Value == 1);
+                                           choice.Sixth.Value);
 
             quakeViewerCalculate.ResponseMinor();
             quakeViewerCalculate.ResponseMinor();

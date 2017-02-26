@@ -55,65 +55,18 @@
 	<script type="text/javascript" src="/Scripts/bootstrap.min.js" ></script>
 	<script>
 		$(function() {  
-    			$("#register_btn").click(function() {  
-        			$("#regist_view").css("display", "block");  
-        			$("#login_view").css("display", "none");  
-    		});  
-    		$("#back_btn").click(function() {  
-        		$("#regist_view").css("display", "none");  
-        		$("#login_view").css("display", "block");  
-    		}); 
     		
     		$('#login_btn').click(function(){
     			
-    			if(window.sessionStorage){}
-    			else{
-    				alert("测试阶段只支持临时登陆，建议您更换比较新的浏览器");
-    				return;
-    			}
-    			
-    			if($('#UserName').val() == "" || $('#UserName').val() == undefined){
+    			if($('#UserName').val() == "" || $('#UserName').val() == undefined ){
     				alert("用户名不能为空");
-    				return;
+    				return false;
     			}
     			if($('#Password').val() == "" || $('#Password').val() == undefined){
     				alert("密码不能为空");
-    				return;
+    				return false;
     			}
-
-    		 console.log(Password);
-    		});
-    		
-    		$('#regist').click(function(){
-    			if(window.sessionStorage){}
-    			else{
-    				alert("测试阶段只支持临时登陆，建议您更换比较新的浏览器");
-    				return;
-    			}
-    			
-    			if($('#RegistUserName').val() == "" || $('#regist_username').val() == undefined){
-    				alert("用户名不能为空");
-    				return;
-    			}
-    			if($('#RegistPassword').val() == "" || $('#RegistPassword').val() == undefined){
-    				alert("密码不能为空");
-    				return;
-    			}
-    			if($('#Mobile').val() == "" || $('#Mobile').val() == undefined){
-    				alert("手机号码不能为空");
-    				return;
-    			}
-    			if($('#RegistPassword').val() != $('#RegistConfirmPassword').val()){
-    				alert("两次输入密码不一致");
-    				return;
-    			}
-    			window.sessionStorage.setItem($('#RegistConfirmPassword').val(),$('#register_password').val());
-    			alert('用户注册成功');
-    			
-    			$("#regist_view").css("display", "none");  
-        		$("#login_view").css("display", "block");  
-    		});
-    		
+		    });
 	});
 
 

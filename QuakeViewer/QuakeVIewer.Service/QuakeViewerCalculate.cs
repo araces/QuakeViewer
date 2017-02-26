@@ -53,15 +53,17 @@ namespace QuakeViewer.Utils
         /// <param name="intensityDegree">设防烈度</param>
         /// <param name="storyNum">楼层</param>
         /// <param name="struType">建筑结构 1 steel; 2 RC;3 Mazonry; 4 Earth and Stone; Default 2</param>
+        /// <param name="isDesigned">是否经过设计 designed or owner-built</param>
         /// <param name="builtYearGroup">建造年代 //1 before 1980;2 1980-1990; 3 1990-2000; 4 2000- Default 2000-</param>
         /// <param name="contructionQuality">施工质量 1 good; 2 fair; 3 poor;</param>
-        /// <param name="isDesigned">是否经过设计 designed or owner-built</param>
+
         public void InputData(int groupNo, int siteType, double intensityDegree,
                        int storyNum,
                        int struType,
+                              bool isDesigned,
                        int builtYearGroup,
-                       int contructionQuality,
-                       bool isDesigned)
+                       int contructionQuality
+                       )
         {
 
             this.groupNo = groupNo;
@@ -73,9 +75,7 @@ namespace QuakeViewer.Utils
             this.contructionQuality = contructionQuality;
             this.isDesigned = isDesigned;
 
-            double ductility = 5.0;
-            double reduction = 3.5;
-            double DesignIntensity = intensityDegree;
+
 
 
         }
@@ -99,8 +99,9 @@ namespace QuakeViewer.Utils
             if (contructionQuality == 1) reduction = 1.1 * reduction;
             else if (builtYearGroup == 2) reduction = 1.0 * reduction;
             else if (builtYearGroup == 3) reduction = 0.9 * reduction;
-            else;
-
+            else
+            {
+            }
 
             Fy = reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05); //Unit: Acel,g,相当于无量纲
             if (struType == 3) Fy = 0.9 * reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05);
