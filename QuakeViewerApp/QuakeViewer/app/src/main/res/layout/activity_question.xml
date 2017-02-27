@@ -404,7 +404,7 @@
                 android:id="@+id/question_query"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_roundcorner"
+
                 android:text="房屋抗震能力查询"
                 android:textColor="@android:color/white"
                 android:layout_marginTop="16dp"

@@ -77,7 +77,7 @@ public class QuestionActivity extends AppCompatActivity {
         jobstatusGroup.check(R.id.jobstatus);
         yearlevelGroup.check(R.id.yearlevel);
 
-        questionSubmit.setOnClickListener(submitListener);
+        //questionSubmit.setOnClickListener(submitListener);
 
     }
 
@@ -95,6 +95,16 @@ public class QuestionActivity extends AppCompatActivity {
 
     };
 
+    @OnClick(R.id.question_query)
+    public void submitQuery(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                QuestionActivity.this.queryStructLevel();
+            }
+        }).start();
+    }
+
 
     private void queryStructLevel() {
 
@@ -110,12 +120,13 @@ public class QuestionActivity extends AppCompatActivity {
         try {
             String token = Utils.GetContent(getApplicationContext(), "token");
             param.put("token", token);
-            param.put("region", region);
-            param.put("SecondChoice", buildLevelSpinner);
-            param.put("ThirdChoice", structLevelButton.getTag());
-            param.put("ForthChoice", designedButton.getTag());
-            param.put("FifthChoice", jobstatusButton.getTag());
-            param.put("Sixth", yearlevelButton.getTag());
+            //param.put("region", region);
+            param.put("region", "1");
+            param.put("storyNum", buildLevelSpinner.replace("层",""));
+            param.put("struType", structLevelButton.getTag());
+            param.put("isDesigned", designedButton.getTag());
+            param.put("contructionQuality", jobstatusButton.getTag());
+            param.put("builtYearGroup", yearlevelButton.getTag());
         } catch (JSONException ex) {
             ex.printStackTrace();
             Log.e(ID, ex.getMessage());
@@ -129,19 +140,31 @@ public class QuestionActivity extends AppCompatActivity {
             public void onDataArrived(String result) {
                 JSONTokener jsonParser = new JSONTokener(result);
                 try {
-                    JSONObject jsonResult = (JSONObject) jsonParser.nextValue();
-                    JSONObject resultContent = (JSONObject) jsonResult.getJSONObject("result");
-                    if (resultContent.getBoolean("success")) {
+                    JSONObject jsonMain = (JSONObject) jsonParser.nextValue();
+                    JSONObject jsonResult = jsonMain.getJSONObject("result");
+                    if (jsonResult.getBoolean("success")) {
+
+                        JSONObject resultContent = jsonResult.getJSONObject("resultModel");
+
+                        Bundle bundle =new Bundle();
+                        bundle.putString("DisplayUserName",resultContent.getString("DisplayUserName"));
+                        bundle.putString("DisplayMajorLevel",resultContent.getString("DisplayMajorLevel"));
+                        bundle.putString("DisplayReason1",resultContent.getString("DisplayReason1"));
+                        bundle.putString("DisplayReason2",resultContent.getString("DisplayReason2"));
+                        bundle.putString("DisplayReason3",resultContent.getString("DisplayReason3"));
 
 
                         Intent intent = new Intent();
+                        intent.putExtra("QuestionResult",bundle);
                         intent.setClass(QuestionActivity.this, ResultActivity.class);
                         QuestionActivity.this.startActivity(intent);
                     } else {
-                        String msg = resultContent.getString("msg");
-                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+
+                        Toast.makeText(getApplicationContext(), "数据错误", Toast.LENGTH_LONG).show();
                     }
-                } catch (JSONException e) {
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
+                    Log.e(ID,ex.getMessage());
                     Toast.makeText(getApplicationContext(), "服务出错，请稍后再试", Toast.LENGTH_LONG).show();
 
                 }

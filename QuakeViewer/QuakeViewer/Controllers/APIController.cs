@@ -253,11 +253,11 @@ namespace QuakeViewer.Controllers
 
         [HttpPost]
         public ActionResult QuestionsResult(string token, string regionId,
-                                            int SecondChoice,
-                                            int ThirdChoice,
-                                            int ForthChoice,
-                                            int FifthChoice,
-                                            int Sixth)
+                                            int storyNum,
+                                            int struType,
+                                            int isDesigned,
+                                            int contructionQuality,
+                                            int builtYearGroup)
         {
             Response.ContentType = "application/json";
             JObject result = new JObject();
@@ -285,11 +285,11 @@ namespace QuakeViewer.Controllers
             var areaParam = areaParamService.GetAreaParamById(regionId);
 
             choice.FirstChoice = regionId;
-            choice.SecondChoice = SecondChoice;
-            choice.ThirdChoice = ThirdChoice;
-            choice.ForthChoice = ForthChoice;
-            choice.FifthChoice = FifthChoice;
-            choice.Sixth = Sixth;
+            choice.SecondChoice = storyNum;
+            choice.ThirdChoice = struType;
+            choice.ForthChoice = isDesigned;
+            choice.FifthChoice = contructionQuality;
+            choice.Sixth = builtYearGroup;
             choice.CreateDate = DateTime.Now;
             choice.FromType = (int)EnumUserType.Mobile;
 
@@ -316,7 +316,7 @@ namespace QuakeViewer.Controllers
                                            choice.Sixth.Value);
 
             quakeViewerCalculate.ResponseMinor();
-            quakeViewerCalculate.ResponseMinor();
+            quakeViewerCalculate.ResponseMajor();
 
             choice.MinorResult = quakeViewerCalculate.DamageDgreeMinor;
             choice.MajorResult = quakeViewerCalculate.DamageDgreeMajor;
@@ -332,7 +332,7 @@ namespace QuakeViewer.Controllers
 
             obj.Add("resultModel", JObject.FromObject(model));
             obj.Add("success", true);
-            result.Add("result", obj.ToString());
+            result.Add("result", obj);
 
             return Content(result.ToString());
         }

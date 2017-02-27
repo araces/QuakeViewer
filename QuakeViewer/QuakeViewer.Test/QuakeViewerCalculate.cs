@@ -1,7 +1,7 @@
 ﻿//
-//  Souce	Path	QuakeViewerCalculate.cs
-//  create	Date	2017-2-12 16:15:51		
-//  created	By	Ares.Zhao
+//  Souce   Path    QuakeViewerCalculate.cs
+//  create  Date    2017-2-12 16:15:51      
+//  created By  Ares.Zhao
 //
 using System;
 namespace QuakeViewer.Test
@@ -43,11 +43,7 @@ namespace QuakeViewer.Test
         {
         }
 
-        public static void Calculate(int groupNo, int siteType, int intensityDegree, int second, int third, int forth, int fifth, int sixth, out int minor, out int major)
-        {
-            minor = 1;
-            major = 2;
-        }
+
 
         /// <summary>
         /// Inputs the data.
@@ -57,15 +53,17 @@ namespace QuakeViewer.Test
         /// <param name="intensityDegree">设防烈度</param>
         /// <param name="storyNum">楼层</param>
         /// <param name="struType">建筑结构 1 steel; 2 RC;3 Mazonry; 4 Earth and Stone; Default 2</param>
-        /// <param name="builtYearGroup">建造年代 //1 before 1980;2 1980-1990; 3 1990-2000; 4 2000- Default 2000-</param>
-        /// <param name="contructionQuality">施工质量 1 good; 2 fair; 3 poor;</param>
         /// <param name="isDesigned">是否经过设计 designed or owner-built</param>
+        /// <param name="contructionQuality">施工质量 1 good; 2 fair; 3 poor;</param>
+        /// <param name="builtYearGroup">建造年代 //1 before 1980;2 1980-1990; 3 1990-2000; 4 2000- Default 2000-</param>
+
         public void InputData(int groupNo, int siteType, double intensityDegree,
                        int storyNum,
                        int struType,
-                       int builtYearGroup,
+                              bool isDesigned,
                        int contructionQuality,
-                       bool isDesigned)
+                              int builtYearGroup
+                       )
         {
 
             this.groupNo = groupNo;
@@ -76,10 +74,9 @@ namespace QuakeViewer.Test
             this.builtYearGroup = builtYearGroup;
             this.contructionQuality = contructionQuality;
             this.isDesigned = isDesigned;
-
-            double ductility = 5.0;
-            double reduction = 3.5;
-            double DesignIntensity = intensityDegree;
+            Console.WriteLine("GroupNo" + groupNo + "SiteType" + siteType + "IntensityDegree" + intensityDegree);
+            Console.WriteLine("StoryNum" + storyNum + "StruType" + struType + "BuiltYearGroup" + builtYearGroup);
+            Console.WriteLine("ContructionQuality" + contructionQuality + "isDesigned" + isDesigned + "StructureDataIsFormed" + structureDataIsFormed);
 
 
         }
@@ -95,6 +92,10 @@ namespace QuakeViewer.Test
             MaxAlpha = GetMaxAlphaMajor(DesignIntensity);
             T = GetT(storyNum, struType);
 
+            Console.WriteLine("GroupNo" + groupNo + "SiteType" + siteType + "IntensityDegree" + intensityDegree);
+            Console.WriteLine("StoryNum" + storyNum + "StruType" + struType + "BuiltYearGroup" + builtYearGroup);
+            Console.WriteLine("ContructionQuality" + contructionQuality + "isDesigned" + isDesigned + "StructureDataIsFormed" + structureDataIsFormed);
+
             if (builtYearGroup == 1) reduction = 0.85 * reduction;
             else if (builtYearGroup == 2) reduction = 0.9 * reduction;
             else if (builtYearGroup == 3) reduction = 0.95 * reduction;
@@ -103,8 +104,9 @@ namespace QuakeViewer.Test
             if (contructionQuality == 1) reduction = 1.1 * reduction;
             else if (builtYearGroup == 2) reduction = 1.0 * reduction;
             else if (builtYearGroup == 3) reduction = 0.9 * reduction;
-
-
+            else
+            {
+            }
 
             Fy = reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05); //Unit: Acel,g,相当于无量纲
             if (struType == 3) Fy = 0.9 * reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05);
@@ -129,6 +131,10 @@ namespace QuakeViewer.Test
             }
 
             structureDataIsFormed = true;
+
+            Console.WriteLine("GroupNo" + groupNo + "SiteType" + siteType + "IntensityDegree" + intensityDegree);
+            Console.WriteLine("StoryNum" + storyNum + "StruType" + struType + "BuiltYearGroup" + builtYearGroup);
+            Console.WriteLine("ContructionQuality" + contructionQuality + "isDesigned" + isDesigned + "StructureDataIsFormed" + structureDataIsFormed);
 
         }
         public void ResponseMinor()
@@ -303,6 +309,7 @@ namespace QuakeViewer.Test
             else if (T >= Tg && T < 5.0 * Tg) seismicFactor = Math.Pow(Tg / T, gama) * eta2 * MaxAlpha;
             else if (T >= 5.0 * Tg && T <= 6.0) seismicFactor = (Math.Pow(0.2, gama) * eta2 - eta1 * (T - 5.0 * Tg)) * MaxAlpha;// the design is limited to 6.0s, extrapolation is used
             else seismicFactor = eta2 * MaxAlpha;
+
             Console.WriteLine("GetSpectralSeismicFactor" + seismicFactor);
             return seismicFactor;
         }
@@ -349,7 +356,8 @@ namespace QuakeViewer.Test
 
         double GetAdditionalDampingRatio(double dy, double d)
         {
-            Console.WriteLine("GetAdditionalDampingRatio" + (d / dy - 1) / 3.14 / (d / dy));
+            double result = (d / dy - 1) / 3.14 / (d / dy);
+            Console.WriteLine("GetAdditionalDampingRatio" + result);
             return (d / dy - 1) / 3.14 / (d / dy);
         }
 

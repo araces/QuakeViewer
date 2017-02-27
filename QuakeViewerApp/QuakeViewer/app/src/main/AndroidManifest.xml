@@ -27,7 +27,11 @@
             android:label="@string/app_name"
             android:theme="@style/FullScreen"
             >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".RegistActivity"
             android:label="用户注册"
@@ -39,11 +43,7 @@
         <activity android:name=".ResultActivity"
             android:label="房屋抗震能力评估结果"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

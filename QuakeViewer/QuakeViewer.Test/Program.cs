@@ -12,7 +12,16 @@ namespace QuakeViewer.Test
         public static void Main(string[] args)
         {
             QuakeViewerCalculate quakeViewer = new QuakeViewerCalculate();
-            quakeViewer.InputData(1, 3, 7, 3, 1, 4, 2, true);
+            /*
+            public void InputData(int groupNo, int siteType, double intensityDegree,
+                       int storyNum,
+                       int struType,
+                              bool isDesigned,
+                       int contructionQuality,
+                              int builtYearGroup
+                       )
+                       */
+            quakeViewer.InputData(1, 3, 7, 1, 4, false, 3, 1);
             quakeViewer.FormStructure();
             quakeViewer.ResponseMinor();
             quakeViewer.ResponseMajor();

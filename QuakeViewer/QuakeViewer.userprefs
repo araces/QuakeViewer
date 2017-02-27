@@ -1,15 +1,21 @@
-﻿<Properties StartupConfiguration="{445A765C-E755-48D6-A555-E8F76CC13832}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="QuakeViewer/Views/Shared/_Layout.cshtml">
+﻿<Properties StartupConfiguration="{C2FF00E5-E199-4845-B276-A608399A0F34}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="QuakeViewer.Test/QuakeViewerCalculate.cs">
     <Files>
-      <File FileName="QuakeViewer/Views/Quake/QuakeResult.cshtml" Line="25" Column="26" />
-      <File FileName="QuakeViewer/Views/Shared/_Layout.cshtml" Line="19" Column="5" />
+      <File FileName="QuakeViewer/Views/Quake/QuakeResult.cshtml" Line="15" Column="3" />
+      <File FileName="QuakeViewer/Controllers/APIController.cs" Line="323" Column="13" />
+      <File FileName="QuakeViewer/Controllers/QuakeController.cs" Line="87" Column="43" />
+      <File FileName="QuakeViewer/Controllers/Extension/NSSessionAccountModelBuilder.cs" Line="18" Column="6" />
+      <File FileName="QuakeViewer.Test/Program.cs" Line="1" Column="1" />
+      <File FileName="QuakeVIewer.Service/QuakeViewerCalculate.cs" Line="81" Column="10" />
+      <File FileName="QuakeViewer.Test/QuakeViewerCalculate.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.QuakeViewer.Test PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer/Controllers/APIController.cs" relfile="QuakeViewer/Controllers/APIController.cs" line="262" column="1" />
+      <Breakpoint file="/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer/Controllers/APIController.cs" relfile="QuakeViewer/Controllers/APIController.cs" line="263" column="1" />
+      <Breakpoint file="/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer/Controllers/APIController.cs" relfile="QuakeViewer/Controllers/APIController.cs" line="321" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
