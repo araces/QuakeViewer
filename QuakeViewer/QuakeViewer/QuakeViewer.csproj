@@ -15,7 +15,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -134,6 +134,7 @@
     <Content Include="Views\Quake\QuakeResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="local.pubxml" />
     <None Include="Scripts\jquery-1.12.4.min.map" />
     <None Include="Content\bootstrap.css.map" />
     <None Include="Content\bootstrap-theme.css.map" />
@@ -147,9 +148,9 @@
       <Project>{03450541-E2E5-4560-B62C-EDA85458C709}</Project>
       <Name>QuakeViewer.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QuakeVIewer.Service\QuakeVIewer.Service.csproj">
-      <Project>{148528EE-0404-48DB-BDC1-739195C8319E}</Project>
-      <Name>QuakeVIewer.Service</Name>
+    <ProjectReference Include="..\QuakeVIewer.Service\QuakeViewer.Service.csproj">
+      <Project>{148528ee-0404-48db-bdc1-739195c8319e}</Project>
+      <Name>QuakeViewer.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\QuakeViewer.Utils\QuakeViewer.Utils.csproj">
       <Project>{42219A02-FF08-435F-8266-381501349B76}</Project>
@@ -174,7 +175,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://www.aaa.com</IISUrl>
+          <IISUrl>http://localhost:50451/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
+        android:fadingEdge="none"
         >
 
         <LinearLayout
@@ -73,39 +74,34 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
 
                     <Spinner
                         android:id="@+id/province"
-                        android:layout_width="match_parent"
+                        android:layout_width="160dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
+
                         />
 
                     <Spinner
                         android:id="@+id/city"
-                        android:layout_width="match_parent"
+                        android:layout_width="160dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
+
                         />
 
                     <Spinner
                         android:id="@+id/region"
-                        android:layout_width="match_parent"
+                        android:layout_width="160dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
                         />
                 </LinearLayout>
             </LinearLayout>

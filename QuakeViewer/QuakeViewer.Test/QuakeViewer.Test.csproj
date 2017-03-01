@@ -35,17 +35,9 @@
     <Compile Include="QuakeViewerCalculate.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\QuakeViewer.DAL\QuakeViewer.DAL.csproj">
-      <Project>{03450541-E2E5-4560-B62C-EDA85458C709}</Project>
-      <Name>QuakeViewer.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\QuakeViewer.Models\QuakeViewer.Models.csproj">
-      <Project>{237B8C86-039F-4831-828C-29E2C2DFCF83}</Project>
-      <Name>QuakeViewer.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\QuakeVIewer.Service\QuakeVIewer.Service.csproj">
-      <Project>{148528EE-0404-48DB-BDC1-739195C8319E}</Project>
-      <Name>QuakeVIewer.Service</Name>
+    <ProjectReference Include="..\QuakeViewer.Utils\QuakeViewer.Utils.csproj">
+      <Project>{42219A02-FF08-435F-8266-381501349B76}</Project>
+      <Name>QuakeViewer.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

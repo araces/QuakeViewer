@@ -8,39 +8,50 @@ namespace QuakeViewer.Utils
 {
     public static class LogHelper
     {
-        private static ILog loger;
+        private static ILog logger;
 
         static LogHelper()
         {
             XmlConfigurator.Configure();
             Type type = MethodBase.GetCurrentMethod().DeclaringType;
-            loger = LogManager.GetLogger(type);
+            logger = LogManager.GetLogger(type);
         }
 
-        public static void Debug(string content)
+
+        /// <summary>
+        /// Errors the specified MSG.
+        /// </summary>
+        /// <param name="msg">The MSG.</param>
+        public static void Error(object msg)
         {
-            loger.Debug(content);
+            logger.Error(msg);
         }
 
-        public static void Info(string content)
+        /// <summary>
+        /// Warn the specified MSG.
+        /// </summary>
+        /// <param name="msg">The MSG.</param>
+        public static void Warn(object msg)
         {
-            loger.Info(content);
+            logger.Warn(msg);
         }
 
-        public static void Warn(string content)
+        /// <summary>
+        /// Errors the specified ex.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        public static void Error(Exception ex)
         {
-            loger.Warn(content);
+            logger.Error(ex);
         }
 
-        public static void Error(string content)
+        /// <summary>
+        /// Debugs the specified MSG.
+        /// </summary>
+        /// <param name="msg">The MSG.</param>
+        public static void Debug(object msg)
         {
-            loger.Error(content);
+            logger.Debug(msg);
         }
-
-        public static void Fatal(string content)
-        {
-            loger.Error(content);
-        }
-
     }
 }

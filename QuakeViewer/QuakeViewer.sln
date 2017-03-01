@@ -1,13 +1,14 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuakeViewer", "QuakeViewer\QuakeViewer.csproj", "{445A765C-E755-48D6-A555-E8F76CC13832}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuakeViewer.DAL", "QuakeViewer.DAL\QuakeViewer.DAL.csproj", "{03450541-E2E5-4560-B62C-EDA85458C709}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuakeViewer.Models", "QuakeViewer.Models\QuakeViewer.Models.csproj", "{237B8C86-039F-4831-828C-29E2C2DFCF83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuakeVIewer.Service", "QuakeVIewer.Service\QuakeVIewer.Service.csproj", "{148528EE-0404-48DB-BDC1-739195C8319E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuakeViewer.Service", "QuakeVIewer.Service\QuakeViewer.Service.csproj", "{148528EE-0404-48DB-BDC1-739195C8319E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuakeViewer.Utils", "QuakeViewer.Utils\QuakeViewer.Utils.csproj", "{42219A02-FF08-435F-8266-381501349B76}"
 EndProject
@@ -43,5 +44,8 @@ Global
 		{C2FF00E5-E199-4845-B276-A608399A0F34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2FF00E5-E199-4845-B276-A608399A0F34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2FF00E5-E199-4845-B276-A608399A0F34}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

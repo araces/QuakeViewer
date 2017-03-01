@@ -191,7 +191,7 @@ namespace QuakeViewer.Controllers
                 return Content(result.ToString());
             }
 
-            List<AreaParam> provinceList = areaParamService.GetProvince();
+            List<AreaParam> provinceList = areaParamService.GetAreaParams();
 
             JArray provinceArray = JArray.FromObject(provinceList);
 
@@ -306,9 +306,9 @@ namespace QuakeViewer.Controllers
                                             choice.FifthChoice.Value,
                                             choice.Sixth.Value == 1); */
 
-            quakeViewerCalculate.InputData(1,
-                                           3,
-                                           7,
+            quakeViewerCalculate.InputData(areaParam.GroupNo.Value,
+                                           areaParam.SiteType.Value,
+                                           areaParam.IntensityDegree.Value,
                                            choice.SecondChoice.Value,
                                            choice.ThirdChoice.Value,
                                            choice.ForthChoice.Value == 1,

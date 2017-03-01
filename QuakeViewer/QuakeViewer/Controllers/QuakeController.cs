@@ -6,7 +6,7 @@ using QuakeViewer.Models;
 using System.Web.Mvc;
 using QuakeViewer.Service;
 using QuakeViewer.Utils;
-
+using Newtonsoft.Json.Linq;
 
 
 
@@ -44,8 +44,8 @@ namespace QuakeViewer.Controllers
             foreach (var q in provinceList)
             {
                 SelectListItem item = new SelectListItem();
-                item.Text = q.Id;
-                item.Value = q.Name;
+                item.Text = q.Name;
+                item.Value = q.Id;
 
                 provinceSelectItems.Add(item);
             }
@@ -101,7 +101,7 @@ namespace QuakeViewer.Controllers
                                            choice.FifthChoice.Value,
                                            choice.Sixth.Value);
             quakeViewerCalculate.ResponseMinor();
-            quakeViewerCalculate.ResponseMinor();
+            quakeViewerCalculate.ResponseMajor();
 
             choice.MinorResult = quakeViewerCalculate.DamageDgreeMinor;
             choice.MajorResult = quakeViewerCalculate.DamageDgreeMajor;
@@ -141,6 +141,44 @@ namespace QuakeViewer.Controllers
             model.Reason3 = choice.FifthChoice.Value;
 
             return View(model);
+        }
+
+        public ActionResult GetAreaParamsById(Account session, string parentId)
+        {
+
+            Response.ContentType = "application/json";
+            JObject result = new JObject();
+            JObject obj = new JObject();
+   
+            if (null == session)
+            {
+                obj.Add("success", false);
+                obj.Add("msg", "权限错误");
+                result.Add("result", obj);
+                return Content(result.ToString());
+            }
+    
+            if (string.IsNullOrEmpty(parentId))
+            {
+                obj.Add("success", false);
+                obj.Add("msg", "参数错误");
+                result.Add("result", obj);
+                return Content(result.ToString());
+            }
+
+
+            List<AreaParam> areaParams = areaParamService.GetAreaParamsByParentId(parentId);
+
+            areaParams = areaParams.OrderBy(p => p.ParentId).ToList();
+
+            JArray arrays = JArray.FromObject(areaParams);
+
+            obj.Add("success", true);
+            obj.Add("areas", arrays);
+            obj.Add("msg", "");
+            result.Add("result", obj);
+            return Content(result.ToString());
+
         }
     }
 }
