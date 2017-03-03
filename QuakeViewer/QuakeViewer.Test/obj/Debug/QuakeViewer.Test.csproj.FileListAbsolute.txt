@@ -1,9 +1,0 @@
-D:/Sample/QuakeViewer/QuakeViewer.Test/bin/Debug/QuakeViewer.Test.exe
-D:/Sample/QuakeViewer/QuakeViewer.Test/bin/Debug/QuakeViewer.Test.pdb
-D:/Sample/QuakeViewer/QuakeViewer.Test/bin/Debug/QuakeViewer.Utils.dll
-D:/Sample/QuakeViewer/QuakeViewer.Test/bin/Debug/log4net.dll
-D:/Sample/QuakeViewer/QuakeViewer.Test/bin/Debug/QuakeViewer.Utils.pdb
-D:/Sample/QuakeViewer/QuakeViewer.Test/bin/Debug/log4net.xml
-D:/Sample/QuakeViewer/QuakeViewer.Test/obj/Debug/QuakeViewer.Test.csprojResolveAssemblyReference.cache
-D:/Sample/QuakeViewer/QuakeViewer.Test/obj/Debug/QuakeViewer.Test.exe
-D:/Sample/QuakeViewer/QuakeViewer.Test/obj/Debug/QuakeViewer.Test.pdb

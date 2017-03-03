@@ -91,6 +91,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="log\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +133,15 @@
     <Content Include="Views\Quake\Questions.cshtml" />
     <Content Include="Content\app.min.css" />
     <Content Include="Views\Quake\QuakeResult.cshtml" />
+    <Content Include="Views\Home\LoginBackup.cshtml" />
+    <Content Include="img\login_bg1.jpg" />
+    <Content Include="img\login_bg2.jpg" />
+    <Content Include="Content\logincss\reset.css" />
+    <Content Include="Content\logincss\style.css" />
+    <Content Include="Content\logincss\supersized.css" />
+    <Content Include="Scripts\loginjs\scripts.js" />
+    <Content Include="Scripts\loginjs\supersized-init.js" />
+    <Content Include="Scripts\loginjs\supersized.3.2.7.min.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.pubxml" />
@@ -175,7 +185,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50451/</IISUrl>
+          <IISUrl>http://localhost:54071/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

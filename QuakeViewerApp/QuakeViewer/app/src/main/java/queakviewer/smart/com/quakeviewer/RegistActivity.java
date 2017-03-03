@@ -84,7 +84,7 @@ public class RegistActivity extends AppCompatActivity {
         }
         catch (JSONException ex){
             Log.e(ID,ex.getMessage());
-            Toast.makeText(RegistActivity.this,"系统错误，请重试",Toast.LENGTH_LONG);
+            Toast.makeText(RegistActivity.this,"系统错误，请重试",Toast.LENGTH_LONG).show();
         }
 
         WebClient client =new WebClient();
@@ -102,7 +102,7 @@ public class RegistActivity extends AppCompatActivity {
                 }
                 catch (Exception ex){
                     Log.e(ID,ex.getMessage());
-                    Toast.makeText(RegistActivity.this,"网络错误，请稍后重试",Toast.LENGTH_LONG);
+                    Toast.makeText(RegistActivity.this,"网络错误，请稍后重试",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -111,7 +111,7 @@ public class RegistActivity extends AppCompatActivity {
             client.PostData(StaticParams.REGIST_URL,param.toString());
         }catch (IOException ex){
             Log.e(ID,ex.getMessage());
-            Toast.makeText(RegistActivity.this,"网络错误，请稍后重试",Toast.LENGTH_LONG);
+            Toast.makeText(RegistActivity.this,"网络错误，请稍后重试",Toast.LENGTH_LONG).show();
         }
 
 

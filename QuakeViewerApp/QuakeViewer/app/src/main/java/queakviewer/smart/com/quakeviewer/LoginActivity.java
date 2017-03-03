@@ -3,8 +3,10 @@ package queakviewer.smart.com.quakeviewer;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
@@ -18,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -57,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+
+    Handler handler =new Handler();
 
 
     // UI references.
@@ -99,6 +104,11 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        InputMethodManager imm =  (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(imm !=null){
+            imm.hideSoftInputFromWindow(LoginActivity.this.getWindow().getDecorView().getWindowToken(),0);
+        }
     }
 
 /*
@@ -223,11 +233,23 @@ public class LoginActivity extends AppCompatActivity {
                             LoginActivity.this.finish();
                         }
                         else{
-                            String msg =  resultContent.getString("msg");
-                            Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+                            final String msg =  resultContent.getString("msg");
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+                                }
+                            });
+
                         }
                     }catch (JSONException e){
-                        Toast.makeText(getApplicationContext(),"服务出错，请稍后再试",Toast.LENGTH_LONG).show();
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(),"服务出错，请稍后再试",Toast.LENGTH_LONG).show();
+                            }
+                        });
+
 
                     }
 
@@ -240,19 +262,29 @@ public class LoginActivity extends AppCompatActivity {
                 param.put("userName", userName);
                 param.put("password", password);
             }
-            catch (JSONException ex){
+            catch (JSONException ex) {
                 ex.printStackTrace();
-                Log.e(ID,ex.getMessage());
-                Toast.makeText(LoginActivity.this,"系统错误，请重试",Toast.LENGTH_LONG);
+                Log.e(ID, ex.getMessage());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(LoginActivity.this, "系统错误，请重试", Toast.LENGTH_LONG);
+                    }
+                });
             }
 
             try
             {
                 client.PostData(StaticParams.LOGIN_URL,param.toString());
-            }catch (IOException ex){
+            }catch (IOException ex) {
                 ex.printStackTrace();
-                Log.e(ID,ex.getMessage());
-                Toast.makeText(LoginActivity.this,"网络错误，请稍后重试",Toast.LENGTH_LONG).show();
+                Log.e(ID, ex.getMessage());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(LoginActivity.this, "网络错误，请稍后重试", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
 

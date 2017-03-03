@@ -221,7 +221,7 @@ namespace QuakeViewer.Controllers
                 return Content(result.ToString());
             }
 
-            var account = accountService.GetAccountById(token);
+            //var account = accountService.GetAccountById(token);
 
 
 

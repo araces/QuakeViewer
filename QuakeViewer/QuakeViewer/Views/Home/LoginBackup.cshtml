@@ -1,0 +1,51 @@
+﻿@model QuakeViewer.Models.LoginModel
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+        <meta charset="utf-8">
+        <title>建筑房屋抗震能力即时简易评估查询系统</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="/Content/logincss/reset.css">
+        <link rel="stylesheet" href="/Content/logincss/supersized.css">
+        <link rel="stylesheet" href="/Content/logincss/style.css">
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    </head>
+
+    <body>
+
+        <div class="page-container">
+            <h1>登录</h1>
+            <div class="form-container">
+                @using (Html.BeginForm("Login", "Home",  FormMethod.Post,new {})) {
+                    @Html.AntiForgeryToken()
+                 @Html.TextBoxFor(p=>p.UserName,new{placeholder="输入用户名",autofocus="autofocus",maxlength="20"})
+                 @Html.PasswordFor(p=>p.Password,new{placeholder="输入用户名",autofocus="autofocus",maxlength="20"})
+                 <button type="submit">登录</button>
+                 <div class="error">@Html.ValidationMessage("login_error")</div>
+             }
+            </div>
+        </div>
+        <div align="center">Collect from <a href="#" target="_blank" title=""></a></div>
+
+        <!-- Javascript -->
+        <script src="/Scripts/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="/Scripts/loginjs/supersized.3.2.7.min.js" type="text/javascript"></script>
+        <script src="/Scripts/loginjs/supersized-init.js" type="text/javascript"></script>
+        <script src="/Scripts/loginjs/scripts.js" type="text/javascript"></script>
+
+    </body>
+
+</html>

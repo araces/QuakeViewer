@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{148528EE-0404-48DB-BDC1-739195C8319E}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>QuakeVIewer.Service</RootNamespace>
+    <RootNamespace>QuakeViewer.Service</RootNamespace>
     <AssemblyName>QuakeVIewer.Service</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>

@@ -19,7 +19,7 @@ namespace System.Web.Mvc
     {
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            string userId = string.Empty;
+            //string userId = string.Empty;
             var httpContext = System.Web.HttpContext.Current;
 
             if (httpContext.Session[AccountService.NS_Session_Account_Key] == null)

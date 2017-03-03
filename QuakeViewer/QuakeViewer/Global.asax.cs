@@ -8,8 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using QuakeViewer.Models;
-using System.Web.Mvc;
-using System.Web.Routing;
 using QuakeViewer.Utils;
 
 namespace QuakeViewer

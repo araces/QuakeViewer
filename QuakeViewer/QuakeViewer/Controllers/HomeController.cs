@@ -20,6 +20,14 @@ namespace QuakeViewer.Controllers
         }
 
         [HttpGet]
+        public ActionResult LoginBackup()
+        {
+            LoginModel model = new LoginModel();
+
+            return View(model);
+        }
+
+        [HttpGet]
         public ActionResult Login()
         {
 
