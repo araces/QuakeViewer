@@ -28,6 +28,14 @@ namespace QuakeViewer.Controllers
         }
 
         [HttpGet]
+        public ActionResult RegistBackup()
+        {
+            LoginModel model = new LoginModel();
+
+            return View(model);
+        }
+
+        [HttpGet]
         public ActionResult Login()
         {
 
@@ -108,7 +116,24 @@ namespace QuakeViewer.Controllers
             if (string.IsNullOrEmpty(model.Mobile))
             {
 
-                ModelState.AddModelError("regist_error", "手机号码不能为空！");
+                ModelState.AddModelError("regist_error", "邮箱不能为空！");
+
+                return View(model);
+            }
+
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\\.][a-z]{2,3}([\\.][a-z]{2})?$/i");
+            if (!regex.IsMatch(model.Mobile))
+            {
+                ModelState.AddModelError("regist_error", "邮箱格式输入错误！");
+
+                return View(model);
+            }
+
+
+
+            if (model.RegistPassword != model.RegistConfirmPassword)
+            {
+                ModelState.AddModelError("regist_error", "两次输入密码不一致！");
 
                 return View(model);
             }
@@ -126,7 +151,7 @@ namespace QuakeViewer.Controllers
 
             if (null != account)
             {
-                ModelState.AddModelError("regist_error", "手机号码已经被占用，请使用修改新用户名！");
+                ModelState.AddModelError("regist_error", "邮箱已经被占用，请使用修改新用户名！");
 
                 return View(model);
             }

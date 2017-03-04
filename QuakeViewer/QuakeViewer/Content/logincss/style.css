@@ -143,9 +143,8 @@ button:active {
     border: 0px solid #ef4300;
 }
 
-.error {
-    display: none;
-    position: absolute;
+.errorMsg {
+    display: block;
     top: 27px;
     right: -55px;
     width: 40px;
@@ -157,11 +156,11 @@ button:active {
     border-radius: 8px;
 }
 
-.error span {
+.errorMsg span {
     display: inline-block;
     margin-left: 2px;
     font-size: 40px;
-    font-weight: 700;
+    font-weight: 100;
     line-height: 40px;
     text-shadow: 0 1px 2px rgba(0,0,0,.1);
     -o-transform: rotate(45deg);

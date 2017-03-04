@@ -4,97 +4,51 @@
 }
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>建筑房屋抗震能力即时简易评估查询系统</title>
-		<link rel="stylesheet" href="/Content/bootstrap.min.css" />
-	</head>
-	<style type="text/css">  
-            body{
-            		background:url(/img/login_bg.jpg) center no-repeat fixed;
-            		font-size: 16px;
-            }  
-            .form{background: rgba(255,255,255,0.2);width:400px;margin:100px auto;}  
-            #login_view{display: block;}  
-            #regist_view{display: block;}  
-            .fa{display: inline-block;top: 27px;left: 6px;position: relative;color: #ccc;}  
-            input[type="text"],input[type="password"]{padding-left:26px;}  
-            .checkbox{padding-left:21px;}  
-        </style>
- <body>  
-    <div class="container">   
-       
-		@using(Html.BeginForm("Regist","Home",new{},FormMethod.Post, new { @class="form-horizontal col-sm-offset-3 col-md-offset-3",id="register_form" })) 
-		{
-    		@Html.AntiForgeryToken() 
-			 <div class="form row" id="regist_view"> 
-                <h3 class="form-title">用户注册</h3>  
-                <div class="col-sm-9 col-md-9">  
-                    <div class="form-group">  
-                        <i class="fa fa-user fa-lg"></i>  
-						@Html.TextBoxFor(p=>p.RegistUserName,new{@class="form-control required",placeholder="输入用户名",autofocus="autofocus",maxlength="20"})  
-                    </div>  
-                    <div class="form-group">  
-                            <i class="fa fa-check fa-lg"></i>  
-						@Html.TextBoxFor(p=>p.Mobile,new{@class="form-control required",placeholder="请输入您的手机号码",autofocus="autofocus",maxlength="20"})
-                    </div> 
-                    <div class="form-group">  
-                            <i class="fa fa-lock fa-lg"></i>  
-                            @Html.PasswordFor(p=>p.RegistPassword,new{@class="form-control required",placeholder="请输入密码",autofocus="autofocus",maxlength="20"}) 
-                    </div>  
-                    <div class="form-group">  
-                            <i class="fa fa-check fa-lg"></i>  
-                            @Html.PasswordFor(p=>p.RegistConfirmPassword,new{@class="form-control required",placeholder="请输入密码",autofocus="autofocus",maxlength="20"})   
-                    </div>   
+<head>
 
-                    <div class="form-group">  
-                        <input type="submit" id="regist" class="btn btn-success pull-right" value="注 册"/>  
-                         <a href="/Home/Login" id="back_btn" class="pull-left">返回</a>   
-                    </div>  
-					@Html.ValidationMessage("regist_error")
-                </div>  
-        </div>  
-			}
-        </div>  
-   <script src="/Scripts/jquery-1.12.4.min.js" type="text/javascript"></script>
-	<script type="text/javascript" src="/Scripts/bootstrap.min.js" ></script>
-	<script>
-		$(function() {  
-	    		
-    		
-    		$('#regist').click(function(){
-    			if(window.sessionStorage){}
-    			else{
-    				alert("测试阶段只支持临时登陆，建议您更换比较新的浏览器");
-    				return;
-    			}
-    			
-    			if($('#RegistUserName').val() == "" || $('#RegistUserName').val() == undefined){
-    				alert("用户名不能为空");
-    				return;
-    			}
-    			if($('#RegistPassword').val() == "" || $('#RegistPassword').val() == undefined){
-    				alert("密码不能为空");
-    				return;
-    			}
-    			if($('#Mobile').val() == "" || $('#Mobile').val() == undefined){
-    				alert("手机号码不能为空");
-    				return;
-    			}
-    			if($('#RegistPassword').val() != $('#RegistConfirmPassword').val()){
-    				alert("两次输入密码不一致");
-    				return;
-    			}
+        <meta charset="utf-8">
+        <title>建筑房屋抗震能力即时简易评估查询系统</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    			
-    			$("#regist_view").css("display", "none");  
-        		$("#login_view").css("display", "block");  
-    		});
-    		
-	});
+        <!-- CSS -->
+        <link rel="stylesheet" href="/Content/logincss/reset.css">
+        <link rel="stylesheet" href="/Content/logincss/supersized.css">
+        <link rel="stylesheet" href="/Content/logincss/style.css">
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    </head>
+
+    <body>
+
+        <div class="page-container">
+            <h1>注册</h1>
+            <div class="form-container">
+                @using (Html.BeginForm("Regist", "Home",  FormMethod.Post,new {})) {
+                    @Html.AntiForgeryToken()
+                 @Html.TextBoxFor(p=>p.RegistUserName,new{placeholder="输入用户名",autofocus="autofocus",maxlength="20"})
+                 @Html.TextBoxFor(p=>p.Mobile,new{placeholder="输入您的邮箱",autofocus="autofocus"})
+				@Html.PasswordFor(p=>p.RegistPassword,new{placeholder="输入密码",autofocus="autofocus",maxlength="20"})
+				@Html.PasswordFor(p=>p.RegistConfirmPassword,new{placeholder="再次输入密码",autofocus="autofocus",maxlength="20"})
+                 <button type="submit">注册</button>
+                 <div class="errorMsg"><span style="color:red">@Html.ValidationMessage("regist_error")</span></div>
+             }
+            </div>
+			<div style="align:left;margin-top:10px;"><a href="/Home/Login" target="_self" title="注册账号">已有账户，返回登陆</a></div>
+        </div>
 
 
-	</script>
-    </body>  
-	
+        <!-- Javascript -->
+        <script src="/Scripts/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script src="/Scripts/loginjs/supersized.3.2.7.min.js" type="text/javascript"></script>
+        <script src="/Scripts/loginjs/supersized-init.js" type="text/javascript"></script>
+        <script src="/Scripts/loginjs/scripts.js" type="text/javascript"></script>
+
+    </body>
+
 </html>

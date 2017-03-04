@@ -42,8 +42,8 @@ public class RegistActivity extends AppCompatActivity {
     @BindView(R.id.regist_confirmpassword)
     EditText mConfirmPassword;
 
-    @BindView(R.id.regist_mobile)
-    EditText mMobile;
+    @BindView(R.id.regist_email)
+    EditText mEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class RegistActivity extends AppCompatActivity {
         if(!checkPassword(mPassword,mConfirmPassword)){
             return;
         }
-        if(!checkMobile(mMobile)){
+        if(!checkEmail(mEmail)){
             return;
         }
 
@@ -80,7 +80,7 @@ public class RegistActivity extends AppCompatActivity {
         try {
             param.put("userName", mUserName.getText());
             param.put("password", mPassword.getText());
-            param.put("mobile", mMobile.getText());
+            param.put("mobile", mEmail.getText());
         }
         catch (JSONException ex){
             Log.e(ID,ex.getMessage());
@@ -182,4 +182,23 @@ public class RegistActivity extends AppCompatActivity {
 
         return true;
     }
+
+     private boolean checkEmail(EditText email){
+        Pattern pattern = Pattern.compile( "/^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\\.][a-z]{2,3}([\\.][a-z]{2})?$/i");
+        // Pattern pat = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email.getText());
+        // 字符串是否与正则表达式相匹配
+        boolean isMatch = matcher.matches();
+        if(!isMatch){
+            if(!email.getText().equals(email.getText())){
+                email.setError("邮箱码格式错误");
+                email.requestFocus();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
 }

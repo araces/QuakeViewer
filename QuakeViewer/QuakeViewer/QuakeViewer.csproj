@@ -106,7 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Login_back.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -129,11 +129,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Views\Home\Regist.cshtml" />
+    <Content Include="Views\Home\Regist_back.cshtml" />
     <Content Include="Views\Quake\Questions.cshtml" />
     <Content Include="Content\app.min.css" />
     <Content Include="Views\Quake\QuakeResult.cshtml" />
-    <Content Include="Views\Home\LoginBackup.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="img\login_bg1.jpg" />
     <Content Include="img\login_bg2.jpg" />
     <Content Include="Content\logincss\reset.css" />
@@ -142,6 +142,7 @@
     <Content Include="Scripts\loginjs\scripts.js" />
     <Content Include="Scripts\loginjs\supersized-init.js" />
     <Content Include="Scripts\loginjs\supersized.3.2.7.min.js" />
+    <Content Include="Views\Home\Regist.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.pubxml" />

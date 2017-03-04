@@ -224,7 +224,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         SelectItem item = new SelectItem();
         item.setKey("");
-        item.setName("省");
+        item.setName("选择省");
         item.setKey("");
         provinceList.add(item);
 
@@ -232,7 +232,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         SelectItem item2 = new SelectItem();
         item2.setKey("");
-        item2.setName("市");
+        item2.setName("选择市");
         item2.setKey("");
         cityList.add(item2);
 
@@ -240,7 +240,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         SelectItem item3 = new SelectItem();
         item3.setKey("");
-        item3.setName("区");
+        item3.setName("选择区");
         item3.setKey("");
         regionList.add(item3);
 
@@ -275,7 +275,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         SelectItem item2 = new SelectItem();
         item2.setKey("");
-        item2.setName("市");
+        item2.setName("选择市");
         item2.setKey("");
         cityList.add(item2);
 
@@ -283,7 +283,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         SelectItem item3 = new SelectItem();
         item3.setKey("");
-        item3.setName("区");
+        item3.setName("选择区");
         item3.setKey("");
         regionList.add(item3);
 
@@ -311,7 +311,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         SelectItem item3 = new SelectItem();
         item3.setKey("");
-        item3.setName("区");
+        item3.setName("选择区");
         item3.setKey("");
         regionList.add(item3);
 

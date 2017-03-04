@@ -5,8 +5,9 @@
     <string name="prompt_username">用户名</string>
     <string name="prompt_password">密 码</string>
     <string name="prompt_confirmpassword">再次输入密码</string>
-    <string name="prompt_mobilr">输入手机号码</string>
-    <string name="action_sign_in">注  册</string>
+    <string name="prompt_email">输入邮箱信息</string>
+    <string name="action_sign_in">登    陆</string>
+    <string name="action_regist">注    册</string>
     <string name="action_sign_in_short">登 录</string>
     <string name="error_invalid_email">登录名不能为空</string>
     <string name="error_invalid_password">密码不能为空</string>
