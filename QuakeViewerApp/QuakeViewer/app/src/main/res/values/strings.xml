@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QuakeViewer</string>
+    <string name="app_name">房屋抗震能力即时评估系统</string>
 
     <!-- Strings related to login -->
     <string name="prompt_username">用户名</string>

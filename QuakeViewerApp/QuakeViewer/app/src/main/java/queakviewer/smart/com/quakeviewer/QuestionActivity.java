@@ -1,5 +1,6 @@
 package queakviewer.smart.com.quakeviewer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -380,6 +381,17 @@ public class QuestionActivity extends AppCompatActivity {
         RadioButton jobstatusButton = (RadioButton) jobstatusGroup.findViewById(jobstatusGroup.getCheckedRadioButtonId());
         RadioButton yearlevelButton = (RadioButton) yearlevelGroup.findViewById(yearlevelGroup.getCheckedRadioButtonId());
 
+        if(buildLevelSpinner.equals("选择楼层")){
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(QuestionActivity.this, "请选择楼层！", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            return;
+        }
+
 
         JSONObject param = new JSONObject();
         try {
@@ -407,7 +419,13 @@ public class QuestionActivity extends AppCompatActivity {
         } catch (JSONException ex) {
             ex.printStackTrace();
             Log.e(ID, ex.getMessage());
-            Toast.makeText(QuestionActivity.this, "系统错误，请重试", Toast.LENGTH_LONG);
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(QuestionActivity.this, "系统错误，请重试", Toast.LENGTH_LONG).show();
+                }
+            });
+
         }
 
 
@@ -436,13 +454,24 @@ public class QuestionActivity extends AppCompatActivity {
                         intent.setClass(QuestionActivity.this, ResultActivity.class);
                         QuestionActivity.this.startActivity(intent);
                     } else {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(QuestionActivity.this, "数据错误", Toast.LENGTH_LONG).show();
+                            }
+                        });
 
-                        Toast.makeText(QuestionActivity.this, "数据错误", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException ex) {
                     ex.printStackTrace();
                     Log.e(ID,ex.getMessage());
-                    Toast.makeText(QuestionActivity.this, "服务出错，请稍后再试", Toast.LENGTH_LONG).show();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(QuestionActivity.this, "服务出错，请稍后再试", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
 
                 }
 
@@ -455,7 +484,13 @@ public class QuestionActivity extends AppCompatActivity {
         }catch (IOException ex){
             ex.printStackTrace();
             Log.e(ID,ex.getMessage());
-            Toast.makeText(QuestionActivity.this,"网络错误，请稍后重试",Toast.LENGTH_LONG).show();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(QuestionActivity.this,"网络错误，请稍后重试",Toast.LENGTH_LONG).show();
+                }
+            });
+
         }
     }
 }

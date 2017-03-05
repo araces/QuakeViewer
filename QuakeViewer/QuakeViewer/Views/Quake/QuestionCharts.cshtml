@@ -1,0 +1,146 @@
+﻿
+<style>
+.top-header{
+	height:230px;
+	}
+</style>
+		<div class="row">
+			<div class="col-sm-12"> <h2 class="text-center"> 所查数据统计 </h2></div>
+		</div>
+
+<div class="row">	
+    <div class="col-sm-offset-2 col-sm-8">
+        <div class="divider-header"></div>
+        <div class="row">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="datasourceType" class="col-sm-2 control-label">数据来源</label>
+                    <div class="col-sm-10">
+				     
+                        <select id="datasourceType" class="form-control">
+                            <option value="">全部</option>
+                            <option value="1">手机</option>
+                            <option value="2">网站</option>
+                        </select>
+						
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dateRange" class="col-sm-2 control-label">开始时间</label>
+                    <div class="col-sm-10" >
+						
+                        <input type="text" class="form-control" id="dateRangeStart" placeholder="选择开始日期" data-date-format="yyyy-mm-dd"  >
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dateRange" class="col-sm-2 control-label">结束时间</label>
+                    <div class="col-sm-10" >
+                        <input type="text" class="form-control" id="dateRangeEnd" placeholder="选择结束时间" data-date-format="yyyy-mm-dd"  >
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="dateRange" class="col-sm-2 control-label">统计项目</label>
+                    <div class="col-sm-10">
+                        <select id="questions">
+                            <option value="">--选择统计内容--</option>
+                            <option value="1">房屋总层数</option>
+                            <option value="2">房屋结构类型</option>
+                            <option value="3">房屋是否经过专业设计</option>
+                            <option value="4">房屋的施工质量情况</option>
+                            <option value="5">房屋建造的年代</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button id="querybutton" type="button" class="btn btn-default" onclick="queryData();">查询</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <canvas id="myChart" width="300" height="200"></canvas>
+    </div>
+    <div class="col-sm-6">
+        <table id="displayRow"  width="300"  style="margin-top: 27px" class="table table-bordered">
+        </table>
+    </div>
+</div>
+<script>
+	$('#dateRangeStart').datetimepicker({
+	weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0});
+	$('#dateRangeEnd').datetimepicker({weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0});
+
+
+	function queryData(){
+		var dataType = $('#datasourceType').val();
+		var startTime = $('#dateRangeStart').val();
+		var endTime = $('#dateRangeEnd').val();
+	    var questionIndex = $('#questions').val();
+
+		$.ajax({
+		    url: '/quake/queryData?dataType=' + dataType + '&startTime=' + startTime + '&endTime=' + endTime + '&questionIndex=' + questionIndex,
+	        type: 'GET',
+	        success: function (data) {
+
+	            var ctx = $("#myChart").get(0).getContext("2d");
+
+
+	   
+	            if (data.type === 1) {
+	                	            var myChart = new Chart(ctx, {
+	                type: 'line',
+	                data: data,
+	                options: {
+	                    scales: {
+	                        yAxes: [{
+	                            ticks: {
+	                                beginAtZero: true
+	                            }
+	                        }]
+	                    }
+	                }
+	            });
+	            } else {
+	                var myChart = new Chart(ctx, {
+	                    type: 'bar',
+	                    data: data,
+	                    options: {
+	                        scales: {
+	                            yAxes: [{
+	                                ticks: {
+	                                    beginAtZero: true
+	                                }
+	                            }]
+	                        }
+	                    }
+	                });
+	            }
+	            $('#displayRow').empty();
+	            $('#displayRow').append('<thead><th>说明</th><th>数据</th></thead>');
+	            for(var i =0;i<data.labels.length;i++)
+	            {
+	                $('#displayRow').append('<tr><td>' + data.labels[i] + '</td><td>' + data.datasets[0].data [i]+ '</td></tr>');
+	            }
+	        }
+	    });
+	}
+	</script>

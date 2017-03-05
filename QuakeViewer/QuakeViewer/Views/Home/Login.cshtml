@@ -28,16 +28,19 @@
 
         <div class="page-container">
             <h1>登陆</h1>
-            <div class="form-container">
+            <div class="form-container-login">
                 @using (Html.BeginForm("Login", "Home",  FormMethod.Post,new {})) {
                     @Html.AntiForgeryToken()
                  @Html.TextBoxFor(p=>p.UserName,new{placeholder="输入用户名",autofocus="autofocus",maxlength="20"})
                  @Html.PasswordFor(p=>p.Password,new{placeholder="输入密码",autofocus="autofocus",maxlength="20"})
-                 <button type="submit">登录</button>
-                 <div class="errorMsg"><span style="color:red">@Html.ValidationMessage("login_error")</span></div>
-             }
+                    <button type="submit">登录</button>
+                    if (Model.HasError) {
+                         <div class="errorMsg"><span style="color: red">@Html.ValidationMessage("login_error")</span></div>
+                    }
+                    <div style="align:left;margin-top:10px;"><a href="/Home/Regist" target="_self" title="注册账号">没有账号，注册一个</a></div>
+                }
             </div>
-			<div style="align:left;margin-top:10px;"><a href="/Home/Regist" target="_self" title="注册账号">没有账号，注册一个</a></div>
+			
 
         </div>
 

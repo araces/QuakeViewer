@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="buildinglevelarray">
+        <item>选择楼层</item>
         <item>1层</item>
         <item>2层</item>
         <item>3层</item>

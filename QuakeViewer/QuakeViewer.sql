@@ -29,7 +29,7 @@ CREATE TABLE `Accounts` (
   `LastLoginDate` datetime DEFAULT NULL,
   `Status` int(11) DEFAULT NULL,
   `AccountType` int(11) DEFAULT '1' COMMENT '1:用户，2:管理员',
-  `Mobile` varchar(11) COLLATE utf8_bin DEFAULT NULL,
+  `Mobile` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 

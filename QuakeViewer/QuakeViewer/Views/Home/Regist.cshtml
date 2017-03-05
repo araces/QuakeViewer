@@ -28,18 +28,20 @@
 
         <div class="page-container">
             <h1>注册</h1>
-            <div class="form-container">
+            <div class="form-container-regist" >
                 @using (Html.BeginForm("Regist", "Home",  FormMethod.Post,new {})) {
                     @Html.AntiForgeryToken()
                  @Html.TextBoxFor(p=>p.RegistUserName,new{placeholder="输入用户名",autofocus="autofocus",maxlength="20"})
-                 @Html.TextBoxFor(p=>p.Mobile,new{placeholder="输入您的邮箱",autofocus="autofocus"})
 				@Html.PasswordFor(p=>p.RegistPassword,new{placeholder="输入密码",autofocus="autofocus",maxlength="20"})
 				@Html.PasswordFor(p=>p.RegistConfirmPassword,new{placeholder="再次输入密码",autofocus="autofocus",maxlength="20"})
-                 <button type="submit">注册</button>
-                 <div class="errorMsg"><span style="color:red">@Html.ValidationMessage("regist_error")</span></div>
-             }
+                    <button type="submit">注册</button>
+                    if (Model.HasError) {
+                        <div class="errorMsg"><span style="color: red">@Html.ValidationMessage("regist_error")</span></div>
+                    }
+                    <div style="align:left;margin-top:10px;"><a href="/Home/Login" target="_self" title="注册账号">已有账户，返回登陆</a></div>
+                }
             </div>
-			<div style="align:left;margin-top:10px;"><a href="/Home/Login" target="_self" title="注册账号">已有账户，返回登陆</a></div>
+			
         </div>
 
 

@@ -4,6 +4,7 @@
 //  created	By	Ares.Zhao
 //
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using QuakeViewer.DAL;
 using QuakeViewer.Models;
@@ -29,6 +30,18 @@ namespace QuakeViewer.Service
         {
             var choice = chroiceContext.Choices.FirstOrDefault(p => p.UserId == userId && p.FromType == fromType);
             return choice;
+        }
+
+        public List<Choice> GetChoiceByTimeAndType(int? dataType, DateTime startTime, DateTime endTime)
+        {
+            var choices = chroiceContext.Choices.Where(p => p.CreateDate > startTime && p.CreateDate < endTime);
+
+            if (dataType.HasValue)
+            {
+                choices.Where(p => p.FromType == dataType.Value);
+            }
+
+          return  choices.ToList();
         }
 
         public void SaveChoice(Choice choice)

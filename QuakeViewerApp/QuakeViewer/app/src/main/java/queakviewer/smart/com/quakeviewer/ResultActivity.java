@@ -1,5 +1,6 @@
 package queakviewer.smart.com.quakeviewer;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +18,7 @@ import butterknife.ButterKnife;
 public class ResultActivity extends AppCompatActivity {
 
     private final static String format = "<p>&nbsp;&nbsp;&nbsp;&nbsp;尊敬的<strong><u>@UserName@</u></strong>先生/女士，您通过广东省地震局提供的“建筑房屋抗震能力即时评估系统”查询的房屋，" +
-            "其在设防地震作用下为<strong><u>@DisplayMajorLevel@</u></strong>。根据您输入的房屋参数，" +
-            "其可能的原因为<strong><u>@DisplayReason1@，@DisplayReason2@，@DisplayReason3@</u></strong>。</p>";
+            "其在设防地震作用下为<strong><u>@DisplayMajorLevel@</u></strong>。" ;
 
     @BindView(R.id.description_result)
     TextView description;

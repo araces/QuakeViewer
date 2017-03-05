@@ -115,7 +115,7 @@ namespace QuakeViewer.Controllers
 
                 return Content(result.ToString());
             }
-
+            /*
             if (string.IsNullOrEmpty(mobile))
             {
                 obj.Add("success", false);
@@ -125,6 +125,7 @@ namespace QuakeViewer.Controllers
 
                 return Content(result.ToString());
             }
+            */
 
             var account = accountService.CheckIfAccountNameExists(userName);
 
@@ -138,7 +139,7 @@ namespace QuakeViewer.Controllers
                 return Content(result.ToString());
 
             }
-
+            /*
             account = accountService.CheckIfAccountMobileExists(mobile);
 
             if (null != account)
@@ -150,7 +151,7 @@ namespace QuakeViewer.Controllers
 
                 return Content(result.ToString());
             }
-
+            */
             account = new Account();
 
             account.Id = StringHelper.GuidString();

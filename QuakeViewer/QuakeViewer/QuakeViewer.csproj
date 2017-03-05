@@ -143,6 +143,11 @@
     <Content Include="Scripts\loginjs\supersized-init.js" />
     <Content Include="Scripts\loginjs\supersized.3.2.7.min.js" />
     <Content Include="Views\Home\Regist.cshtml" />
+    <Content Include="Views\Quake\QuestionCharts.cshtml" />
+    <Content Include="Scripts\Chart.bundle.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.zh-CN.js" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.pubxml" />

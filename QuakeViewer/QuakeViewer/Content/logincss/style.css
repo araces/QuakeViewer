@@ -19,13 +19,22 @@ body {
     margin: 120px auto 0 auto;
 }
 
-.form-container {
+.form-container-login {
     background: rgba(255,255,255,0.2);
     width:400px;
     height: 300px;
     margin:100px auto;
     -ms-border-radius:5px;
-    border-radius:5px
+    border-radius:10px
+}
+
+.form-container-regist {
+    background: rgba(255,255,255,0.2);
+    width:400px;
+    height: 400px;
+    margin:100px auto;
+    -ms-border-radius:5px;
+    border-radius:10px
 }
 
 h1 {
@@ -147,7 +156,7 @@ button:active {
     display: block;
     top: 27px;
     right: -55px;
-    width: 40px;
+    width: 100%;
     height: 40px;
     background: #2d2d2d; /* browsers that don't support rgba */
     background: rgba(45,45,45,.25);
@@ -159,14 +168,10 @@ button:active {
 .errorMsg span {
     display: inline-block;
     margin-left: 2px;
-    font-size: 40px;
+    font-size: 16px;
     font-weight: 100;
     line-height: 40px;
     text-shadow: 0 1px 2px rgba(0,0,0,.1);
-    -o-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
 
 }
 
