@@ -201,25 +201,39 @@ namespace QuakeViewer.Controllers
 
             DateTime? startTimeDate = null;
             DateTime? endTimeDate = null;
+
             if (string.IsNullOrEmpty(startTime))
             {
                 startTimeDate = DateTime.Now.AddDays(-30);
-                endTimeDate = DateTime.Now;
+            }
+            else if (startTime.Length == 8)
+            {
+                startTimeDate = DateTime.Parse($"{startTime.Substring(0, 4)}-{startTime.Substring(4, 2)}-{startTime.Substring(6, 2)}");
             }
             else
             {
-                try
-                {
-                    startTimeDate = DateTime.Parse(startTime);
-                    endTimeDate = DateTime.Parse(endTime);
-                }
-                catch (Exception ex)
-                {
-                    obj.Add("success", false);
-                    obj.Add("msg", "日期格式错误，请重新输入");
-                    result.Add("result", obj);
-                    return Content(result.ToString());
-                }
+
+                obj.Add("success", false);
+                obj.Add("msg", "日期格式错误，请重新输入");
+                result.Add("result", obj);
+                return Content(result.ToString());
+            }
+
+            if (string.IsNullOrEmpty(endTime))
+            {
+                endTimeDate = DateTime.Now;
+            }
+            else if (endTime.Length == 8)
+            {
+                endTimeDate = DateTime.Parse($"{endTime.Substring(0, 4)}-{endTime.Substring(4, 2)}-{endTime.Substring(6, 2)}").AddDays(1);
+            }
+            else
+            {
+
+                obj.Add("success", false);
+                obj.Add("msg", "日期格式错误，请重新输入");
+                result.Add("result", obj);
+                return Content(result.ToString());
             }
 
 
