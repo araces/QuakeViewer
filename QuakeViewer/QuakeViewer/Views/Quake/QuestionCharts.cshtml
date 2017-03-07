@@ -14,43 +14,17 @@
         <div class="row">
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label for="datasourceType" class="col-sm-2 control-label">数据来源</label>
-                    <div class="col-sm-10">
-				     
-                        <select id="datasourceType" class="form-control">
-                            <option value="">全部</option>
-                            <option value="1">手机</option>
-                            <option value="2">网站</option>
-                        </select>
-						
-                    </div>
-                </div>
-                <div class="form-group">
                     <label for="dateRange" class="col-sm-2 control-label">开始日期</label>
                     <div class="col-sm-10" >
 						
-                        <input type="text" class="form-control" id="dateRangeStart" placeholder="选择开始日期" data-date-format="yyyymmdd"  >
+                        <input type="text" class="form-control" id="dateRangeStart" placeholder="选择开始日期" data-date-format="yyyymmdd" date-language='zh-CN' >
 
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="dateRange" class="col-sm-2 control-label">结束日期</label>
                     <div class="col-sm-10" >
-                        <input type="text" class="form-control" id="dateRangeEnd" placeholder="选择结束时间" data-date-format="yyyymmdd"  >
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label for="dateRange" class="col-sm-2 control-label">统计项目</label>
-                    <div class="col-sm-10">
-                        <select id="questions">
-                            <option value="">--选择统计内容--</option>
-                            <option value="1">房屋总层数</option>
-                            <option value="2">房屋结构类型</option>
-                            <option value="3">房屋是否经过专业设计</option>
-                            <option value="4">房屋的施工质量情况</option>
-                            <option value="5">房屋建造的年代</option>
-                        </select>
+                        <input type="text" class="form-control" id="dateRangeEnd" placeholder="选择结束时间" data-date-format="yyyymmdd"   date-language='zh-CN'>
                     </div>
 
                 </div>
@@ -64,11 +38,20 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-6">
-        <canvas id="myChart" width="300" height="200"></canvas>
-    </div>
-    <div class="col-sm-6">
-        <table id="displayRow"  width="300"  style="margin-top: 27px" class="table table-bordered">
+    <div class="col-sm-12">
+        <table id="displayRow" width="100%" style="margin-top: 27px" class="table table-bordered">
+            <thead>
+            <th>时间</th>
+            <th>用户名</th>
+            <th>区域</th>
+            <th>楼层</th>
+            <th>房屋结构</th>
+            <th>是否专业设计</th>
+            <th>施工质量</th>
+            <th>建造年代</th>
+            <th>输出结果</th>
+              <th>来源</th>
+            </thead>
         </table>
     </div>
 </div>
@@ -91,55 +74,16 @@
 
 
 	function queryData(){
-		var dataType = $('#datasourceType').val();
 		var startTime = $('#dateRangeStart').val();
 		var endTime = $('#dateRangeEnd').val();
-	    var questionIndex = $('#questions').val();
 
 		$.ajax({
-		    url: '/quake/queryData?dataType=' + dataType + '&startTime=' + startTime + '&endTime=' + endTime + '&questionIndex=' + questionIndex,
+		    url: '/quake/queryData?&startTime=' + startTime + '&endTime=' + endTime ,
 	        type: 'GET',
 	        success: function (data) {
+	            for (var i = 0; i < data.length; i++)
+	                $('#displayRow').append("<tr><td>" + data[i].DisplayCreateDate + "</td><td>" + data[i].DisplayUserName + "</td><td>" + data[i].DisplayFirstChoice + "</td><td>" + data[i].DisplaySecondChoice + "</td><td>" + data[i].DisplayThirdChoice + "</td><td>" + data[i].DisplayForthChoice + "</td><td>" + data[i].DisplayFifthChoice + "</td><td>" + data[i].DisplaySixth + "</td><td>" + data[i].DisplayFromType + "</td><td>" + data[i].DisplayMinorResult + "</td></tr>");
 
-	            var ctx = $("#myChart").get(0).getContext("2d");
-
-
-	   
-	            if (data.type === 1) {
-	                	            var myChart = new Chart(ctx, {
-	                type: 'line',
-	                data: data,
-	                options: {
-	                    scales: {
-	                        yAxes: [{
-	                            ticks: {
-	                                beginAtZero: true
-	                            }
-	                        }]
-	                    }
-	                }
-	            });
-	            } else {
-	                var myChart = new Chart(ctx, {
-	                    type: 'bar',
-	                    data: data,
-	                    options: {
-	                        scales: {
-	                            yAxes: [{
-	                                ticks: {
-	                                    beginAtZero: true
-	                                }
-	                            }]
-	                        }
-	                    }
-	                });
-	            }
-	            $('#displayRow').empty();
-	            $('#displayRow').append('<thead><th>说明</th><th>数据</th></thead>');
-	            for(var i =0;i<data.labels.length;i++)
-	            {
-	                $('#displayRow').append('<tr><td>' + data.labels[i] + '</td><td>' + data.datasets[0].data [i]+ '</td></tr>');
-	            }
 	        }
 	    });
 	}

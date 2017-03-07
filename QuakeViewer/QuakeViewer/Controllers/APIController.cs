@@ -327,6 +327,7 @@ namespace QuakeViewer.Controllers
             ResultModel model = new ResultModel();
             model.UserName = choice.UserName;
             model.MajorLevel = choice.MajorResult.Value;
+            model.MinorLevel = choice.MinorResult.Value;
             model.Reason1 = choice.ThirdChoice.Value;
             model.Reason2 = choice.ForthChoice.Value;
             model.Reason3 = choice.FifthChoice.Value;

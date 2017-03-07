@@ -443,7 +443,7 @@ public class QuestionActivity extends AppCompatActivity {
 
                         Bundle bundle =new Bundle();
                         bundle.putString("DisplayUserName",resultContent.getString("DisplayUserName"));
-                        bundle.putString("DisplayMajorLevel",resultContent.getString("DisplayMajorLevel"));
+                        bundle.putString("DisplayMinorLevel",resultContent.getString("DisplayMinorLevel"));
                         bundle.putString("DisplayReason1",resultContent.getString("DisplayReason1"));
                         bundle.putString("DisplayReason2",resultContent.getString("DisplayReason2"));
                         bundle.putString("DisplayReason3",resultContent.getString("DisplayReason3"));

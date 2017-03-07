@@ -59,7 +59,7 @@
                     android:inputType="text"
                     android:imeOptions="actionNext"
 
-                    android:text="araces"/>
+                    android:text=""/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -77,7 +77,7 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:text="123456"
+                    android:text=""
                      />
 
             </android.support.design.widget.TextInputLayout>

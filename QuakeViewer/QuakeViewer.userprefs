@@ -1,39 +1,18 @@
 ﻿<Properties StartupConfiguration="{445A765C-E755-48D6-A555-E8F76CC13832}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="QuakeViewer/Controllers/QuakeController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="QuakeVIewer.Service/QuakeViewerCalculate.cs">
     <Files>
-      <File FileName="QuakeViewer/Controllers/QuakeController.cs" Line="204" Column="1" />
-      <File FileName="QuakeViewer/Views/Quake/QuestionCharts.cshtml" Line="34" Column="27" />
-      <File FileName="QuakeViewer/Views/Quake/QuakeResult.cshtml" Line="16" Column="198" />
-      <File FileName="QuakeViewer/Web.config" Line="22" Column="78" />
-      <File FileName="QuakeViewer.Models/DisplayModel/ResultModel.cs" Line="30" Column="1" />
-      <File FileName="QuakeViewer/Controllers/HomeController.cs" Line="167" Column="13" />
+      <File FileName="QuakeViewer/Web.config" Line="18" Column="87" />
+      <File FileName="QuakeViewer/Views/Quake/QuestionCharts.cshtml" Line="1" Column="1" />
+      <File FileName="QuakeViewer/Controllers/QuakeController.cs" Line="105" Column="64" />
+      <File FileName="QuakeViewer/Controllers/APIController.cs" Line="322" Column="64" />
+      <File FileName="QuakeVIewer.Service/QuakeViewerCalculate.cs" Line="38" Column="20" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="QuakeViewer" expanded="True">
-            <Node name="QuakeViewer" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="QuakeController.cs" selected="True" />
-              </Node>
-              <Node name="Views" expanded="True">
-                <Node name="Quake" expanded="True" />
-              </Node>
-            </Node>
-            <Node name="QuakeViewer.Models" expanded="True">
-              <Node name="DisplayModel" expanded="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.QuakeViewer.Test PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer/Controllers/APIController.cs" relfile="QuakeViewer/Controllers/APIController.cs" line="264" column="1" />
-      <Breakpoint file="/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer/Controllers/QuakeController.cs" relfile="QuakeViewer/Controllers/QuakeController.cs" line="190" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

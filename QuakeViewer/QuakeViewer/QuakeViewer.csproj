@@ -148,6 +148,7 @@
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.zh-CN.js" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.pubxml" />

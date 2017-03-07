@@ -77,11 +77,11 @@ namespace QuakeViewer.Controllers
             var areaParam = areaParamService.GetAreaParamById(model.Region);
 
             choice.FirstChoice = model.Region;
-            choice.SecondChoice = model.BuildLevel;
-            choice.ThirdChoice = model.StructLevel;
-            choice.ForthChoice = model.Designed;
-            choice.FifthChoice = model.Jobstatus;
-            choice.Sixth = model.YearLevel;
+            choice.SecondChoice = model.BuildLevel;//200
+            choice.ThirdChoice = model.StructLevel;//4
+            choice.ForthChoice = model.Designed;//0
+            choice.FifthChoice = model.Jobstatus;//1
+            choice.Sixth = model.YearLevel;//1
             choice.CreateDate = DateTime.Now;
             choice.FromType = (int)EnumUserType.Web;
 
@@ -90,13 +90,15 @@ namespace QuakeViewer.Controllers
             QuakeViewerCalculate quakeViewerCalculate = new QuakeViewerCalculate();
 
             quakeViewerCalculate.InputData(areaParam.GroupNo.Value,
-                areaParam.SiteType.Value,
-                areaParam.IntensityDegree.Value,
-                choice.SecondChoice.Value,
-                choice.ThirdChoice.Value,
-                choice.ForthChoice.Value == 1,
-                choice.FifthChoice.Value,
-                choice.Sixth.Value);
+                                            areaParam.SiteType.Value,
+                                            areaParam.IntensityDegree.Value,
+                                            choice.SecondChoice.Value,
+                                            choice.ThirdChoice.Value,
+                                            choice.ForthChoice.Value == 1,
+                                            choice.FifthChoice.Value,
+                                            choice.Sixth.Value);
+
+
             quakeViewerCalculate.ResponseMinor();
             quakeViewerCalculate.ResponseMajor();
 
@@ -185,19 +187,13 @@ namespace QuakeViewer.Controllers
 
         }
 
-        public ActionResult queryData(string dataType, string startTime, string endTime, int? questionIndex)
+        public ActionResult queryData(string startTime, string endTime)
         {
             Response.ContentType = "application/json";
             JObject result = new JObject();
             JObject obj = new JObject();
 
-            if (!questionIndex.HasValue)
-            {
-                obj.Add("success", false);
-                obj.Add("msg", "请选择统计项！");
-                result.Add("result", obj);
-                return Content(result.ToString());
-            }
+
 
             DateTime? startTimeDate = null;
             DateTime? endTimeDate = null;
@@ -237,242 +233,31 @@ namespace QuakeViewer.Controllers
             }
 
 
-            int? dataTypeInt = null;
 
-            if (!string.IsNullOrEmpty(dataType))
+            var choices = choiceService.GetChoiceByTime(startTimeDate.Value, endTimeDate.Value);
+
+            var areaParams = areaParamService.GetAreaParams();
+
+            var paramDict = areaParams.ToDictionary(p => p.Id, p => p);
+            AreaParam defaultArea = new AreaParam();
+            defaultArea.Id = "0";
+            defaultArea.Name = "";
+            paramDict.Add("0", defaultArea);
+
+            var areaDict = areaParams.ToDictionary(p => p.Id, p => $"{paramDict[p.ParentId].Name}.{paramDict[p.Id].Name}");
+
+
+            JArray array = new JArray();
+
+            foreach (var q in choices)
             {
-                dataTypeInt = int.Parse(dataType);
+                DisplayChoice display = DisplayChoice.GetDisplayChoiceFromNormakChoice(q);
+                display.FirstChoice = areaDict[display.FirstChoice];
+                array.Add(JObject.FromObject(display));
             }
 
-            var choices = choiceService.GetChoiceByTimeAndType(dataTypeInt, startTimeDate.Value, endTimeDate.Value);
 
-
-            if (questionIndex.Value == 1)
-            {
-                var result1 = (from r in choices
-                               group r by r.SecondChoice
-                  into key
-                               select new
-                               {
-                                   key = key.Key + "层",
-                                   defaultKey = key.Key,
-                                   count = choices.Count(p => p.SecondChoice == key.Key)
-                               }).OrderBy(p => p.defaultKey);
-
-                JObject data = new JObject();
-                JArray labels = new JArray();
-                JArray subData = new JArray();
-                foreach (var resultObj in result1)
-                {
-                    labels.Add(resultObj.key);
-                    subData.Add(resultObj.count);
-                }
-
-                data.Add("labels", labels);
-                JArray datasets = new JArray();
-                JObject objOne = new JObject();
-
-                objOne.Add("fillColor", "rgba(220,220,220,0.5)");
-                objOne.Add("strokeColor", "rgba(220,220,220,1)");
-                objOne.Add("pointColor", "rgba(220,220,220,1)");
-                objOne.Add("pointStrokeColor", "#fff");
-                objOne.Add("data", subData);
-
-                datasets.Add(objOne);
-                data.Add("datasets", datasets);
-                data.Add("type", questionIndex.Value);
-                return Content(data.ToString());
-            }
-            if (questionIndex.Value == 2)
-            {
-                var result1 = (from r in choices
-                               group r by r.ThirdChoice
-                  into key
-                               select new
-                               {
-                                   key = key.Key,
-                                   defaultKey = key.Key,
-                                   count = choices.Count(p => p.ThirdChoice == key.Key)
-                               }).OrderBy(p => p.defaultKey);
-
-                JObject data = new JObject();
-                JArray labels = new JArray();
-                JArray subData = new JArray();
-                foreach (var resultObj in result1)
-                {
-                    if (resultObj.key == 1)
-                    {
-                        labels.Add("钢结构");
-                    }
-                    else if (resultObj.key == 2)
-                    {
-                        labels.Add("钢筋混凝土");
-                    }
-                    else if (resultObj.key == 3)
-                    {
-                        labels.Add("砖砌");
-                    }
-                    else
-                    {
-                        labels.Add("土石");
-                    }
-                    subData.Add(resultObj.count);
-                }
-
-                data.Add("labels", labels);
-                JArray datasets = new JArray();
-                JObject objOne = new JObject();
-
-                objOne.Add("fillColor", "rgba(220,220,220,0.5)");
-                objOne.Add("strokeColor", "rgba(220,220,220,1)");
-                objOne.Add("data", subData);
-
-                datasets.Add(objOne);
-                data.Add("datasets", datasets);
-                data.Add("type", questionIndex.Value);
-                return Content(data.ToString());
-            }
-            if (questionIndex.Value == 3)
-            {
-                var result1 = (from r in choices
-                               group r by r.ForthChoice
-                  into key
-                               select new
-                               {
-                                   key = key.Key,
-                                   defaultKey = key.Key,
-                                   count = choices.Count(p => p.ForthChoice == key.Key)
-                               }).OrderBy(p => p.defaultKey);
-
-                JObject data = new JObject();
-                JArray labels = new JArray();
-                JArray subData = new JArray();
-                foreach (var resultObj in result1)
-                {
-                    if (resultObj.key == 1)
-                    {
-                        labels.Add("专业设计");
-                    }
-                    else
-                    {
-                        labels.Add("非专业设计");
-                    }
-
-                    subData.Add(resultObj.count);
-                }
-
-                data.Add("labels", labels);
-                JArray datasets = new JArray();
-                JObject objOne = new JObject();
-
-                objOne.Add("fillColor", "rgba(220,220,220,0.5)");
-                objOne.Add("strokeColor", "rgba(220,220,220,1)");
-                objOne.Add("data", subData);
-
-                datasets.Add(objOne);
-                data.Add("datasets", datasets);
-                data.Add("type", questionIndex.Value);
-                return Content(data.ToString());
-            }
-
-            if (questionIndex.Value == 4)
-            {
-                var result1 = (from r in choices
-                               group r by r.FifthChoice
-                  into key
-                               select new
-                               {
-                                   key = key.Key,
-                                   defaultKey = key.Key,
-                                   count = choices.Count(p => p.FifthChoice == key.Key)
-                               }).OrderBy(p => p.defaultKey);
-
-                JObject data = new JObject();
-                JArray labels = new JArray();
-                JArray subData = new JArray();
-                foreach (var resultObj in result1)
-                {
-                    if (resultObj.key == 1)
-                    {
-                        labels.Add("施工质量差");
-                    }
-                    else if (resultObj.key == 2)
-                    {
-                        labels.Add("施工质量一般");
-                    }
-                    else
-                    {
-                        labels.Add("施工质量好");
-                    }
-
-                    subData.Add(resultObj.count);
-                }
-
-                data.Add("labels", labels);
-                JArray datasets = new JArray();
-                JObject objOne = new JObject();
-
-                objOne.Add("fillColor", "rgba(220,220,220,0.5)");
-                objOne.Add("strokeColor", "rgba(220,220,220,1)");
-                objOne.Add("data", subData);
-
-                datasets.Add(objOne);
-                data.Add("datasets", datasets);
-                data.Add("type", questionIndex.Value);
-                return Content(data.ToString());
-            }
-
-            if (questionIndex.Value == 5)
-            {
-                var result1 = (from r in choices
-                               group r by r.Sixth
-                  into key
-                               select new
-                               {
-                                   key = key.Key,
-                                   count = choices.Count(p => p.Sixth == key.Key)
-                               }).OrderBy(p => p.key);
-
-                JObject data = new JObject();
-                JArray labels = new JArray();
-                JArray subData = new JArray();
-                foreach (var resultObj in result1)
-                {
-                    if (resultObj.key == 1)
-                    {
-                        labels.Add("1980年前");
-                    }
-                    else if (resultObj.key == 2)
-                    {
-                        labels.Add("1980-1990年");
-                    }
-                    else if (resultObj.key == 3)
-                    {
-                        labels.Add("1990-2000年");
-                    }
-                    else
-                    {
-                        labels.Add("2000年后");
-                    }
-
-                    subData.Add(resultObj.count);
-                }
-
-                data.Add("labels", labels);
-                JArray datasets = new JArray();
-                JObject objOne = new JObject();
-
-                objOne.Add("fillColor", "rgba(220,220,220,0.5)");
-                objOne.Add("strokeColor", "rgba(220,220,220,1)");
-                objOne.Add("data", subData);
-
-                datasets.Add(objOne);
-                data.Add("datasets", datasets);
-                data.Add("type", questionIndex.Value);
-                return Content(data.ToString());
-            }
-
-            return Content("");
+            return Content(array.ToString());
         }
     }
 }

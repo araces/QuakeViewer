@@ -32,16 +32,13 @@ namespace QuakeViewer.Service
             return choice;
         }
 
-        public List<Choice> GetChoiceByTimeAndType(int? dataType, DateTime startTime, DateTime endTime)
+        public List<Choice> GetChoiceByTime(DateTime startTime, DateTime endTime)
         {
             var choices = chroiceContext.Choices.Where(p => p.CreateDate > startTime && p.CreateDate < endTime);
 
-            if (dataType.HasValue)
-            {
-                choices.Where(p => p.FromType == dataType.Value);
-            }
 
-          return  choices.ToList();
+
+            return choices.OrderByDescending(p => p.CreateDate).ToList();
         }
 
         public void SaveChoice(Choice choice)
