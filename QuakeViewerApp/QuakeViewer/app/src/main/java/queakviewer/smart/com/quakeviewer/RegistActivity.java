@@ -158,41 +158,65 @@ public class RegistActivity extends AppCompatActivity {
     }
 
 
-    private boolean checkUserName(EditText userName) {
+    private boolean checkUserName(final EditText userName) {
         if (TextUtils.isEmpty(userName.getText())) {
-            userName.setError("用户名不能为空");
-            userName.requestFocus();
-            return false;
-        }
-        if (userName.getText().length() < 6) {
-            userName.setError("用户名不能小于6位");
-            userName.requestFocus();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    userName.setError("用户名不能为空");
+                    userName.requestFocus();
+                }
+            });
+
             return false;
         }
 
         return true;
     }
 
-    private boolean checkPassword(EditText password, EditText confirmPassword) {
+    private boolean checkPassword(final EditText password,final EditText confirmPassword) {
         if (TextUtils.isEmpty(password.getText())) {
-            password.setError("密码不能为空");
-            password.requestFocus();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    password.setError("密码不能为空");
+                    password.requestFocus();
+                }
+            });
+
             return false;
         }
         if (password.getText().length() < 6) {
-            password.setError("密码不能小于6位");
-            password.requestFocus();
+           handler.post(new Runnable() {
+               @Override
+               public void run() {
+                   password.setError("密码不能小于6位");
+                   password.requestFocus();
+               }
+           });
             return false;
         }
 
         if (TextUtils.isEmpty(confirmPassword.getText())) {
-            confirmPassword.setError("确认密码不能为空");
-            confirmPassword.requestFocus();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    confirmPassword.setError("确认密码不能为空");
+                    confirmPassword.requestFocus();
+                }
+            });
+
             return false;
         }
         if (confirmPassword.getText().length() < 6) {
-            confirmPassword.setError("确认密码不能小于6位");
-            confirmPassword.requestFocus();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    confirmPassword.setError("确认密码不能小于6位");
+                    confirmPassword.requestFocus();
+                }
+            });
+
             return false;
         }
 

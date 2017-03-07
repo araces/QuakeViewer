@@ -11,6 +11,7 @@ namespace QuakeViewer.Models
     {
         public string UserName { get; set; }
         public int MajorLevel { get; set; }
+        public int MinorLevel { get; set; }
         public int Reason1 { get; set; }
         public int Reason2 { get; set; }
         public int Reason3 { get; set; }
@@ -22,12 +23,31 @@ namespace QuakeViewer.Models
                 return UserName;
             }
         }
+        public string DisplayMinorLevel
+        {
+            get
+            {
+                switch (MinorLevel)
+                {
+                    case 0:
+                        return "基本完好";
+                    case 1:
+                        return "基本完好";
+                    case 2:
+                        return "中等破坏";
+                    default:
+                        return "严重破坏";
+                }
+            }
+        }
         public string DisplayMajorLevel
         {
             get
             {
                 switch (MajorLevel)
                 {
+                    case 0:
+                        return "基本完好";
                     case 1:
                         return "基本完好";
                     case 2:

@@ -60,9 +60,9 @@ namespace QuakeViewer.Utils
         public void InputData(int groupNo, int siteType, double intensityDegree,
                        int storyNum,
                        int struType,
-                              bool isDesigned,
+                       bool isDesigned,
                        int contructionQuality,
-                              int builtYearGroup
+                        int builtYearGroup
                        )
         {
 
@@ -74,9 +74,6 @@ namespace QuakeViewer.Utils
             this.builtYearGroup = builtYearGroup;
             this.contructionQuality = contructionQuality;
             this.isDesigned = isDesigned;
-
-
-
 
         }
         void FormStructure()

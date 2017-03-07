@@ -155,7 +155,7 @@ namespace QuakeViewer.Controllers
                 model.HasError = true;
                 return View(model);
             }
-
+            /*
             account = accountService.CheckIfAccountMobileExists(model.Mobile);
 
             if (null != account)
@@ -164,7 +164,7 @@ namespace QuakeViewer.Controllers
                 model.HasError = true;
                 return View(model);
             }
-
+            */
             account = new Account();
 
             account.Id = StringHelper.GuidString();

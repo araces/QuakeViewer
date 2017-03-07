@@ -293,7 +293,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isUserNameValid(String userName) {
         //TODO: Replace this with your own logic
-        return userName.length() >= 6;
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
