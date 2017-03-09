@@ -107,18 +107,25 @@ namespace QuakeViewer.Controllers
 
             choiceService.SaveChoice(choice);
 
-            return RedirectToAction("QuakeResult");
+            return RedirectToAction("QuakeResult", new { id = choice.Id });
         }
 
         [HttpGet]
-        public ActionResult QuakeResult(Account session)
+        public ActionResult QuakeResult(Account session, string id)
         {
             if (null == session)
             {
                 return RedirectToAction("Login", "Home");
             }
-
-            var choice = choiceService.GetChoiceByUserId(session.Id, (int)EnumUserType.Web);
+            Choice choice = null;
+            if (string.IsNullOrEmpty(id))
+            {
+                choice = choiceService.GetChoiceByUserId(session.Id, (int)EnumUserType.Web);
+            }
+            else
+            {
+                choice = choiceService.GetChoiceById(id);
+            }
 
             if (null == choice)
             {

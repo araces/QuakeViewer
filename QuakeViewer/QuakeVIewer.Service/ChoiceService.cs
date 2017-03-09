@@ -41,6 +41,11 @@ namespace QuakeViewer.Service
             return choices.OrderByDescending(p => p.CreateDate).ToList();
         }
 
+        public Choice GetChoiceById(string id)
+        {
+            return chroiceContext.Choices.FirstOrDefault(p => p.Id == id);
+        }
+
         public void SaveChoice(Choice choice)
         {
             if (string.IsNullOrEmpty(choice.Id))
