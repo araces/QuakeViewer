@@ -238,21 +238,15 @@ namespace QuakeViewer.Controllers
 
             var areaParams = areaParamService.GetAreaParams();
 
-            var paramDict = areaParams.ToDictionary(p => p.Id, p => p);
-            AreaParam defaultArea = new AreaParam();
-            defaultArea.Id = "0";
-            defaultArea.Name = "";
-            paramDict.Add("0", defaultArea);
-
-            var areaDict = areaParams.ToDictionary(p => p.Id, p => $"{paramDict[p.ParentId].Name}.{paramDict[p.Id].Name}");
-
+            var dict = areaParams.ToDictionary(p => p.Id, p => p.Description);
 
             JArray array = new JArray();
 
             foreach (var q in choices)
             {
                 DisplayChoice display = DisplayChoice.GetDisplayChoiceFromNormakChoice(q);
-                display.FirstChoice = areaDict[display.FirstChoice];
+                Console.WriteLine(q.Id);
+                display.FirstChoice = dict[q.FirstChoice];
                 array.Add(JObject.FromObject(display));
             }
 

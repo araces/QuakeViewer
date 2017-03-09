@@ -30,13 +30,15 @@ namespace QuakeViewer.Models
                 switch (MinorLevel)
                 {
                     case 0:
-                        return "基本完好";
+                        return "完好";
                     case 1:
-                        return "基本完好";
+                        return "轻微破坏";
                     case 2:
                         return "中等破坏";
-                    default:
+                    case 3:
                         return "严重破坏";
+                    default:
+                        return "倒塌（包括局部倒塌）";
                 }
             }
         }
@@ -47,13 +49,15 @@ namespace QuakeViewer.Models
                 switch (MajorLevel)
                 {
                     case 0:
-                        return "基本完好";
+                        return "完好";
                     case 1:
-                        return "基本完好";
+                        return "轻微破坏";
                     case 2:
                         return "中等破坏";
-                    default:
+                    case 3:
                         return "严重破坏";
+                    default:
+                        return "倒塌（包括局部倒塌）";
                 }
             }
         }

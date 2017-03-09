@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuakeViewer.Models
 {
-   public class DisplayChoice
+    public class DisplayChoice
     {
         public string UserId { get; set; }
         public string UserName { get; set; }
@@ -20,10 +20,11 @@ namespace QuakeViewer.Models
         public int? MinorResult { get; set; }
         public int? MajorResult { get; set; }
         public DateTime? CreateDate { get; set; }
+        public string Description { get; set; }
 
         public static DisplayChoice GetDisplayChoiceFromNormakChoice(Choice choice)
         {
-            DisplayChoice  thisModel=new DisplayChoice();
+            DisplayChoice thisModel = new DisplayChoice();
             thisModel.UserId = choice.UserId;
             thisModel.UserName = choice.UserName;
             thisModel.FirstChoice = choice.FirstChoice;
@@ -36,23 +37,27 @@ namespace QuakeViewer.Models
             thisModel.MinorResult = choice.MinorResult;
             thisModel.MajorResult = choice.MajorResult;
             thisModel.CreateDate = choice.CreateDate;
-
             return thisModel;
         }
 
-        public string DisplayCreateDate {
+        public string DisplayCreateDate
+        {
             get { return this.CreateDate.Value.ToString("yyyy年M月d日"); }
         }
-        public string DisplayUserName {
+        public string DisplayUserName
+        {
             get { return this.UserName; }
         }
-        public string DisplayFirstChoice {
+        public string DisplayFirstChoice
+        {
             get { return this.FirstChoice; }
         }
-        public string DisplaySecondChoice {
+        public string DisplaySecondChoice
+        {
             get { return $"{this.SecondChoice}层"; }
         }
-        public string DisplayThirdChoice {
+        public string DisplayThirdChoice
+        {
             get
             {
                 switch (this.ThirdChoice)
@@ -68,7 +73,8 @@ namespace QuakeViewer.Models
                 }
             }
         }
-        public string DisplayForthChoice {
+        public string DisplayForthChoice
+        {
             get
             {
                 switch (this.ForthChoice)
@@ -95,7 +101,8 @@ namespace QuakeViewer.Models
                 }
             }
         }
-        public string DisplaySixth {
+        public string DisplaySixth
+        {
             get
             {
                 switch (this.Sixth)
@@ -111,7 +118,8 @@ namespace QuakeViewer.Models
                 }
             }
         }
-        public string DisplayFromType {
+        public string DisplayFromType
+        {
             get
             {
                 switch (this.FromType)
@@ -120,23 +128,27 @@ namespace QuakeViewer.Models
                         return "手机";
                     default:
                         return "网站";
-                   
+
                 }
             }
         }
-        public string DisplayMinorResult {
+        public string DisplayMinorResult
+        {
             get
             {
                 switch (this.MinorResult)
                 {
                     case 0:
-                        return "基本完好";
+                        return "完好";
                     case 1:
-                        return "基本完好";
+                        return "轻微破坏";
                     case 2:
                         return "中等破坏";
-                    default:
+                    case 3:
                         return "严重破坏";
+                    default:
+                        return "倒塌（包括局部倒塌）";
+
                 }
             }
         }

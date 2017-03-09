@@ -50,6 +50,11 @@ namespace QuakeViewer.Service
             var areaParam = areaParamContext.AreaParams.FirstOrDefault(p => p.Id.Equals(id));
             return areaParam;
         }
+        public void UpdateParams(AreaParam areaParam)
+        {
+            //areaParamContext.AreaParams.Attach(areaParam);
+            areaParamContext.SaveChanges();
+        }
 
     }
 }

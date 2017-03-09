@@ -17,5 +17,6 @@ namespace QuakeViewer.Models
         public int? GroupNo { get; set; }
         public int? SiteType { get; set; }
         public int? IntensityDegree { get; set; }
+        public string Description { get; set; }
     }
 }

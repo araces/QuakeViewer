@@ -339,5 +339,57 @@ namespace QuakeViewer.Controllers
             return Content(result.ToString());
         }
 
+        public ActionResult UpdateAreaParams()
+        {
+
+            var areas = areaParamService.GetAreaParams();
+            Dictionary<string, AreaParam> dicts = areas.ToDictionary(p => p.Id, p => p);
+
+            foreach (var q in areas)
+            {
+                if (q.ParentId.Equals("0"))
+                {
+                    q.Description = q.Name;
+                }
+                else
+                {
+                    string description = null;
+                    GetFullString(dicts, q.Id, ref description);
+                    q.Description = description;
+                    areaParamService.UpdateParams(q);
+                }
+            }
+
+
+
+            return Content("OK");
+        }
+
+        public void GetFullString(Dictionary<string, AreaParam> dicts, string id, ref string description)
+        {
+
+            AreaParam areaParam = dicts[id];
+            if (string.IsNullOrEmpty(description))
+            {
+                description = areaParam.Name;
+            }
+            else
+            {
+                description = $"{areaParam.Name}.{description}";
+            }
+
+            string parentId = areaParam.ParentId;
+            if (parentId.Equals("0"))
+            {
+                return;
+            }
+            else
+            {
+                GetFullString(dicts, parentId, ref description);
+            }
+
+        }
+
+
     }
 }
