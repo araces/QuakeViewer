@@ -36,6 +36,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import queakviewer.smart.com.quakeviewer.Utils.LoadingDialog;
 import queakviewer.smart.com.quakeviewer.Utils.OnFinishedCallBack;
 import queakviewer.smart.com.quakeviewer.Utils.Utils;
 import queakviewer.smart.com.quakeviewer.Utils.WebClient;
@@ -52,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private static final String ID = "LoginActivity";
+
+    private LoadingDialog loading;
 
 
     /**
@@ -105,6 +108,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        loading=new LoadingDialog(this);
 
         InputMethodManager imm =  (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         if(imm !=null){
@@ -204,6 +209,8 @@ public class LoginActivity extends AppCompatActivity {
 
             //mAuthTask = new UserLoginTask(userName, password);
             //mAuthTask.execute((Void) null);
+
+            loading.setMessage("正在登录中").show();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -221,6 +228,8 @@ public class LoginActivity extends AppCompatActivity {
             client.setOnDataArrivedListener(new OnFinishedCallBack() {
                 @Override
                 public void onDataArrived(String result)  {
+
+
                     JSONTokener jsonParser = new JSONTokener(result);
                     try {
                         JSONObject jsonResult = (JSONObject) jsonParser.nextValue();
@@ -252,6 +261,11 @@ public class LoginActivity extends AppCompatActivity {
                         });
 
 
+                    }
+                    finally {
+                        if(loading.isShowing()){
+                            loading.dismiss();
+                        }
                     }
 
                 }
@@ -289,6 +303,11 @@ public class LoginActivity extends AppCompatActivity {
             }
 
 
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        loading.dismiss();
     }
 
     private boolean isUserNameValid(String userName) {

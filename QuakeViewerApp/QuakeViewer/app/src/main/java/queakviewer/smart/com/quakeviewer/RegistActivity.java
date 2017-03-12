@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.OkHttpClient;
+import queakviewer.smart.com.quakeviewer.Utils.LoadingDialog;
 import queakviewer.smart.com.quakeviewer.Utils.OnFinishedCallBack;
 import queakviewer.smart.com.quakeviewer.Utils.Utils;
 import queakviewer.smart.com.quakeviewer.Utils.WebClient;
@@ -46,6 +47,8 @@ public class RegistActivity extends AppCompatActivity {
 
     Handler handler;
 
+    LoadingDialog loading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,7 @@ public class RegistActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         handler = new Handler();
+        loading =new LoadingDialog(this);
     }
 
     @OnClick(R.id.go_login)
@@ -141,9 +145,20 @@ public class RegistActivity extends AppCompatActivity {
                     });
 
                 }
+                finally {
+                    if(loading.isShowing()){
+                        loading.dismiss();
+                    }
+                }
             }
         });
         try {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    loading.show();
+                }
+            });
             client.PostData(StaticParams.REGIST_URL, param.toString());
         } catch (IOException ex) {
             Log.e(ID, ex.getMessage());
@@ -157,6 +172,11 @@ public class RegistActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        loading.dismiss();
+    }
 
     private boolean checkUserName(final EditText userName) {
         if (TextUtils.isEmpty(userName.getText())) {

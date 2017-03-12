@@ -35,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import queakviewer.smart.com.quakeviewer.Utils.FlowRadioGroup;
+import queakviewer.smart.com.quakeviewer.Utils.LoadingDialog;
 import queakviewer.smart.com.quakeviewer.Utils.OnFinishedCallBack;
 import queakviewer.smart.com.quakeviewer.Utils.Utils;
 import queakviewer.smart.com.quakeviewer.Utils.WebClient;
@@ -84,6 +85,8 @@ public class QuestionActivity extends AppCompatActivity {
     public List<SelectItem> cityList;
     public List<SelectItem> regionList;
 
+    private LoadingDialog loading;
+
     private Handler handler;
 
     @Override
@@ -109,6 +112,8 @@ public class QuestionActivity extends AppCompatActivity {
         yearlevelGroup.check(R.id.yearlevel);
 
         scrollView.setHorizontalFadingEdgeEnabled(false);
+
+        loading=new LoadingDialog(this);
 
         handler=new Handler();
 
@@ -146,31 +151,20 @@ public class QuestionActivity extends AppCompatActivity {
         });
     }
 
-    View.OnClickListener submitListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    QuestionActivity.this.queryStructLevel();
-                }
-            }).start();
-
-        }
-
-    };
 
     @OnClick(R.id.question_query)
     public void submitQuery(){
         new Thread(new Runnable() {
             @Override
             public void run() {
+
                 QuestionActivity.this.queryStructLevel();
             }
         }).start();
     }
 
     private void queryAreas(){
+        loading.setMessage("加载区域信息");
         WebClient client = new WebClient();
         client.setOnDataArrivedListener(new OnFinishedCallBack() {
             @Override
@@ -204,6 +198,11 @@ public class QuestionActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "服务出错，请稍后再试", Toast.LENGTH_LONG).show();
 
                 }
+                finally {
+                    if(loading.isShowing()){
+                        loading.dismiss();
+                    }
+                }
             }
         });
 
@@ -218,6 +217,11 @@ public class QuestionActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        loading.dismiss();
+    }
 
     private void setProvince(){
 
@@ -374,6 +378,8 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void queryStructLevel() {
 
+
+
         String buildLevelSpinner = buildLevel.getSelectedItem().toString();
 
         RadioButton structLevelButton = (RadioButton) structLevelGroup.findViewById(structLevelGroup.getCheckedRadioButtonId());
@@ -474,12 +480,24 @@ public class QuestionActivity extends AppCompatActivity {
 
 
                 }
+                finally {
+                    if(loading.isShowing()){
+                        loading.dismiss();
+                    }
+                }
 
             }
         });
 
         try
         {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    loading.show();
+                }
+            });
+
             client.PostData(StaticParams.QUESTION_URL,param.toString());
         }catch (IOException ex){
             ex.printStackTrace();
