@@ -7,3 +7,7 @@ D:/Sample/QuakeViewer/QuakeViewer.Models/bin/Debug/QuakeViewer.Models.pdb
 D:/Sample/QuakeViewer/QuakeViewer.Models/obj/Debug/QuakeViewer.Models.csprojResolveAssemblyReference.cache
 D:/Sample/QuakeViewer/QuakeViewer.Models/obj/Debug/QuakeViewer.Models.dll
 D:/Sample/QuakeViewer/QuakeViewer.Models/obj/Debug/QuakeViewer.Models.pdb
+/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Models/bin/Debug/QuakeViewer.Models.dll
+/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Models/bin/Debug/QuakeViewer.Models.dll.mdb
+/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Models/obj/Debug/QuakeViewer.Models.dll
+/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Models/obj/Debug/QuakeViewer.Models.dll.mdb

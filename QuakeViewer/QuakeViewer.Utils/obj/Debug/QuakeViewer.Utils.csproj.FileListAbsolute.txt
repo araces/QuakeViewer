@@ -12,3 +12,10 @@ D:/Sample/QuakeViewer/QuakeViewer.Utils/bin/Debug/log4net.xml
 D:/Sample/QuakeViewer/QuakeViewer.Utils/obj/Debug/QuakeViewer.Utils.csprojResolveAssemblyReference.cache
 D:/Sample/QuakeViewer/QuakeViewer.Utils/obj/Debug/QuakeViewer.Utils.dll
 D:/Sample/QuakeViewer/QuakeViewer.Utils/obj/Debug/QuakeViewer.Utils.pdb
+/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Utils/bin/Debug/QuakeViewer.Utils.dll
+/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Utils/bin/Debug/QuakeViewer.Utils.dll.mdb
+/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Utils/bin/Debug/log4net.dll
+/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Utils/bin/Debug/log4net.xml
+/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Utils/obj/Debug/QuakeViewer.Utils.csprojResolveAssemblyReference.cache
+/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Utils/obj/Debug/QuakeViewer.Utils.dll
+/Users/Ares/Documents/CSharpProject/QuakeViewer/QuakeViewer/QuakeViewer.Utils/obj/Debug/QuakeViewer.Utils.dll.mdb
