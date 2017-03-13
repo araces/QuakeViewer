@@ -49,16 +49,16 @@
 	              <label>房屋结构类型:</label>
 	              <div  class="col-sm-offset-1">
 	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p=>p.StructLevel,1,new { @checked= "checked"})&nbsp;&nbsp;钢结构
+	                      @Html.RadioButtonFor(p=>p.StructLevel,1,new { @checked= "checked"})&nbsp;&nbsp;钢结构 <a data-toggle="modal" data-target="#iron" href="#"><img src="/img/question.png" style="width:16px;height:16px" /></a>
 	                  </div>
 	                  <div class="col-sm-3">
-                        @Html.RadioButtonFor(p => p.StructLevel, 2)&nbsp;&nbsp;钢筋混凝土
+                        @Html.RadioButtonFor(p => p.StructLevel, 2)&nbsp;&nbsp;钢筋混凝土<a  data-toggle="modal" data-target="#concrete" href="#"><img src="/img/question.png" style="width:16px;height:16px" /></a>
 	                  </div>
 	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p => p.StructLevel, 3)&nbsp;&nbsp;砖砌
+	                      @Html.RadioButtonFor(p => p.StructLevel, 3)&nbsp;&nbsp;砖砌<a  data-toggle="modal" data-target="#brike" href="#"><img src="/img/question.png" style="width:16px;height:16px" /></a>
 	                  </div>
 	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p => p.StructLevel, 4)&nbsp;&nbsp;土石
+	                      @Html.RadioButtonFor(p => p.StructLevel, 4)&nbsp;&nbsp;土石<a  data-toggle="modal" data-target="#stone" href="#"><img src="/img/question.png" style="width:16px;height:16px" /></a>
 	                  </div>
 	              </div>
 	          </div>
@@ -116,6 +116,93 @@
 	      }
 	  </div>
           </div>
+      <!--iron Modal -->
+
+<div class="modal fade" tabindex="-1" id="iron" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">钢结构</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row" align="center">
+          <div class="col-md-4"><img src="/img/iron1.png" style="width:135px;height:100px;"/></div>
+          <div class=" col-md-4"><img src="/img/iron2.png"  style="width:135px;height:100px;"/></div>
+		 <div class=" col-md-4"><img src="/img/iron3.png"   style="width:135px;height:100px;"/></div>			
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1" id="concrete" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">钢筋混凝土</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row" align="center">
+          <div class="col-md-4"><img src="/img/concrete1.png" style="width:135px;height:100px;"/></div>
+          <div class=" col-md-4"><img src="/img/concrete2.png"  style="width:135px;height:100px;"/></div>
+		 <div class=" col-md-4"><img src="/img/concrete3.png"   style="width:135px;height:100px;"/></div>			
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1" id="brike" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">砖砌结构</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row" align="center">
+          <div class="col-md-4"><img src="/img/brike1.png" style="width:135px;height:100px;"/></div>
+          <div class=" col-md-4"><img src="/img/brike2.png"  style="width:135px;height:100px;"/></div>
+		 <div class=" col-md-4"><img src="/img/brike3.png"   style="width:135px;height:100px;"/></div>			
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1" id="stone" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">土石结构</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row" align="center">
+          <div class="col-md-4"><img src="/img/stone1.png" style="width:135px;height:100px;"/></div>
+          <div class=" col-md-4"><img src="/img/stone2.png"  style="width:135px;height:100px;"/></div>
+		 <div class=" col-md-4"><img src="/img/stone3.png"   style="width:135px;height:100px;"/></div>			
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -137,6 +224,18 @@
 		 			alert('请选择您所在建筑层数');
 		 			return false;
 		 		}
+
+				var structLevel = $("input[name='StructLevel']:checked").val();
+
+				if($('#BuildLevel').val() >10 && structLevel=="3"){
+					alert("砖砌房屋总层数不能超过10层！")
+					return false;
+				}
+
+				if($('#BuildLevel').val() >1 && structLevel=="4"){
+					alert("土石房屋总层数不能超过1层！")
+					return false;
+				}
 
 				$('#calculate').submit();
 		 	});
@@ -180,5 +279,6 @@
 	    });
 
 	}
+
 	
 	</script>

@@ -149,6 +149,19 @@
     <Content Include="Scripts\bootstrap-datetimepicker.zh-CN.js" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="img\question.png" />
+    <Content Include="img\iron3.png" />
+    <Content Include="img\iron2.png" />
+    <Content Include="img\iron1.png" />
+    <Content Include="img\concrete3.png" />
+    <Content Include="img\concrete2.png" />
+    <Content Include="img\concrete1.png" />
+    <Content Include="img\stone3.png" />
+    <Content Include="img\stone1.png" />
+    <Content Include="img\brike3.png" />
+    <Content Include="img\brike2.png" />
+    <Content Include="img\brike1.png" />
+    <Content Include="img\stone2.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.pubxml" />
