@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{445A765C-E755-48D6-A555-E8F76CC13832}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="QuakeViewer/Views/Quake/Questions.cshtml">
     <Files>
-      <File FileName="QuakeViewer/Views/Quake/Questions.cshtml" Line="146" Column="23" />
+      <File FileName="QuakeViewer/Views/Quake/Questions.cshtml" Line="57" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.QuakeViewer.Test PreferredExecutionTarget="MonoDevelop.Default" />

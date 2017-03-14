@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
@@ -36,6 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import queakviewer.smart.com.quakeviewer.Utils.FlowRadioGroup;
 import queakviewer.smart.com.quakeviewer.Utils.LoadingDialog;
+import queakviewer.smart.com.quakeviewer.Utils.MsgDialog;
 import queakviewer.smart.com.quakeviewer.Utils.OnFinishedCallBack;
 import queakviewer.smart.com.quakeviewer.Utils.Utils;
 import queakviewer.smart.com.quakeviewer.Utils.WebClient;
@@ -149,6 +151,28 @@ public class QuestionActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @OnClick({R.id.iron_msg,R.id.shuini_msg,R.id.brike_msg,R.id.stone_msg})
+    public void showMsg(ImageButton button){
+
+        if(button.getId() == R.id.iron_msg){
+            MsgDialog dialog =new MsgDialog(QuestionActivity.this,0);
+            dialog.show();
+        }
+        if(button.getId() == R.id.shuini_msg){
+            MsgDialog dialog =new MsgDialog(QuestionActivity.this,1);
+            dialog.show();
+        }
+        if(button.getId() == R.id.brike_msg){
+            MsgDialog dialog =new MsgDialog(QuestionActivity.this,2);
+            dialog.show();
+        }
+        if(button.getId() == R.id.stone_msg){
+            MsgDialog dialog =new MsgDialog(QuestionActivity.this,3);
+            dialog.show();
+        }
+
     }
 
 
@@ -398,6 +422,28 @@ public class QuestionActivity extends AppCompatActivity {
             return;
         }
 
+        String buildingLevelStr = buildLevelSpinner.replace("层","");
+        int builddingLevelInt = Integer.parseInt(buildingLevelStr);
+
+        if(builddingLevelInt >1 && structLevelButton.getTag().toString().equals("4")){
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(QuestionActivity.this,"土石房屋总层数不能超过1层!",Toast.LENGTH_LONG).show();
+                }
+            });
+            return;
+        }
+
+        if(builddingLevelInt >10 && structLevelButton.getTag().toString().equals("3")){
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(QuestionActivity.this,"砖砌房屋总层数不能超过10层！",Toast.LENGTH_LONG).show();
+                }
+            });
+            return;
+        }
 
         JSONObject param = new JSONObject();
         try {
