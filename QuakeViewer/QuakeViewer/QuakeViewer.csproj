@@ -162,6 +162,9 @@
     <Content Include="img\brike2.png" />
     <Content Include="img\brike1.png" />
     <Content Include="img\stone2.png" />
+    <Content Include="img\brike6.png" />
+    <Content Include="img\brike5.png" />
+    <Content Include="img\brike4.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.pubxml" />
