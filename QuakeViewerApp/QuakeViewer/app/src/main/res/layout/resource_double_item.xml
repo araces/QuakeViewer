@@ -12,8 +12,8 @@
             >
                 <queakviewer.smart.com.quakeviewer.Utils.XCRoundRectImageView
                     android:id="@+id/resource_item_img_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="135dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:src="@drawable/brike1"
                     />
@@ -35,8 +35,8 @@
             >
                 <queakviewer.smart.com.quakeviewer.Utils.XCRoundRectImageView
                     android:id="@+id/resource_item_img_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="135dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:src="@drawable/brike1"
                     />

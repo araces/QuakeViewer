@@ -151,7 +151,7 @@ namespace QuakeViewer.Controllers
 
             if (null != account)
             {
-                ModelState.AddModelError("regist_error", "用户名已经被占用，请使用修改新用户名！");
+                ModelState.AddModelError("regist_error", "用户名已经被占用，请修改新用户名！");
                 model.HasError = true;
                 return View(model);
             }

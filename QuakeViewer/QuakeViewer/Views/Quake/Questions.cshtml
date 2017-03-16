@@ -6,6 +6,22 @@
 .top-header{
 	height:230px;
 	}
+a:link {
+    color:#13beec;
+	text-decoration:underline;
+    }
+	a:visited{
+    color:#13beec;
+	text-decoration:underline;
+    }
+	a:hover{
+    color:#13beec;
+	text-decoration:underline;
+    }
+	a:active{
+    color:#13beec;
+	text-decoration:underline;
+    }
 </style>
 		<div class="row">
 		<div class="col-sm-12"> <h2 class="text-center"> 所查房屋的基本信息 </h2></div>
@@ -49,16 +65,16 @@
 	              <label>房屋结构类型:</label>
 	              <div  class="col-sm-offset-1">
 	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p=>p.StructLevel,1,new { @checked= "checked"})&nbsp;&nbsp;钢结构&nbsp;&nbsp; <a data-toggle="modal" data-target="#iron" href="#"><img src="/img/question.png" style="width:16px;height:16px" /></a>
+	                      @Html.RadioButtonFor(p=>p.StructLevel,1,new { @checked= "checked"})&nbsp;&nbsp;钢结构&nbsp;&nbsp; <a data-toggle="modal" data-target="#iron" href="#">图片<!--<img src="/img/question.png" style="width:16px;height:16px" />--></a>
 	                  </div>
 	                  <div class="col-sm-3">
-                        @Html.RadioButtonFor(p => p.StructLevel, 2)&nbsp;&nbsp;钢筋混凝土&nbsp;&nbsp;<a  data-toggle="modal" data-target="#concrete" href="#"><img src="/img/question.png" style="width:16px;height:16px" /></a>
+                        @Html.RadioButtonFor(p => p.StructLevel, 2)&nbsp;&nbsp;钢筋混凝土&nbsp;&nbsp;<a  data-toggle="modal" data-target="#concrete" href="#">图片<!--<img src="/img/question.png" style="width:16px;height:16px" />--></a>
 	                  </div>
 	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p => p.StructLevel, 3)&nbsp;&nbsp;砖砌&nbsp;&nbsp;<a  data-toggle="modal" data-target="#brike" href="#"><img src="/img/question.png" style="width:16px;height:16px" /></a>
+	                      @Html.RadioButtonFor(p => p.StructLevel, 3)&nbsp;&nbsp;砖砌&nbsp;&nbsp;<a  data-toggle="modal" data-target="#brike" href="#">图片<!--<img src="/img/question.png" style="width:16px;height:16px" />--></a>
 	                  </div>
 	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p => p.StructLevel, 4)&nbsp;&nbsp;土石&nbsp;&nbsp;<a  data-toggle="modal" data-target="#stone" href="#"><img src="/img/question.png" style="width:16px;height:16px" /></a>
+	                      @Html.RadioButtonFor(p => p.StructLevel, 4)&nbsp;&nbsp;土石&nbsp;&nbsp;<a  data-toggle="modal" data-target="#stone" href="#">图片<!--<img src="/img/question.png" style="width:16px;height:16px" />--></a>
 	                  </div>
 	              </div>
 	          </div>
@@ -120,7 +136,7 @@
 
 <div class="modal fade" tabindex="-1" id="iron" role="dialog" aria-labelledby="gridSystemModalLabel">
   <div class="modal-dialog" role="document">
-    <div class="modal-content" >
+    <div class="modal-content"  style="width:950px;margin-left:-150px">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="gridSystemModalLabel">钢结构</h4>
@@ -131,7 +147,7 @@
 						<tr>
 							<td>
 								<div class="thumbnail">
-									<img src="/img/iron1.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/iron1.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>钢结构1</p>
 									</div>
@@ -139,7 +155,7 @@
 							</td>
 							<td>
 							<div class="thumbnail">
-									<img src="/img/iron2.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/iron2.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>钢结构2</p>
 									</div>
@@ -147,7 +163,7 @@
 							</td>
 							<td>
 								<div class="thumbnail">
-									<img src="/img/iron3.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/iron3.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>钢结构3</p>
 									</div>
@@ -166,17 +182,17 @@
 
 <div class="modal fade" tabindex="-1" id="concrete" role="dialog" aria-labelledby="gridSystemModalLabel">
   <div class="modal-dialog" role="document">
-    <div class="modal-content" >
+    <div class="modal-content"  style="width:950px;margin-left:-150px">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="gridSystemModalLabel">钢筋混凝土</h4>
+        <h4 class="modal-title" id="gridSystemModalLabel">钢筋混凝土结构</h4>
       </div>
       <div class="modal-body" align="center">
 				<table class=".table-bordered"  style="margin-top:10px">
 						<tr>
 							<td>
 								<div class="thumbnail">
-									<img src="/img/concrete1.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/concrete1.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>钢筋混凝土1</p>
 									</div>
@@ -184,7 +200,7 @@
 							</td>
 							<td>
 							<div class="thumbnail">
-									<img src="/img/concrete2.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/concrete2.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>钢筋混凝土2</p>
 									</div>
@@ -192,7 +208,7 @@
 							</td>
 							<td>
 								<div class="thumbnail">
-									<img src="/img/concrete3.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/concrete3.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>钢筋混凝土3</p>
 									</div>
@@ -210,7 +226,7 @@
 
 <div class="modal fade" tabindex="-1" id="brike" role="dialog" aria-labelledby="gridSystemModalLabel">
   <div class="modal-dialog" role="document">
-    <div class="modal-content" >
+    <div class="modal-content"  style="width:950px;margin-left:-150px">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="gridSystemModalLabel">砖砌结构</h4>
@@ -220,7 +236,7 @@
 						<tr>
 							<td>
 								<div class="thumbnail">
-									<img src="/img/brike1.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/brike1.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>砖砌1</p>
 									</div>
@@ -228,7 +244,7 @@
 							</td>
 							<td>
 							<div class="thumbnail">
-									<img src="/img/brike2.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/brike2.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>砖砌2</p>
 									</div>
@@ -236,7 +252,7 @@
 							</td>
 							<td>
 								<div class="thumbnail">
-									<img src="/img/brike3.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/brike3.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>砖砌3</p>
 									</div>
@@ -246,7 +262,7 @@
 						<tr>
 							<td>
 								<div class="thumbnail">
-									<img src="/img/brike4.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/brike4.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>砖砌4</p>
 									</div>
@@ -254,7 +270,7 @@
 							</td>
 							<td>
 							<div class="thumbnail">
-									<img src="/img/brike5.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/brike5.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>砖砌5</p>
 									</div>
@@ -262,7 +278,7 @@
 							</td>
 							<td>
 								<div class="thumbnail">
-									<img src="/img/brike6.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/brike6.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>砖砌6</p>
 									</div>
@@ -280,7 +296,7 @@
 
 <div class="modal fade" tabindex="-1" id="stone" role="dialog" aria-labelledby="gridSystemModalLabel">
   <div class="modal-dialog" role="document">
-    <div class="modal-content" >
+    <div class="modal-content"  style="width:950px;margin-left:-150px">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="gridSystemModalLabel">土石结构</h4>
@@ -290,7 +306,7 @@
 						<tr>
 							<td>
 								<div class="thumbnail">
-									<img src="/img/stone1.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/stone1.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>土石1</p>
 									</div>
@@ -298,7 +314,7 @@
 							</td>
 							<td>
 							<div class="thumbnail">
-									<img src="/img/stone2.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/stone2.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>土石2</p>
 									</div>
@@ -306,7 +322,7 @@
 							</td>
 							<td>
 								<div class="thumbnail">
-									<img src="/img/stone3.png" class="img-rounded" style="width:135px;height:100px;margin:10px"/>
+									<img src="/img/stone3.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
 									<div class="caption" align="center">
         								<p>土石3</p>
 									</div>
