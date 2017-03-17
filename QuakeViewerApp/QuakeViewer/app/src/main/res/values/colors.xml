@@ -7,4 +7,5 @@
     <color name="btnsuccessColor">#5cb85c</color>
     <color name="loadingBackground">#3d000000</color>
     <color name="white">#ffffff</color>
+    <color name="navyblue">#13beec</color>
 </resources>

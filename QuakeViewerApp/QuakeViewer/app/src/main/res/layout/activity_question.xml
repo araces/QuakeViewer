@@ -184,20 +184,20 @@
                             android:id="@+id/structLevel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:tag="1"
                             android:layout_margin="10dp"
                             android:text="钢结构  " />
 
-                        <ImageButton
+                        <Button
                             android:id="@+id/iron_msg"
-                            android:src="@drawable/question"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:scaleType="fitXY"
-                            android:paddingTop="10dp"
-                            android:paddingRight="20dp"
-                            android:paddingLeft="10dp"
-                            android:background="@android:color/background_light" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="图片"
+                            android:minHeight="10dp"
+                            android:background="@drawable/help_button_style"
+                            android:textColor="@color/navyblue"
+                             />
 
                         <RadioButton
                             android:layout_width="wrap_content"
@@ -207,34 +207,32 @@
                             android:layout_gravity="right"
                             android:text="钢筋混凝土  " />
 
-                        <ImageButton
+                        <Button
                             android:id="@+id/shuini_msg"
-                            android:src="@drawable/question"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:scaleType="fitXY"
-                            android:paddingTop="10dp"
-                            android:paddingRight="20dp"
-                            android:paddingLeft="10dp"
-                            android:background="@android:color/background_light" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="图片       "
+                            android:minHeight="10dp"
+                            android:background="@drawable/help_button_style"
+                            android:textColor="@color/navyblue"
+                            />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:tag="3"
                             android:layout_margin="10dp"
-                            android:text="砖砌" />
+                            android:text="砖砌       " />
 
-                        <ImageButton
+                        <Button
                             android:id="@+id/brike_msg"
-                            android:src="@drawable/question"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:scaleType="fitXY"
-                            android:paddingTop="14dp"
-                            android:paddingRight="20dp"
-                            android:paddingLeft="10dp"
-                            android:background="@android:color/background_light" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="图片       "
+                            android:minHeight="10dp"
+                            android:background="@drawable/help_button_style"
+                            android:textColor="@color/navyblue"
+                            />
 
                         <RadioButton
                             android:layout_width="wrap_content"
@@ -243,16 +241,15 @@
                             android:layout_margin="10dp"
                             android:text="土石" />
 
-                        <ImageButton
+                        <Button
                             android:id="@+id/stone_msg"
-                            android:src="@drawable/question"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:scaleType="fitXY"
-                            android:paddingTop="14dp"
-                            android:paddingRight="20dp"
-                            android:paddingLeft="10dp"
-                            android:background="@android:color/background_light" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="图片"
+                            android:minHeight="10dp"
+                            android:background="@drawable/help_button_style"
+                            android:textColor="@color/navyblue"
+                            />
 
 
                     </queakviewer.smart.com.quakeviewer.Utils.FlowRadioGroup>

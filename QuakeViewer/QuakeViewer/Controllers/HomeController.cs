@@ -119,6 +119,14 @@ namespace QuakeViewer.Controllers
                 model.HasError = true;
                 return View(model);
             }
+
+            if (model.RegistPassword.Length < 6)
+            {
+                ModelState.AddModelError("regist_error", "密码不能少于6位！");
+                model.HasError = true;
+                return View(model);
+            }
+
             /*
             if (string.IsNullOrEmpty(model.Mobile))
             {

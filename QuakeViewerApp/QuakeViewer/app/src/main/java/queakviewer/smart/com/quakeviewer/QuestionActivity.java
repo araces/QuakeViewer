@@ -3,6 +3,7 @@ package queakviewer.smart.com.quakeviewer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -78,6 +79,17 @@ public class QuestionActivity extends AppCompatActivity {
     @BindView(R.id.question_query)
     Button questionSubmit;
 
+    @BindView(R.id.iron_msg)
+    Button ironMsg;
+    @BindView(R.id.shuini_msg)
+    Button shuiniMsg;
+
+    @BindView(R.id.brike_msg)
+    Button brikeMsg;
+
+    @BindView(R.id.stone_msg)
+    Button stoneMsg;
+
     @BindView(R.id.question_form)
     ScrollView scrollView;
 
@@ -103,10 +115,10 @@ public class QuestionActivity extends AppCompatActivity {
 
         buildLevel.setSelection(0);
 
-        areaList=new ArrayList<SelectItem>();
-        provinceList =new ArrayList<SelectItem>();
-        cityList =new ArrayList<SelectItem>();
-        regionList =new ArrayList<SelectItem>();
+        areaList = new ArrayList<SelectItem>();
+        provinceList = new ArrayList<SelectItem>();
+        cityList = new ArrayList<SelectItem>();
+        regionList = new ArrayList<SelectItem>();
 
         structLevelGroup.check(R.id.structLevel);
         designedGroup.check(R.id.designed);
@@ -115,9 +127,15 @@ public class QuestionActivity extends AppCompatActivity {
 
         scrollView.setHorizontalFadingEdgeEnabled(false);
 
-        loading=new LoadingDialog(this);
+        /*
+        ironMsg.setPaintFlags(ironMsg.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        shuiniMsg.setPaintFlags(shuiniMsg.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        brikeMsg.setPaintFlags(brikeMsg.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        stoneMsg.setPaintFlags(stoneMsg.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        */
+        loading = new LoadingDialog(this);
 
-        handler=new Handler();
+        handler = new Handler();
 
         new Thread(new Runnable() {
             @Override
@@ -153,23 +171,23 @@ public class QuestionActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({R.id.iron_msg,R.id.shuini_msg,R.id.brike_msg,R.id.stone_msg})
-    public void showMsg(ImageButton button){
+    @OnClick({R.id.iron_msg, R.id.shuini_msg, R.id.brike_msg, R.id.stone_msg})
+    public void showMsg(Button button) {
 
-        if(button.getId() == R.id.iron_msg){
-            MsgDialog dialog =new MsgDialog(QuestionActivity.this,0);
+        if (button.getId() == R.id.iron_msg) {
+            MsgDialog dialog = new MsgDialog(QuestionActivity.this, 0);
             dialog.show();
         }
-        if(button.getId() == R.id.shuini_msg){
-            MsgDialog dialog =new MsgDialog(QuestionActivity.this,1);
+        if (button.getId() == R.id.shuini_msg) {
+            MsgDialog dialog = new MsgDialog(QuestionActivity.this, 1);
             dialog.show();
         }
-        if(button.getId() == R.id.brike_msg){
-            MsgDialog dialog =new MsgDialog(QuestionActivity.this,2);
+        if (button.getId() == R.id.brike_msg) {
+            MsgDialog dialog = new MsgDialog(QuestionActivity.this, 2);
             dialog.show();
         }
-        if(button.getId() == R.id.stone_msg){
-            MsgDialog dialog =new MsgDialog(QuestionActivity.this,3);
+        if (button.getId() == R.id.stone_msg) {
+            MsgDialog dialog = new MsgDialog(QuestionActivity.this, 3);
             dialog.show();
         }
 
@@ -177,7 +195,7 @@ public class QuestionActivity extends AppCompatActivity {
 
 
     @OnClick(R.id.question_query)
-    public void submitQuery(){
+    public void submitQuery() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -187,7 +205,7 @@ public class QuestionActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void queryAreas(){
+    private void queryAreas() {
         loading.setMessage("加载区域信息");
         WebClient client = new WebClient();
         client.setOnDataArrivedListener(new OnFinishedCallBack() {
@@ -201,9 +219,9 @@ public class QuestionActivity extends AppCompatActivity {
 
                         JSONArray jsonArray = jsonResult.getJSONArray("provinces");
 
-                        for(int i=0;i<jsonArray.length();i++){
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject obj = jsonArray.getJSONObject(i);
-                            SelectItem item =new SelectItem();
+                            SelectItem item = new SelectItem();
                             item.setKey(obj.getString("Id"));
                             item.setName(obj.getString("Name"));
                             item.setParentId(obj.getString("ParentId"));
@@ -218,26 +236,24 @@ public class QuestionActivity extends AppCompatActivity {
                     }
                 } catch (JSONException ex) {
                     ex.printStackTrace();
-                    Log.e(ID,ex.getMessage());
+                    Log.e(ID, ex.getMessage());
                     Toast.makeText(getApplicationContext(), "服务出错，请稍后再试", Toast.LENGTH_LONG).show();
 
-                }
-                finally {
-                    if(loading.isShowing()){
+                } finally {
+                    if (loading.isShowing()) {
                         loading.dismiss();
                     }
                 }
             }
         });
 
-        try
-        {
+        try {
             String token = Utils.GetContent(getApplicationContext(), "token");
-            client.GetData(StaticParams.AREAS_URL+token);
-        }catch (IOException ex){
+            client.GetData(StaticParams.AREAS_URL + token);
+        } catch (IOException ex) {
             ex.printStackTrace();
-            Log.e(ID,ex.getMessage());
-            Toast.makeText(QuestionActivity.this,"网络错误，请稍后重试",Toast.LENGTH_LONG).show();
+            Log.e(ID, ex.getMessage());
+            Toast.makeText(QuestionActivity.this, "网络错误，请稍后重试", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -247,7 +263,7 @@ public class QuestionActivity extends AppCompatActivity {
         loading.dismiss();
     }
 
-    private void setProvince(){
+    private void setProvince() {
 
         provinceList.clear();
 
@@ -274,8 +290,8 @@ public class QuestionActivity extends AppCompatActivity {
         regionList.add(item3);
 
 
-        for(int i=0;i<areaList.size();i++){
-            if(areaList.get(i).getParentId().equals("0")){
+        for (int i = 0; i < areaList.size(); i++) {
+            if (areaList.get(i).getParentId().equals("0")) {
                 provinceList.add(areaList.get(i));
             }
         }
@@ -283,22 +299,22 @@ public class QuestionActivity extends AppCompatActivity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                ExtendSpinnerAdapter provinceAdapter =new ExtendSpinnerAdapter(QuestionActivity.this,provinceList);
+                ExtendSpinnerAdapter provinceAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, provinceList);
                 province.setAdapter(provinceAdapter);
                 province.setSelection(0);
 
-                ExtendSpinnerAdapter cityAdapter =new ExtendSpinnerAdapter(QuestionActivity.this,cityList);
+                ExtendSpinnerAdapter cityAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, cityList);
                 city.setAdapter(cityAdapter);
                 city.setSelection(0);
 
-                ExtendSpinnerAdapter regionAdapter =new ExtendSpinnerAdapter(QuestionActivity.this,regionList);
+                ExtendSpinnerAdapter regionAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, regionList);
                 region.setAdapter(regionAdapter);
                 region.setSelection(0);
             }
         });
     }
 
-    private void setCity(String provinceId){
+    private void setCity(String provinceId) {
 
         cityList.clear();
 
@@ -316,8 +332,8 @@ public class QuestionActivity extends AppCompatActivity {
         item3.setKey("");
         regionList.add(item3);
 
-        for(int i=0;i<areaList.size();i++){
-            if(areaList.get(i).getParentId().equals(provinceId)){
+        for (int i = 0; i < areaList.size(); i++) {
+            if (areaList.get(i).getParentId().equals(provinceId)) {
                 cityList.add(areaList.get(i));
             }
         }
@@ -335,7 +351,7 @@ public class QuestionActivity extends AppCompatActivity {
         });
     }
 
-    private void setRegion(String cityId){
+    private void setRegion(String cityId) {
         regionList.clear();
 
         SelectItem item3 = new SelectItem();
@@ -344,8 +360,8 @@ public class QuestionActivity extends AppCompatActivity {
         item3.setKey("");
         regionList.add(item3);
 
-        for(int i=0;i<areaList.size();i++){
-            if(areaList.get(i).getParentId().equals(cityId)){
+        for (int i = 0; i < areaList.size(); i++) {
+            if (areaList.get(i).getParentId().equals(cityId)) {
                 regionList.add(areaList.get(i));
             }
         }
@@ -353,7 +369,7 @@ public class QuestionActivity extends AppCompatActivity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                ExtendSpinnerAdapter regionAdapter =new ExtendSpinnerAdapter(QuestionActivity.this,regionList);
+                ExtendSpinnerAdapter regionAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, regionList);
                 region.setAdapter(regionAdapter);
                 region.setSelection(0);
             }
@@ -362,10 +378,10 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     class ExtendSpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
-        private Context context ;
+        private Context context;
         private List<SelectItem> items;
 
-        public ExtendSpinnerAdapter(Context _context,List<SelectItem> _items){
+        public ExtendSpinnerAdapter(Context _context, List<SelectItem> _items) {
             this.context = _context;
             this.items = _items;
         }
@@ -388,8 +404,8 @@ public class QuestionActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            convertView=LayoutInflater.from(context).inflate(R.layout.area_item, null);
-            TextView tvgetView=(TextView) convertView.findViewById(R.id.dropdownitem);
+            convertView = LayoutInflater.from(context).inflate(R.layout.area_item, null);
+            TextView tvgetView = (TextView) convertView.findViewById(R.id.dropdownitem);
 
             SelectItem item = items.get(position);
 
@@ -399,9 +415,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
 
-
     private void queryStructLevel() {
-
 
 
         String buildLevelSpinner = buildLevel.getSelectedItem().toString();
@@ -411,7 +425,7 @@ public class QuestionActivity extends AppCompatActivity {
         RadioButton jobstatusButton = (RadioButton) jobstatusGroup.findViewById(jobstatusGroup.getCheckedRadioButtonId());
         RadioButton yearlevelButton = (RadioButton) yearlevelGroup.findViewById(yearlevelGroup.getCheckedRadioButtonId());
 
-        if(buildLevelSpinner.equals("选择楼层")){
+        if (buildLevelSpinner.equals("选择楼层")) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -422,24 +436,24 @@ public class QuestionActivity extends AppCompatActivity {
             return;
         }
 
-        String buildingLevelStr = buildLevelSpinner.replace("层","");
+        String buildingLevelStr = buildLevelSpinner.replace("层", "");
         int builddingLevelInt = Integer.parseInt(buildingLevelStr);
 
-        if(builddingLevelInt >1 && structLevelButton.getTag().toString().equals("4")){
+        if (builddingLevelInt > 1 && structLevelButton.getTag().toString().equals("4")) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(QuestionActivity.this,"土石房屋总层数不能超过1层!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(QuestionActivity.this, "土石房屋总层数不能超过1层!", Toast.LENGTH_LONG).show();
                 }
             });
             return;
         }
 
-        if(builddingLevelInt >10 && structLevelButton.getTag().toString().equals("3")){
+        if (builddingLevelInt > 10 && structLevelButton.getTag().toString().equals("3")) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(QuestionActivity.this,"砖砌房屋总层数不能超过10层！",Toast.LENGTH_LONG).show();
+                    Toast.makeText(QuestionActivity.this, "砖砌房屋总层数不能超过10层！", Toast.LENGTH_LONG).show();
                 }
             });
             return;
@@ -451,7 +465,7 @@ public class QuestionActivity extends AppCompatActivity {
             param.put("token", token);
 
             SelectItem item = (SelectItem) region.getSelectedItem();
-            if(item.getKey().equals("")){
+            if (item.getKey().equals("")) {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -463,7 +477,7 @@ public class QuestionActivity extends AppCompatActivity {
             }
 
             param.put("regionId", item.getKey());
-            param.put("storyNum", buildLevelSpinner.replace("层",""));
+            param.put("storyNum", buildLevelSpinner.replace("层", ""));
             param.put("struType", structLevelButton.getTag());
             param.put("isDesigned", designedButton.getTag());
             param.put("contructionQuality", jobstatusButton.getTag());
@@ -493,16 +507,16 @@ public class QuestionActivity extends AppCompatActivity {
 
                         JSONObject resultContent = jsonResult.getJSONObject("resultModel");
 
-                        Bundle bundle =new Bundle();
-                        bundle.putString("DisplayUserName",resultContent.getString("DisplayUserName"));
-                        bundle.putString("DisplayMinorLevel",resultContent.getString("DisplayMinorLevel"));
-                        bundle.putString("DisplayReason1",resultContent.getString("DisplayReason1"));
-                        bundle.putString("DisplayReason2",resultContent.getString("DisplayReason2"));
-                        bundle.putString("DisplayReason3",resultContent.getString("DisplayReason3"));
+                        Bundle bundle = new Bundle();
+                        bundle.putString("DisplayUserName", resultContent.getString("DisplayUserName"));
+                        bundle.putString("DisplayMinorLevel", resultContent.getString("DisplayMinorLevel"));
+                        bundle.putString("DisplayReason1", resultContent.getString("DisplayReason1"));
+                        bundle.putString("DisplayReason2", resultContent.getString("DisplayReason2"));
+                        bundle.putString("DisplayReason3", resultContent.getString("DisplayReason3"));
 
 
                         Intent intent = new Intent();
-                        intent.putExtra("QuestionResult",bundle);
+                        intent.putExtra("QuestionResult", bundle);
                         intent.setClass(QuestionActivity.this, ResultActivity.class);
                         QuestionActivity.this.startActivity(intent);
                     } else {
@@ -516,7 +530,7 @@ public class QuestionActivity extends AppCompatActivity {
                     }
                 } catch (JSONException ex) {
                     ex.printStackTrace();
-                    Log.e(ID,ex.getMessage());
+                    Log.e(ID, ex.getMessage());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -525,9 +539,8 @@ public class QuestionActivity extends AppCompatActivity {
                     });
 
 
-                }
-                finally {
-                    if(loading.isShowing()){
+                } finally {
+                    if (loading.isShowing()) {
                         loading.dismiss();
                     }
                 }
@@ -535,8 +548,7 @@ public class QuestionActivity extends AppCompatActivity {
             }
         });
 
-        try
-        {
+        try {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -544,14 +556,14 @@ public class QuestionActivity extends AppCompatActivity {
                 }
             });
 
-            client.PostData(StaticParams.QUESTION_URL,param.toString());
-        }catch (IOException ex){
+            client.PostData(StaticParams.QUESTION_URL, param.toString());
+        } catch (IOException ex) {
             ex.printStackTrace();
-            Log.e(ID,ex.getMessage());
+            Log.e(ID, ex.getMessage());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(QuestionActivity.this,"网络错误，请稍后重试",Toast.LENGTH_LONG).show();
+                    Toast.makeText(QuestionActivity.this, "网络错误，请稍后重试", Toast.LENGTH_LONG).show();
                 }
             });
 
