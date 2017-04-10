@@ -1,11 +1,14 @@
 ﻿<Properties StartupConfiguration="{445A765C-E755-48D6-A555-E8F76CC13832}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="QuakeViewer/Views/Home/Regist.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="QuakeViewer.Utils/QuakeViewer.Utils.csproj">
     <Files>
       <File FileName="QuakeViewer/Views/Quake/Questions.cshtml" Line="10" Column="18" />
       <File FileName="QuakeViewer/Web.config" Line="22" Column="78" />
-      <File FileName="QuakeViewer/Controllers/HomeController.cs" Line="154" Column="69" />
+      <File FileName="QuakeViewer/Controllers/HomeController.cs" Line="153" Column="36" />
       <File FileName="QuakeViewer/Views/Quake/QuakeResult.cshtml" Line="25" Column="8" />
       <File FileName="QuakeViewer/Views/Home/Regist.cshtml" Line="1" Column="1" />
+      <File FileName="QuakeViewer/QuakeViewer.csproj" Line="222" Column="11" />
+      <File FileName="QuakeVIewer.Service/QuakeViewerCalculate.cs" Line="320" Column="20" />
+      <File FileName="QuakeViewer.Utils/QuakeViewer.Utils.csproj" Line="46" Column="11" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.QuakeViewer.Test PreferredExecutionTarget="MonoDevelop.Default" />

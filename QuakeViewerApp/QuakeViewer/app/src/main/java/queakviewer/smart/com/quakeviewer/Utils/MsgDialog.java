@@ -270,13 +270,13 @@ public class MsgDialog extends Dialog {
 
         MsgDialogModel stone2 =new MsgDialogModel();
         stone2.setIndex(1);
-        stone2.setImageId(R.drawable.concrete2);
+        stone2.setImageId(R.drawable.stone2);
         stone2.setImageName("土石2");
         stones.add(1,stone2);
 
         MsgDialogModel stone3 =new MsgDialogModel();
         stone3.setIndex(2);
-        stone3.setImageId(R.drawable.concrete3);
+        stone3.setImageId(R.drawable.stone3);
         stone3.setImageName("土石3");
         stones.add(2,stone3);
     }

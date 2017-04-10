@@ -206,11 +206,11 @@ public class RegistActivity extends AppCompatActivity {
 
             return false;
         }
-        if (password.getText().length() < 6) {
+        if (password.getText().length() < 3) {
            handler.post(new Runnable() {
                @Override
                public void run() {
-                   password.setError("密码不能小于6位");
+                   password.setError("密码不能小于3位");
                    password.requestFocus();
                }
            });
@@ -228,24 +228,19 @@ public class RegistActivity extends AppCompatActivity {
 
             return false;
         }
-        if (confirmPassword.getText().length() < 6) {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    confirmPassword.setError("确认密码不能小于6位");
-                    confirmPassword.requestFocus();
-                }
-            });
-
-            return false;
-        }
 
         Log.e(ID, confirmPassword.getText().toString());
         Log.e(ID, password.getText().toString());
 
         if (!confirmPassword.getText().toString().equals(password.getText().toString())) {
-            confirmPassword.setError("两次输入密码不一致");
-            confirmPassword.requestFocus();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    confirmPassword.setError("两次输入密码不一致");
+                    confirmPassword.requestFocus();
+                }
+            });
+
             return false;
         }
 

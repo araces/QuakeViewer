@@ -1,9 +1,7 @@
 package queakviewer.smart.com.quakeviewer;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -169,6 +164,10 @@ public class QuestionActivity extends AppCompatActivity {
 
             }
         });
+
+        BuildLevelSpinnerAdapter levelsAdapter =new BuildLevelSpinnerAdapter(this.getApplicationContext());
+        buildLevel.setAdapter(levelsAdapter);
+        buildLevel.setSelection(0);
     }
 
     @OnClick({R.id.iron_msg, R.id.shuini_msg, R.id.brike_msg, R.id.stone_msg})
@@ -410,6 +409,48 @@ public class QuestionActivity extends AppCompatActivity {
             SelectItem item = items.get(position);
 
             tvgetView.setText(item.getName());
+            return convertView;
+        }
+    }
+
+
+    class BuildLevelSpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
+        private Context context;
+        private List<String> items;
+
+        public BuildLevelSpinnerAdapter(Context _context) {
+            this.context = _context;
+            items =new ArrayList<String>();
+            items.add("选择楼层");
+            for(Integer i=1;i<=200;i++){
+                items.add(i+"层");
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return items.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return this.items.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            convertView = LayoutInflater.from(context).inflate(R.layout.area_item, null);
+            TextView tvgetView = (TextView) convertView.findViewById(R.id.dropdownitem);
+
+            String item = items.get(position);
+
+            tvgetView.setText(item);
             return convertView;
         }
     }

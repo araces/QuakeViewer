@@ -8,4 +8,5 @@
     <color name="loadingBackground">#3d000000</color>
     <color name="white">#ffffff</color>
     <color name="navyblue">#13beec</color>
+    <color name="myblack">#444444</color>
 </resources>

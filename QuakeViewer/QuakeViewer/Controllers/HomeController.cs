@@ -62,6 +62,15 @@ namespace QuakeViewer.Controllers
                 model.HasError = true;
                 return View(model);
             }
+
+            if (model.Password.Length < 3)
+            {
+
+                ModelState.AddModelError("login_error", "密码不能小于3位！");
+                model.HasError = true;
+                return View(model);
+            }
+
             if (model.UserName == "admin" && model.Password == "adminmaster")
             {
                 return RedirectToAction("QuestionCharts", "Quake");
@@ -120,9 +129,9 @@ namespace QuakeViewer.Controllers
                 return View(model);
             }
 
-            if (model.RegistPassword.Length < 6)
+            if (model.RegistPassword.Length < 3)
             {
-                ModelState.AddModelError("regist_error", "密码不能少于6位！");
+                ModelState.AddModelError("regist_error", "密码不能少于3位！");
                 model.HasError = true;
                 return View(model);
             }
