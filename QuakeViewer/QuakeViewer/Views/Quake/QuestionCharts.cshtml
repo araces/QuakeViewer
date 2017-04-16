@@ -83,7 +83,7 @@
 	        success: function (data) {
 				console.log(data);
 	            for (var i = 0; i < data.length; i++)
-	                $('#displayRow').append("<tr><td>" + data[i].DisplayCreateDate + "</td><td>" + data[i].DisplayUserName + "</td><td>" + data[i].FirstChoice + "</td><td>" + data[i].DisplaySecondChoice + "</td><td>" + data[i].DisplayThirdChoice + "</td><td>" + data[i].DisplayForthChoice + "</td><td>" + data[i].DisplayFifthChoice + "</td><td>" + data[i].DisplaySixth + "</td><td>" + data[i].DisplayMinorResult + "</td><td>" + data[i].DisplayFromType + "</td></tr>");
+	                $('#displayRow').append("<tr><td>" + data[i].DisplayCreateDate + "</td><td>" + data[i].DisplayUserName + "</td><td>" + data[i].FirstChoice+ data[i].Address + "</td><td>" + data[i].DisplaySecondChoice + "</td><td>" + data[i].DisplayThirdChoice + "</td><td>" + data[i].DisplayForthChoice + "</td><td>" + data[i].DisplayFifthChoice + "</td><td>" + data[i].DisplaySixth + "</td><td>" + data[i].DisplayMinorResult + "</td><td>" + data[i].DisplayFromType + "</td></tr>");
 
 	        }
 	    });

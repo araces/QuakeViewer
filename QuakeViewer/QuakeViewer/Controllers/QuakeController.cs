@@ -84,7 +84,7 @@ namespace QuakeViewer.Controllers
             choice.Sixth = model.YearLevel;//1
             choice.CreateDate = DateTime.Now;
             choice.FromType = (int)EnumUserType.Web;
-
+            choice.Address = model.Address;
 
 
             QuakeViewerCalculate quakeViewerCalculate = new QuakeViewerCalculate();

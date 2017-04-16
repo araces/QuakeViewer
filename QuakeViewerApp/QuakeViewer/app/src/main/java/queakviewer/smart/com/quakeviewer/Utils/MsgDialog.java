@@ -36,7 +36,7 @@ public class MsgDialog extends Dialog {
 
     private List<MsgDialogModel> irons =new ArrayList<MsgDialogModel>();
     private List<MsgDialogModel> shuini =new ArrayList<MsgDialogModel>();
-    private List<ArrayList<MsgDialogModel>> brikes =new ArrayList<ArrayList<MsgDialogModel>>();
+    private List<MsgDialogModel> brikes =new ArrayList<MsgDialogModel>();
     private List<MsgDialogModel> stones =new ArrayList<MsgDialogModel>();
 
 
@@ -57,7 +57,7 @@ public class MsgDialog extends Dialog {
             LisMsgAdapter adapter =new LisMsgAdapter(context,shuini,null,0);
             msgList.setAdapter(adapter);
         }else if(type == 2){
-            LisMsgAdapter adapter =new LisMsgAdapter(context,null,brikes,1);
+            LisMsgAdapter adapter =new LisMsgAdapter(context,brikes,null,0);
             msgList.setAdapter(adapter);
         }else{
             LisMsgAdapter adapter =new LisMsgAdapter(context,stones,null,0);
@@ -221,46 +221,43 @@ public class MsgDialog extends Dialog {
         brikeLeft1.setIndex(0);
         brikeLeft1.setImageId(R.drawable.brike1);
         brikeLeft1.setImageName("砖砌1");
-        brikeLine1.add(0,brikeLeft1);
+        brikes.add(0,brikeLeft1);
 
         MsgDialogModel brikeRight1 =new MsgDialogModel();
         brikeRight1.setIndex(1);
         brikeRight1.setImageId(R.drawable.brike2);
         brikeRight1.setImageName("砖砌2");
-        brikeLine1.add(1,brikeRight1);
+        brikes.add(1,brikeRight1);
 
-        brikes.add(0,brikeLine1);
 
-        ArrayList<MsgDialogModel> brikeLine2=new ArrayList<MsgDialogModel>();
         MsgDialogModel brikeLeft2 =new MsgDialogModel();
         brikeLeft2.setIndex(2);
         brikeLeft2.setImageId(R.drawable.brike3);
         brikeLeft2.setImageName("砖砌3");
-        brikeLine2.add(0,brikeLeft2);
+        brikes.add(2,brikeLeft2);
 
         MsgDialogModel brikeRight2 =new MsgDialogModel();
         brikeRight2.setIndex(3);
         brikeRight2.setImageId(R.drawable.brike4);
         brikeRight2.setImageName("砖砌4");
-        brikeLine2.add(1,brikeRight2);
+        brikes.add(3,brikeRight2);
 
-        brikes.add(1,brikeLine2);
 
-        ArrayList<MsgDialogModel> brikeLine3=new ArrayList<MsgDialogModel>();
+
+
 
         MsgDialogModel brikeLeft3 =new MsgDialogModel();
         brikeLeft3.setIndex(4);
         brikeLeft3.setImageId(R.drawable.brike5);
         brikeLeft3.setImageName("砖砌5");
-        brikeLine3.add(0,brikeLeft3);
+        brikes.add(4,brikeLeft3);
 
         MsgDialogModel brikeRight3 =new MsgDialogModel();
         brikeRight3.setIndex(5);
         brikeRight3.setImageId(R.drawable.brike6);
         brikeRight3.setImageName("砖砌6");
-        brikeLine3.add(1,brikeRight3);
+        brikes.add(5,brikeRight3);
 
-        brikes.add(2,brikeLine3);
 
         MsgDialogModel stone1 =new MsgDialogModel();
         stone1.setIndex(0);

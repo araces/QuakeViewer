@@ -19,5 +19,6 @@ namespace QuakeViewer.Models
         public int Designed { get; set; }
         public int Jobstatus { get; set; }
         public int YearLevel { get; set; }
+        public string Address { get; set; }
     }
 }

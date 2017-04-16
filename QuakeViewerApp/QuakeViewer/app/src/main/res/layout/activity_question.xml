@@ -14,9 +14,8 @@
         android:id="@+id/question_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
         android:fadingEdge="none"
-        >
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,8 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                >
+                android:layout_marginRight="16dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -44,17 +42,16 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/spinnerColor"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                />
+                android:layout_marginTop="10dp"
+                android:background="@color/spinnerColor" />
             <!-- 房屋所在的位置-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -67,23 +64,21 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@color/spinnerColor"
-                    />
+                    android:layout_marginTop="10dp"
+                    android:background="@color/spinnerColor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <Spinner
                         android:id="@+id/province"
                         android:layout_width="160dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
 
                         android:spinnerMode="dialog" />
 
@@ -91,8 +86,8 @@
                         android:id="@+id/city"
                         android:layout_width="160dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
 
                         android:spinnerMode="dialog" />
 
@@ -100,18 +95,54 @@
                         android:id="@+id/region"
                         android:layout_width="160dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
                         android:spinnerMode="dialog" />
+                </LinearLayout>
+            </LinearLayout>
+            <!-- 房屋所在详细位置-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="区县级以下详细地址:"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/spinnerColor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/address_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:hint="房屋所在的详细位置"
+                        />
                 </LinearLayout>
             </LinearLayout>
             <!-- 房屋总层数-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -124,10 +155,9 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/spinnerColor"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    />
+                    android:layout_marginTop="10dp"
+                    android:background="@color/spinnerColor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -138,10 +168,9 @@
                         android:id="@+id/buildLevel"
                         android:layout_width="160dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        android:spinnerMode="dialog"
-                         />
+                        android:layout_marginTop="5dp"
+                        android:spinnerMode="dialog" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -149,9 +178,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -164,17 +193,17 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/spinnerColor"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    />
+                    android:layout_marginTop="10dp"
+                    android:background="@color/spinnerColor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <queakviewer.smart.com.quakeviewer.Utils.FlowRadioGroup
-                        android:id="@+id/structLevel_question_group"
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -183,86 +212,106 @@
                             android:id="@+id/structLevel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:tag="1"
-                            android:layout_margin="10dp"
-                            android:text="钢结构  " />
+                            android:text="钢结构" />
 
                         <Button
                             android:id="@+id/iron_msg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="图片"
-                            android:minHeight="10dp"
                             android:background="@drawable/help_button_style"
-                            android:textColor="@color/navyblue"
-                             />
+                            android:minHeight="10dp"
+                            android:layout_margin="10dp"
+                            android:text="图片"
+                            android:textColor="@color/navyblue" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <RadioButton
+                            android:id="@+id/shuini_radio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:tag="2"
                             android:layout_marginTop="10dp"
-                            android:layout_gravity="right"
-                            android:text="钢筋混凝土  " />
+                            android:layout_marginBottom="10dp"
+                            android:tag="2"
+                            android:text="钢筋混凝土" />
 
                         <Button
                             android:id="@+id/shuini_msg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="图片       "
-                            android:minHeight="10dp"
                             android:background="@drawable/help_button_style"
-                            android:textColor="@color/navyblue"
-                            />
+                            android:minHeight="10dp"
+                            android:layout_margin="10dp"
+                            android:text="图片"
+                            android:textColor="@color/navyblue" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <RadioButton
+                            android:id="@+id/brike_radio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:tag="3"
-                            android:layout_margin="10dp"
-                            android:text="砖砌       " />
+                            android:text="砖砌" />
 
                         <Button
                             android:id="@+id/brike_msg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="图片       "
-                            android:minHeight="10dp"
                             android:background="@drawable/help_button_style"
-                            android:textColor="@color/navyblue"
-                            />
+                            android:minHeight="10dp"
+                            android:layout_margin="10dp"
+                            android:text="图片"
+                            android:textColor="@color/navyblue" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <RadioButton
+                            android:id="@+id/stone_radio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:tag="4"
-                            android:layout_margin="10dp"
-                            android:text="土石  " />
+                            android:text="土石" />
 
                         <Button
                             android:id="@+id/stone_msg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="图片"
-                            android:minHeight="10dp"
                             android:background="@drawable/help_button_style"
-                            android:textColor="@color/navyblue"
-                            />
+                            android:minHeight="10dp"
+                            android:layout_margin="10dp"
+                            android:text="图片"
+                            android:textColor="@color/navyblue" />
 
-
-                    </queakviewer.smart.com.quakeviewer.Utils.FlowRadioGroup>
-
-
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
             <!-- 房屋是否经过专业设计-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -275,10 +324,9 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/spinnerColor"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    />
+                    android:layout_marginTop="10dp"
+                    android:background="@color/spinnerColor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -313,9 +361,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -328,10 +376,9 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/spinnerColor"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    />
+                    android:layout_marginTop="10dp"
+                    android:background="@color/spinnerColor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -373,9 +420,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -388,10 +435,9 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/spinnerColor"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    />
+                    android:layout_marginTop="10dp"
+                    android:background="@color/spinnerColor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -407,30 +453,30 @@
                             android:id="@+id/yearlevel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:tag="1"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
+                            android:tag="1"
                             android:text="1980年前" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:tag="2"
                             android:layout_margin="10dp"
+                            android:tag="2"
                             android:text="1980-1990年" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:tag="3"
                             android:layout_margin="10dp"
+                            android:tag="3"
                             android:text="1990-2000年" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:tag="4"
                             android:layout_margin="10dp"
+                            android:tag="4"
                             android:text="2000年后" />
                     </queakviewer.smart.com.quakeviewer.Utils.FlowRadioGroup>
 
@@ -443,9 +489,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
+                android:layout_marginTop="16dp"
                 android:text="房屋抗震能力查询"
                 android:textColor="@android:color/white"
-                android:layout_marginTop="16dp"
+                android:background="@color/button_bg"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 

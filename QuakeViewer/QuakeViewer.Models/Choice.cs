@@ -23,5 +23,6 @@ namespace QuakeViewer.Models
         public int? MinorResult { get; set; }
         public int? MajorResult { get; set; }
         public DateTime? CreateDate { get; set; }
+        public string Address { get; set; }
     }
 }

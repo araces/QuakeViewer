@@ -5,9 +5,12 @@
     android:background="@color/loadingBackground"
     android:orientation="vertical"
     >
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ListView
         android:id="@+id/msg_view"
+        android:layout_marginTop="20dp"
         android:paddingTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,9 +21,11 @@
     <Button
         android:id="@+id/dialog_close"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
         android:text="关闭"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:textStyle="bold" />
+    </RelativeLayout>
 </LinearLayout>

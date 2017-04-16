@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -30,6 +32,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import queakviewer.smart.com.quakeviewer.Utils.FlowRadioGroup;
 import queakviewer.smart.com.quakeviewer.Utils.LoadingDialog;
@@ -59,8 +62,9 @@ public class QuestionActivity extends AppCompatActivity {
     @BindView(R.id.buildLevel)
     Spinner buildLevel;
 
-    @BindView(R.id.structLevel_question_group)
-    FlowRadioGroup structLevelGroup;
+    //@BindView(R.id.structLevel_question_group)
+    //FlowRadioGroup structLevelGroup;
+
 
     @BindView(R.id.designed_question_group)
     FlowRadioGroup designedGroup;
@@ -87,6 +91,20 @@ public class QuestionActivity extends AppCompatActivity {
 
     @BindView(R.id.question_form)
     ScrollView scrollView;
+
+    @BindView(R.id.structLevel)
+    RadioButton structLevel;
+    @BindView(R.id.shuini_radio)
+    RadioButton shuini_radio;
+
+    @BindView(R.id.brike_radio)
+    RadioButton brike_radio;
+
+    @BindView(R.id.stone_radio)
+    RadioButton stone_radio;
+
+    @BindView(R.id.address_detail)
+    EditText address_detail;
 
     public List<SelectItem> areaList;
 
@@ -115,7 +133,7 @@ public class QuestionActivity extends AppCompatActivity {
         cityList = new ArrayList<SelectItem>();
         regionList = new ArrayList<SelectItem>();
 
-        structLevelGroup.check(R.id.structLevel);
+        //structLevelGroup.check(R.id.structLevel);
         designedGroup.check(R.id.designed);
         jobstatusGroup.check(R.id.jobstatus);
         yearlevelGroup.check(R.id.yearlevel);
@@ -168,7 +186,37 @@ public class QuestionActivity extends AppCompatActivity {
         BuildLevelSpinnerAdapter levelsAdapter =new BuildLevelSpinnerAdapter(this.getApplicationContext());
         buildLevel.setAdapter(levelsAdapter);
         buildLevel.setSelection(0);
+
+        structLevel.setChecked(true);
     }
+
+    @OnCheckedChanged({R.id.structLevel,R.id.shuini_radio,R.id.brike_radio,R.id.stone_radio})
+    public void radioButtonGroupSelections(RadioButton button){
+        if(button.isChecked() && button.getId()==R.id.structLevel){
+            shuini_radio.setChecked(false);
+            brike_radio.setChecked(false);
+            stone_radio.setChecked(false);
+        }
+
+        if(button.isChecked() && button.getId()==R.id.shuini_radio){
+            structLevel.setChecked(false);
+            brike_radio.setChecked(false);
+            stone_radio.setChecked(false);
+        }
+
+        if(button.isChecked() &&  button.getId()==R.id.brike_radio){
+            structLevel.setChecked(false);
+            shuini_radio.setChecked(false);
+            stone_radio.setChecked(false);
+        }
+
+        if(button.isChecked() && button.getId()==R.id.stone_radio){
+            structLevel.setChecked(false);
+            shuini_radio.setChecked(false);
+            brike_radio.setChecked(false);
+        }
+    }
+
 
     @OnClick({R.id.iron_msg, R.id.shuini_msg, R.id.brike_msg, R.id.stone_msg})
     public void showMsg(Button button) {
@@ -461,10 +509,37 @@ public class QuestionActivity extends AppCompatActivity {
 
         String buildLevelSpinner = buildLevel.getSelectedItem().toString();
 
-        RadioButton structLevelButton = (RadioButton) structLevelGroup.findViewById(structLevelGroup.getCheckedRadioButtonId());
+        //RadioButton structLevelButton = (RadioButton) structLevelGroup.findViewById(structLevelGroup.getCheckedRadioButtonId());
         RadioButton designedButton = (RadioButton) designedGroup.findViewById(designedGroup.getCheckedRadioButtonId());
         RadioButton jobstatusButton = (RadioButton) jobstatusGroup.findViewById(jobstatusGroup.getCheckedRadioButtonId());
         RadioButton yearlevelButton = (RadioButton) yearlevelGroup.findViewById(yearlevelGroup.getCheckedRadioButtonId());
+        RadioButton structLevelButton =null ;
+
+        if(structLevel.isChecked()){
+            structLevelButton =structLevel;
+        }
+        if(shuini_radio.isChecked()){
+            structLevelButton =shuini_radio;
+        }
+        if(brike_radio.isChecked()){
+            structLevelButton =brike_radio;
+        }
+        if(stone_radio.isChecked()){
+            structLevelButton =stone_radio;
+        }
+
+
+        if(TextUtils.isEmpty(address_detail.getText())){
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(QuestionActivity.this, "住宅详细地址不能为空！", Toast.LENGTH_LONG).show();
+                    address_detail.requestFocus();
+                }
+            });
+            return;
+        }
+
 
         if (buildLevelSpinner.equals("选择楼层")) {
             handler.post(new Runnable() {
@@ -523,6 +598,7 @@ public class QuestionActivity extends AppCompatActivity {
             param.put("isDesigned", designedButton.getTag());
             param.put("contructionQuality", jobstatusButton.getTag());
             param.put("builtYearGroup", yearlevelButton.getTag());
+            param.put("address",address_detail.getText());
         } catch (JSONException ex) {
             ex.printStackTrace();
             Log.e(ID, ex.getMessage());

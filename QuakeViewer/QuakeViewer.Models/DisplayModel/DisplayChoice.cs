@@ -21,6 +21,7 @@ namespace QuakeViewer.Models
         public int? MajorResult { get; set; }
         public DateTime? CreateDate { get; set; }
         public string Description { get; set; }
+        public string Address { get; set; }
 
         public static DisplayChoice GetDisplayChoiceFromNormakChoice(Choice choice)
         {
@@ -37,6 +38,7 @@ namespace QuakeViewer.Models
             thisModel.MinorResult = choice.MinorResult;
             thisModel.MajorResult = choice.MajorResult;
             thisModel.CreateDate = choice.CreateDate;
+            thisModel.Address = choice.Address;
             return thisModel;
         }
 

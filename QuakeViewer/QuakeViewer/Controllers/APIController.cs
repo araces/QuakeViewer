@@ -258,7 +258,8 @@ namespace QuakeViewer.Controllers
                                             int struType,
                                             int isDesigned,
                                             int contructionQuality,
-                                            int builtYearGroup)
+                                            int builtYearGroup,
+                                           string address)
         {
             Response.ContentType = "application/json";
             JObject result = new JObject();
@@ -268,6 +269,16 @@ namespace QuakeViewer.Controllers
             {
                 obj.Add("success", false);
                 obj.Add("msg", "权限错误，请登录后使用");
+
+                result.Add("result", obj);
+
+                return Content(result.ToString());
+            }
+
+            if (string.IsNullOrEmpty(address))
+            {
+                obj.Add("success", false);
+                obj.Add("msg", "详细地址不能为空！");
 
                 result.Add("result", obj);
 
@@ -293,6 +304,7 @@ namespace QuakeViewer.Controllers
             choice.Sixth = builtYearGroup;
             choice.CreateDate = DateTime.Now;
             choice.FromType = (int)EnumUserType.Mobile;
+            choice.Address = address;
 
 
 
