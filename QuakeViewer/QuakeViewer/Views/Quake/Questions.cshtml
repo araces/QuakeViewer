@@ -54,9 +54,12 @@ a:link {
 	              <label>区县级以下详细地址：</label>
 	              <div>
 	                 <label for="address" class="col-sm-1 control-label">&nbsp</label>
-	                  <div class="col-sm-10">
-                          @Html.TextBoxFor(p=>p.Address,new {@class="form-control"})
+	                  <div class="col-sm-6">
+	                      @Html.TextBoxFor(p=>p.Address,new {@class="form-control"})
 	                  </div>
+	                  <div class="col-sm-4">
+	                      <a data-toggle="modal" data-target="#mapdiv" href="#" onclick="centerMap()">地图</a><img src="/img/Point.png" />
+                    </div>
 	              </div>
 	          </div>
 	          <div class="divider-div"></div>
@@ -347,8 +350,60 @@ a:link {
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div class="modal fade" tabindex="-1" id="mapdiv" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:950px;margin-left:-150px">
+            <div class="modal-header">
+                <h4 class="modal-title" id="gridSystemModalLabel">土石结构</h4>
+            </div>
+            <div class="modal-body" align="center">
+                <div id="map" style="width: 800px;height:  500px;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4xondSLA3yfGD6tG9bTdpeWMKRhnsEAB" ></script>
 
 <script type="text/javascript">
+    var map;
+    var marker;
+    //map Started
+
+    function initializeMap() {
+        if (map !== undefined) {
+            return;
+        }
+        map = new BMap.Map('map');
+        map.enableScrollWheelZoom(true);
+
+      var centerPoint = new BMap.Point(113.275105, 23.16455);
+        map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+        map.addControl(new BMap.ScaleControl());   //添加地图类型控件
+        map.centerAndZoom(centerPoint, 11);
+       
+      
+        marker = new BMap.Marker(centerPoint);  // 创建标注
+        map.addOverlay(marker);               // 将标注添加到地图中
+       // marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+        marker.enableDragging();
+        map.addEventListener("click", clickInCenter);
+    }
+
+    function clickInCenter(e) {
+        marker.setPosition(e.point);
+        map.panTo(e.point, true);
+    }
+
+    function centerMap() {
+        setTimeout('initializeMap()', 500);
+    }
+  
+
+    //map ended
+
 
     $(document).ready(function () {
         getAreaInformation($('#City'), $('#Provincial').val());
@@ -359,7 +414,12 @@ a:link {
 		 		}
 		 	});
 
-	$('#calculate').on('click',function(){
+    $('#calculate').on('click', function () {
+        if ($('#Address').val() === '') {
+            alert('区县级以下详细地址不能为空');
+            return false;
+        }
+
 		 		if($('#Provincial').val()==='' || $('#City').val()==='' ||$('#Region').val()===''){
 		 			alert('请选择您所在的地理位置');
 		 			return false;

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{148528EE-0404-48DB-BDC1-739195C8319E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>QuakeViewer.Service</RootNamespace>
+    <AssemblyName>QuakeVIewer.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AccountService.cs" />
+    <Compile Include="AreaParamService.cs" />
+    <Compile Include="ChoiceService.cs" />
+    <Compile Include="QuakeViewerCalculate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuakeViewer.DAL\QuakeViewer.DAL.csproj">
+      <Project>{03450541-E2E5-4560-B62C-EDA85458C709}</Project>
+      <Name>QuakeViewer.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuakeViewer.Models\QuakeViewer.Models.csproj">
+      <Project>{237B8C86-039F-4831-828C-29E2C2DFCF83}</Project>
+      <Name>QuakeViewer.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuakeViewer.Utils\QuakeViewer.Utils.csproj">
+      <Project>{42219A02-FF08-435F-8266-381501349B76}</Project>
+      <Name>QuakeViewer.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
