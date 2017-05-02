@@ -13,6 +13,7 @@ namespace QuakeViewer.Models
         public string Provincial { get; set; }
         public string City { get; set; }
         public string Region { get; set; }
+        public string Street { get; set; }
 
         public int BuildLevel { get; set; }
         public int StructLevel { get; set; }

@@ -105,13 +105,16 @@
     <Compile Include="Controllers\APIController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="img\loading.gif" />
     <Content Include="img\Point.png" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\Login_back.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />

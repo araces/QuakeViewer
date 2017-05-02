@@ -12,15 +12,14 @@ namespace QuakeViewer.Controllers
 {
     public class APIController : Controller
     {
-
         AccountService accountService { get; set; }
-        AreaParamService areaParamService { get; set; }
+        AreaExtendParamsService areaExtendParamsService { get; set; }
         ChoiceService choiceService { get; set; }
 
         public APIController()
         {
             accountService = new AccountService();
-            areaParamService = new AreaParamService();
+            areaExtendParamsService = new AreaExtendParamsService();
             choiceService = new ChoiceService();
         }
 
@@ -78,7 +77,6 @@ namespace QuakeViewer.Controllers
                 result.Add("result", obj);
 
                 return Content(result.ToString());
-
             }
             obj.Add("success", true);
             obj.Add("msg", "用户名或密码错误!");
@@ -137,7 +135,6 @@ namespace QuakeViewer.Controllers
                 result.Add("result", obj);
 
                 return Content(result.ToString());
-
             }
             /*
             account = accountService.CheckIfAccountMobileExists(mobile);
@@ -158,11 +155,11 @@ namespace QuakeViewer.Controllers
             account.UserName = userName;
             account.Password = password;
             account.Mobile = mobile;
-            account.UserType = (int)EnumUserType.Mobile;
+            account.UserType = (int) EnumUserType.Mobile;
             account.status = 1;
             account.Password = SecurityHelper.EncryptToSHA1(account.Password);
             account.CreateDate = DateTime.Now;
-            account.AccountType = (int)EnumAccountType.User;
+            account.AccountType = (int) EnumAccountType.User;
 
             accountService.CreateAccount(account);
 
@@ -181,7 +178,7 @@ namespace QuakeViewer.Controllers
             Response.ContentType = "application/json";
             JObject result = new JObject();
             JObject obj = new JObject();
-
+            /*
             if (string.IsNullOrEmpty(token))
             {
                 obj.Add("success", false);
@@ -191,10 +188,57 @@ namespace QuakeViewer.Controllers
 
                 return Content(result.ToString());
             }
+            */
+            List<AreaExtendParams> provinceList = areaExtendParamsService.GetAreaParams();
 
-            List<AreaParam> provinceList = areaParamService.GetAreaParams();
+            Dictionary<string, string> areaAdded = new Dictionary<string, string>();
 
-            JArray provinceArray = JArray.FromObject(provinceList);
+            JArray provinceArray = new JArray();
+            foreach (var q in provinceList)
+            {
+                if (!areaAdded.ContainsKey(q.ProvinceId))
+                {
+                    areaAdded.Add(q.ProvinceId, q.Province);
+                    JObject areaObj = new JObject();
+                    areaObj.Add("Id", q.ProvinceId);
+                    areaObj.Add("Name", q.Province);
+                    areaObj.Add("ParentId", "0");
+                    provinceArray.Add(areaObj);
+                }
+                if (!areaAdded.ContainsKey(q.CityId))
+                {
+                    areaAdded.Add(q.CityId, q.City);
+
+                    JObject cityObj = new JObject();
+                    cityObj.Add("Id", q.CityId);
+                    cityObj.Add("Name", q.City);
+                    cityObj.Add("ParentId", q.ProvinceId);
+                    provinceArray.Add(cityObj);
+                }
+
+                if (!areaAdded.ContainsKey(q.RegionId))
+                {
+                    areaAdded.Add(q.RegionId, q.Region);
+
+                    JObject regionObj = new JObject();
+                    regionObj.Add("Id", q.RegionId);
+                    regionObj.Add("Name", q.Region);
+                    regionObj.Add("ParentId", q.CityId);
+                    provinceArray.Add(regionObj);
+                }
+
+                if (!areaAdded.ContainsKey(q.StreetId))
+                {
+                    areaAdded.Add(q.StreetId, q.Street);
+
+                    JObject streetObj = new JObject();
+                    streetObj.Add("Id", q.StreetId);
+                    streetObj.Add("Name", q.Street);
+                    streetObj.Add("ParentId", q.RegionId);
+                    provinceArray.Add(streetObj);
+                }
+            }
+
 
             obj.Add("provinces", provinceArray);
 
@@ -225,8 +269,7 @@ namespace QuakeViewer.Controllers
             //var account = accountService.GetAccountById(token);
 
 
-
-            var choice = choiceService.GetChoiceByUserId(token, (int)EnumUserType.Mobile);
+            var choice = choiceService.GetChoiceByUserId(token, (int) EnumUserType.Mobile);
 
             if (choice != null)
             {
@@ -248,18 +291,16 @@ namespace QuakeViewer.Controllers
             obj.Add("success", false);
             result.Add("result", obj.ToString());
             return Content(result.ToString());
-
-
         }
 
         [HttpPost]
         public ActionResult QuestionsResult(string token, string regionId,
-                                            int storyNum,
-                                            int struType,
-                                            int isDesigned,
-                                            int contructionQuality,
-                                            int builtYearGroup,
-                                           string address)
+            int storyNum,
+            int struType,
+            int isDesigned,
+            int contructionQuality,
+            int builtYearGroup,
+            string address)
         {
             Response.ContentType = "application/json";
             JObject result = new JObject();
@@ -294,7 +335,7 @@ namespace QuakeViewer.Controllers
             choice.UserId = account.Id;
             choice.UserName = account.UserName;
 
-            var areaParam = areaParamService.GetAreaParamById(regionId);
+            var areaExtendParams = areaExtendParamsService.GetStreetByStreatId(regionId);
 
             choice.FirstChoice = regionId;
             choice.SecondChoice = storyNum;
@@ -303,9 +344,8 @@ namespace QuakeViewer.Controllers
             choice.FifthChoice = contructionQuality;
             choice.Sixth = builtYearGroup;
             choice.CreateDate = DateTime.Now;
-            choice.FromType = (int)EnumUserType.Mobile;
+            choice.FromType = (int) EnumUserType.Mobile;
             choice.Address = address;
-
 
 
             QuakeViewerCalculate quakeViewerCalculate = new QuakeViewerCalculate();
@@ -319,14 +359,14 @@ namespace QuakeViewer.Controllers
                                             choice.FifthChoice.Value,
                                             choice.Sixth.Value == 1); */
 
-            quakeViewerCalculate.InputData(areaParam.GroupNo.Value,
-                                           areaParam.SiteType.Value,
-                                           areaParam.IntensityDegree.Value,
-                                           choice.SecondChoice.Value,
-                                           choice.ThirdChoice.Value,
-                                           choice.ForthChoice.Value == 1,
-                                           choice.FifthChoice.Value,
-                                           choice.Sixth.Value);
+            quakeViewerCalculate.InputData(areaExtendParams.GroupNo.Value,
+                areaExtendParams.SiteType.Value,
+                areaExtendParams.IntensityDegree.Value,
+                choice.SecondChoice.Value,
+                choice.ThirdChoice.Value,
+                choice.ForthChoice.Value == 1,
+                choice.FifthChoice.Value,
+                choice.Sixth.Value);
 
             quakeViewerCalculate.ResponseMinor();
             quakeViewerCalculate.ResponseMajor();
@@ -351,57 +391,58 @@ namespace QuakeViewer.Controllers
             return Content(result.ToString());
         }
 
-        public ActionResult UpdateAreaParams()
-        {
-
-            var areas = areaParamService.GetAreaParams();
-            Dictionary<string, AreaParam> dicts = areas.ToDictionary(p => p.Id, p => p);
-
-            foreach (var q in areas)
-            {
-                if (q.ParentId.Equals("0"))
+/*
+                public ActionResult UpdateAreaParams()
                 {
-                    q.Description = q.Name;
+        
+                    var areas = areaParamService.GetAreaParams();
+                    Dictionary<string, AreaParam> dicts = areas.ToDictionary(p => p.Id, p => p);
+        
+                    foreach (var q in areas)
+                    {
+                        if (q.ParentId.Equals("0"))
+                        {
+                            q.Description = q.Name;
+                        }
+                        else
+                        {
+                            string description = null;
+                            GetFullString(dicts, q.Id, ref description);
+                            q.Description = description;
+                            areaParamService.UpdateParams(q);
+                        }
+                    }
+        
+        
+        
+                    return Content("OK");
                 }
-                else
+        
+                public void GetFullString(Dictionary<string, AreaParam> dicts, string id, ref string description)
                 {
-                    string description = null;
-                    GetFullString(dicts, q.Id, ref description);
-                    q.Description = description;
-                    areaParamService.UpdateParams(q);
+        
+                    AreaParam areaParam = dicts[id];
+                    if (string.IsNullOrEmpty(description))
+                    {
+                        description = areaParam.Name;
+                    }
+                    else
+                    {
+                        description = $"{areaParam.Name}.{description}";
+                    }
+        
+                    string parentId = areaParam.ParentId;
+                    if (parentId.Equals("0"))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        GetFullString(dicts, parentId, ref description);
+                    }
+        
                 }
-            }
-
-
-
-            return Content("OK");
-        }
-
-        public void GetFullString(Dictionary<string, AreaParam> dicts, string id, ref string description)
-        {
-
-            AreaParam areaParam = dicts[id];
-            if (string.IsNullOrEmpty(description))
-            {
-                description = areaParam.Name;
-            }
-            else
-            {
-                description = $"{areaParam.Name}.{description}";
-            }
-
-            string parentId = areaParam.ParentId;
-            if (parentId.Equals("0"))
-            {
-                return;
-            }
-            else
-            {
-                GetFullString(dicts, parentId, ref description);
-            }
-
-        }
-
-
+        
+                */
     }
 }

@@ -38,6 +38,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AreaExtendParamsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AccountService.cs" />
     <Compile Include="AreaParamService.cs" />

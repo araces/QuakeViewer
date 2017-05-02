@@ -9,19 +9,18 @@ using QuakeViewer.Utils;
 using Newtonsoft.Json.Linq;
 
 
-
 namespace QuakeViewer.Controllers
 {
     public class QuakeController : Controller
     {
         AccountService accountService { get; set; }
-        AreaParamService areaParamService { get; set; }
+        AreaExtendParamsService areaExtendParamsService { get; set; }
         ChoiceService choiceService { get; set; }
 
         public QuakeController()
         {
             accountService = new AccountService();
-            areaParamService = new AreaParamService();
+            areaExtendParamsService = new AreaExtendParamsService();
             choiceService = new ChoiceService();
         }
 
@@ -38,14 +37,16 @@ namespace QuakeViewer.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            List<AreaParam> provinceList = areaParamService.GetProvince();
+            List<KeyValuePair<string, string>> provinceList = areaExtendParamsService.GetProvince();
             var provinceSelectItems = new List<SelectListItem>();
-            provinceSelectItems.Add(new SelectListItem() { Text = "---选择省---", Value = "" });
+            provinceSelectItems.Add(new SelectListItem() {Text = "---选择省---", Value = ""});
             foreach (var q in provinceList)
             {
-                SelectListItem item = new SelectListItem();
-                item.Text = q.Name;
-                item.Value = q.Id;
+                SelectListItem item = new SelectListItem
+                {
+                    Text = q.Value,
+                    Value = q.Key
+                };
 
                 provinceSelectItems.Add(item);
             }
@@ -53,17 +54,12 @@ namespace QuakeViewer.Controllers
             ViewData["Province"] = provinceSelectItems;
 
 
-
             return View(new QuestionModel());
-
-
-
         }
 
         [HttpPost]
         public ActionResult Questions(Account session, QuestionModel model)
         {
-
             if (null == session)
             {
                 return RedirectToAction("Login", "Home");
@@ -74,29 +70,29 @@ namespace QuakeViewer.Controllers
             choice.UserId = session.Id;
             choice.UserName = session.UserName;
 
-            var areaParam = areaParamService.GetAreaParamById(model.Region);
+            var areaParam = areaExtendParamsService.GetStreetByStreatId(model.Street);
 
-            choice.FirstChoice = model.Region;
-            choice.SecondChoice = model.BuildLevel;//200
-            choice.ThirdChoice = model.StructLevel;//4
-            choice.ForthChoice = model.Designed;//0
-            choice.FifthChoice = model.Jobstatus;//1
-            choice.Sixth = model.YearLevel;//1
+            choice.FirstChoice = model.Street;
+            choice.SecondChoice = model.BuildLevel; //200
+            choice.ThirdChoice = model.StructLevel; //4
+            choice.ForthChoice = model.Designed; //0
+            choice.FifthChoice = model.Jobstatus; //1
+            choice.Sixth = model.YearLevel; //1
             choice.CreateDate = DateTime.Now;
-            choice.FromType = (int)EnumUserType.Web;
+            choice.FromType = (int) EnumUserType.Web;
             choice.Address = model.Address;
 
 
             QuakeViewerCalculate quakeViewerCalculate = new QuakeViewerCalculate();
 
             quakeViewerCalculate.InputData(areaParam.GroupNo.Value,
-                                            areaParam.SiteType.Value,
-                                            areaParam.IntensityDegree.Value,
-                                            choice.SecondChoice.Value,
-                                            choice.ThirdChoice.Value,
-                                            choice.ForthChoice.Value == 1,
-                                            choice.FifthChoice.Value,
-                                            choice.Sixth.Value);
+                areaParam.SiteType.Value,
+                areaParam.IntensityDegree.Value,
+                choice.SecondChoice.Value,
+                choice.ThirdChoice.Value,
+                choice.ForthChoice.Value == 1,
+                choice.FifthChoice.Value,
+                choice.Sixth.Value);
 
 
             quakeViewerCalculate.ResponseMinor();
@@ -107,7 +103,7 @@ namespace QuakeViewer.Controllers
 
             choiceService.SaveChoice(choice);
 
-            return RedirectToAction("QuakeResult", new { id = choice.Id });
+            return RedirectToAction("QuakeResult", new {id = choice.Id});
         }
 
         [HttpGet]
@@ -120,7 +116,7 @@ namespace QuakeViewer.Controllers
             Choice choice = null;
             if (string.IsNullOrEmpty(id))
             {
-                choice = choiceService.GetChoiceByUserId(session.Id, (int)EnumUserType.Web);
+                choice = choiceService.GetChoiceByUserId(session.Id, (int) EnumUserType.Web);
             }
             else
             {
@@ -152,13 +148,11 @@ namespace QuakeViewer.Controllers
 
         public ActionResult QuestionCharts(Account session)
         {
-
             return View();
         }
 
-        public ActionResult GetAreaParamsById(Account session, string parentId)
+        public ActionResult GetAreaParamsById(Account session, string parentId, int type)
         {
-
             Response.ContentType = "application/json";
             JObject result = new JObject();
             JObject obj = new JObject();
@@ -179,19 +173,34 @@ namespace QuakeViewer.Controllers
                 return Content(result.ToString());
             }
 
+            JArray arrays = new JArray();
+            List<KeyValuePair<string, string>> areaParams = null;
+            if (type == 1)
+            {
+                areaParams = areaExtendParamsService.GetCityByProvinceId(parentId);
+            }
+            else if (type == 2)
+            {
+                areaParams = areaExtendParamsService.GetRegionByCityId(parentId);
+            }
+            else if (type == 3)
+            {
+                areaParams = areaExtendParamsService.GetStreetByRegionId(parentId);
+            }
 
-            List<AreaParam> areaParams = areaParamService.GetAreaParamsByParentId(parentId);
-
-            areaParams = areaParams.OrderBy(p => p.ParentId).ToList();
-
-            JArray arrays = JArray.FromObject(areaParams);
+            foreach (var q in areaParams)
+            {
+                JObject area = new JObject();
+                area.Add("Id", q.Key);
+                area.Add("Name", q.Value);
+                arrays.Add(area);
+            }
 
             obj.Add("success", true);
             obj.Add("areas", arrays);
             obj.Add("msg", "");
             result.Add("result", obj);
             return Content(result.ToString());
-
         }
 
         public ActionResult queryData(string startTime, string endTime)
@@ -199,7 +208,6 @@ namespace QuakeViewer.Controllers
             Response.ContentType = "application/json";
             JObject result = new JObject();
             JObject obj = new JObject();
-
 
 
             DateTime? startTimeDate = null;
@@ -211,11 +219,12 @@ namespace QuakeViewer.Controllers
             }
             else if (startTime.Length == 8)
             {
-                startTimeDate = DateTime.Parse($"{startTime.Substring(0, 4)}-{startTime.Substring(4, 2)}-{startTime.Substring(6, 2)}");
+                startTimeDate =
+                    DateTime.Parse(
+                        $"{startTime.Substring(0, 4)}-{startTime.Substring(4, 2)}-{startTime.Substring(6, 2)}");
             }
             else
             {
-
                 obj.Add("success", false);
                 obj.Add("msg", "日期格式错误，请重新输入");
                 result.Add("result", obj);
@@ -228,11 +237,12 @@ namespace QuakeViewer.Controllers
             }
             else if (endTime.Length == 8)
             {
-                endTimeDate = DateTime.Parse($"{endTime.Substring(0, 4)}-{endTime.Substring(4, 2)}-{endTime.Substring(6, 2)}").AddDays(1);
+                endTimeDate =
+                    DateTime.Parse($"{endTime.Substring(0, 4)}-{endTime.Substring(4, 2)}-{endTime.Substring(6, 2)}")
+                        .AddDays(1);
             }
             else
             {
-
                 obj.Add("success", false);
                 obj.Add("msg", "日期格式错误，请重新输入");
                 result.Add("result", obj);
@@ -240,12 +250,9 @@ namespace QuakeViewer.Controllers
             }
 
 
-
             var choices = choiceService.GetChoiceByTime(startTimeDate.Value, endTimeDate.Value);
 
-            var areaParams = areaParamService.GetAreaParams();
-
-            var dict = areaParams.ToDictionary(p => p.Id, p => p.Description);
+            var dict = areaExtendParamsService.GetAreaDict();
 
             JArray array = new JArray();
 
@@ -262,5 +269,3 @@ namespace QuakeViewer.Controllers
         }
     }
 }
-
-

@@ -98,6 +98,13 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="5dp"
                         android:spinnerMode="dialog" />
+                    <Spinner
+                        android:id="@+id/street"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:spinnerMode="dialog" />
                 </LinearLayout>
             </LinearLayout>
             <!-- 房屋所在详细位置-->
@@ -112,7 +119,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="区县级以下详细地址:"
+                    android:text="街道（乡镇）详细地址:"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 

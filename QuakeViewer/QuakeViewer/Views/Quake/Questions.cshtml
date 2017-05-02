@@ -3,361 +3,195 @@
     var provinceList = ViewData["Province"] as List<SelectListItem>;
 }
 <style>
-.top-header{
-	height:230px;
-	}
-a:link {
-    color:#13beec;
-	text-decoration:underline;
+    .top-header { height: 230px; }
+
+    a:link {
+        color: #13beec;
+        text-decoration: underline;
     }
-	a:visited{
-    color:#13beec;
-	text-decoration:underline;
+
+    a:visited {
+        color: #13beec;
+        text-decoration: underline;
     }
-	a:hover{
-    color:#13beec;
-	text-decoration:underline;
+
+    a:hover {
+        color: #13beec;
+        text-decoration: underline;
     }
-	a:active{
-    color:#13beec;
-	text-decoration:underline;
+
+    a:active {
+        color: #13beec;
+        text-decoration: underline;
     }
 </style>
-		<div class="row">
-		<div class="col-sm-12"> <h2 class="text-center"> 所查房屋的基本信息 </h2></div>
-	</div>
+<div class="row">
+    <div class="col-sm-12">
+        <h2 class="text-center"> 所查房屋的基本信息 </h2>
+    </div>
+</div>
 
-  	<div class="row">	
-	  <div class="col-sm-offset-1 col-sm-11">
-	      <div class="divider-header"></div>
-	      @using(Html.BeginForm("Questions", "Quake", new { }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-        @Html.AntiForgeryToken()
-	          <div class="form-group">
-	              <label>房屋所在的位置：</label>
-	              <div>
-	                  <label for="provincial" class="col-sm-1 control-label">省</label>
-	                  <div class="col-sm-2">
-                          @Html.DropDownListFor(p=>p.Provincial, provinceList,new {@class="form-control"})
-	                  </div>
-	                  <label for="provincial" class="col-sm-1 control-label">市</label>
-	                  <div class="col-sm-2">
-                        @Html.DropDownListFor(p => p.City, new List<SelectListItem>(), new { @class = "form-control" })
-	                  </div>
-	                  <label for="provincial" class="col-sm-1 control-label">区县</label>
-	                  <div class="col-sm-2">
-                        @Html.DropDownListFor(p => p.Region, new List<SelectListItem>(), new { @class = "form-control" })
-	                  </div>
-	              </div>
-	          </div>
-			<div class="form-group">
-	              <label>区县级以下详细地址：</label>
-	              <div>
-	                 <label for="address" class="col-sm-1 control-label">&nbsp</label>
-	                  <div class="col-sm-6">
-	                      @Html.TextBoxFor(p=>p.Address,new {@class="form-control"})
-	                  </div>
-	                  <div class="col-sm-4">
-	                      <a data-toggle="modal" data-target="#mapdiv" href="#" onclick="centerMap()">地图</a><img src="/img/Point.png" />
+<div class="row">
+    <div class=" col-sm-12">
+        <div class="divider-header"></div>
+        @using (Html.BeginForm("Questions", "Quake", new {}, FormMethod.Post, new {@class = "form-horizontal", role = "form"})) {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label>房屋所在的位置：</label>
+                <div>
+                    <label for="provincial" class="col-sm-1 control-label">省</label>
+                    <div class="col-sm-2">
+                        @Html.DropDownListFor(p => p.Provincial, provinceList, new {@class = "form-control"})
                     </div>
-	              </div>
-	          </div>
-	          <div class="divider-div"></div>
-	          <div class="form-group">
-	              <label>房屋总层数:</label>
-	              <div class="col-sm-offset-1">
-	                  <div class="col-sm-4">
-                        @Html.DropDownListFor(p => p.BuildLevel, new List<SelectListItem>(), new { @class = "form-control" })
-	                  </div>
-	              </div>
-	          </div>
-	          <div class="divider-div"></div>
+                    <label for="provincial" class="col-sm-1 control-label">市</label>
+                    <div class="col-sm-2">
+                        @Html.DropDownListFor(p => p.City, new List<SelectListItem>(), new {@class = "form-control"})
+                    </div>
+                    <label for="provincial" class="col-sm-1 control-label">区县</label>
+                    <div class="col-sm-2">
+                        @Html.DropDownListFor(p => p.Region, new List<SelectListItem>(), new {@class = "form-control"})
+                    </div>
+                    <label for="street" class="col-sm-1 control-label">乡镇(街道)</label>
+                    <div class="col-sm-2">
+                        @Html.DropDownListFor(p => p.Street, new List<SelectListItem>(), new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>街道（乡镇）详细地址：</label>
+                <div>
+                    <label for="address" class="col-sm-1 control-label">&nbsp</label>
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(p => p.Address, new {@class = "form-control"})
+                    </div>
+                    <div class="col-sm-4">
+                        <a data-toggle="modal" data-target="#mapdiv" href="#" onclick="centerMap()" style="margin-top: 4px">地图</a><img src="/img/Point.png"/>
+                    </div>
+                </div>
+            </div>
+            <div class="divider-div"></div>
+            <div class="form-group">
+                <label>房屋总层数:</label>
+                <div class="col-sm-offset-1">
+                    <div class="col-sm-4">
+                        @Html.DropDownListFor(p => p.BuildLevel, new List<SelectListItem>(), new {@class = "form-control"})
+                    </div>
+                </div>
+            </div>
+            <div class="divider-div"></div>
 
-	          <div class="form-group">
-	              <label>房屋结构类型:</label>
-	              <div  class="col-sm-offset-1">
-	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p=>p.StructLevel,1,new { @checked= "checked"})&nbsp;&nbsp;钢结构&nbsp;&nbsp; <a data-toggle="modal" data-target="#iron" href="#">图片<!--<img src="/img/question.png" style="width:16px;height:16px" />--></a>
-	                  </div>
-	                  <div class="col-sm-3">
-                        @Html.RadioButtonFor(p => p.StructLevel, 2)&nbsp;&nbsp;钢筋混凝土&nbsp;&nbsp;<a  data-toggle="modal" data-target="#concrete" href="#">图片<!--<img src="/img/question.png" style="width:16px;height:16px" />--></a>
-	                  </div>
-	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p => p.StructLevel, 3)&nbsp;&nbsp;砖砌&nbsp;&nbsp;<a  data-toggle="modal" data-target="#brike" href="#">图片<!--<img src="/img/question.png" style="width:16px;height:16px" />--></a>
-	                  </div>
-	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p => p.StructLevel, 4)&nbsp;&nbsp;土石&nbsp;&nbsp;<a  data-toggle="modal" data-target="#stone" href="#">图片<!--<img src="/img/question.png" style="width:16px;height:16px" />--></a>
-	                  </div>
-	              </div>
-	          </div>
-	          <div class="divider-div"></div>
-	          <div class="form-group">
-	              <label>房屋是否经过专业设计:</label>
-	              <div  class="col-sm-offset-1">
-	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p => p.Designed, 1, new { @checked = "checked" })&nbsp;&nbsp;是
-	                  </div>
-	                  <div class="col-sm-3">
+            <div class="form-group">
+                <label>房屋结构类型:</label>
+                <div class="col-sm-offset-1">
+                    <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.StructLevel, 1, new {@checked = "checked"})&nbsp;&nbsp;钢结构&nbsp;&nbsp; <a data-toggle="modal" data-target="#iron" href="#">图片<!--<img src="/img/question.png" style="width:16px;height:16px"/>--></a>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.StructLevel, 2)&nbsp;&nbsp;钢筋混凝土&nbsp;&nbsp;<a data-toggle="modal" data-target="#concrete" href="#">图片<!--<img src="/img/question.png" style="width:16px;height:16px"/>--></a>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.StructLevel, 3)&nbsp;&nbsp;砖砌&nbsp;&nbsp;<a data-toggle="modal" data-target="#brike" href="#">图片<!--<img src="/img/question.png" style="width:16px;height:16px"/>--></a>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.StructLevel, 4)&nbsp;&nbsp;土石&nbsp;&nbsp;<a data-toggle="modal" data-target="#stone" href="#">图片<!--<img src="/img/question.png" style="width:16px;height:16px"/>--></a>
+                    </div>
+                </div>
+            </div>
+            <div class="divider-div"></div>
+            <div class="form-group">
+                <label>房屋是否经过专业设计:</label>
+                <div class="col-sm-offset-1">
+                    <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.Designed, 1, new {@checked = "checked"})&nbsp;&nbsp;是
+                    </div>
+                    <div class="col-sm-3">
                         @Html.RadioButtonFor(p => p.Designed, 2)&nbsp;&nbsp;否
-	                  </div>
-	              </div>
-	          </div>
-	          <div class="divider-div"></div>
-	          <div class="form-group">
-	              <label>房屋的施工质量情况:</label>
-	              <div  class="col-sm-offset-1">
-	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p => p.Jobstatus, 3, new { @checked = "checked" })&nbsp;&nbsp;好
-	                  </div>
-	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p => p.Jobstatus, 2)&nbsp;&nbsp;一般
-	                  </div>
-	                  <div class="col-sm-3">
+                    </div>
+                </div>
+            </div>
+            <div class="divider-div"></div>
+            <div class="form-group">
+                <label>房屋的施工质量情况:</label>
+                <div class="col-sm-offset-1">
+                    <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.Jobstatus, 3, new {@checked = "checked"})&nbsp;&nbsp;好
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.Jobstatus, 2)&nbsp;&nbsp;一般
+                    </div>
+                    <div class="col-sm-3">
                         @Html.RadioButtonFor(p => p.Jobstatus, 1)&nbsp;&nbsp;差
-	                  </div>
-	              </div>
-	          </div>
-	          <div class="divider-div"></div>
-	          <div class="form-group">
-	              <label>房屋建造的年代:</label>
-	              <div class="col-sm-offset-1">
-	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p => p.YearLevel, 1, new { @checked = "checked" })&nbsp;&nbsp;1980年前
-	                  </div>
-	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p => p.YearLevel, 2)&nbsp;&nbsp;1980-1990年
-	                  </div>
-	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p => p.YearLevel, 3)&nbsp;&nbsp;1990-2000年
-	                  </div>
-	                  <div class="col-sm-3">
-	                      @Html.RadioButtonFor(p => p.YearLevel, 4)&nbsp;&nbsp;2000年后
-	                  </div>
-	              </div>
-	          </div>
-	          <div class="divider-div"></div>
-	          <div class="form-group" style="margin-top: 50px;">
-	              <div class="col-sm-offset-4 col-sm-4">
-	                  <button type="submit" class="btn btn-lg btn-success"  id="calculate">房屋抗震能力查询</button>
-	              </div>
-	          </div>
-	      }
-	  </div>
-          </div>
-      <!--iron Modal -->
+                    </div>
+                </div>
+            </div>
+            <div class="divider-div"></div>
+            <div class="form-group">
+                <label>房屋建造的年代:</label>
+                <div class="col-sm-offset-1">
+                    <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.YearLevel, 1, new {@checked = "checked"})&nbsp;&nbsp;1980年前
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.YearLevel, 2)&nbsp;&nbsp;1980-1990年
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.YearLevel, 3)&nbsp;&nbsp;1990-2000年
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.RadioButtonFor(p => p.YearLevel, 4)&nbsp;&nbsp;2000年后
+                    </div>
+                </div>
+            </div>
+            <div class="divider-div"></div>
+            <div class="form-group" style="margin-top: 50px;">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="submit" class="btn btn-lg btn-success" id="calculate">房屋抗震能力查询</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<!--iron Modal -->
 
 <div class="modal fade" tabindex="-1" id="iron" role="dialog" aria-labelledby="gridSystemModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content"  style="width:950px;margin-left:-150px">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="gridSystemModalLabel">钢结构</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row" align="center">
-					<table class=".table-bordered"  style="margin-top:10px">
-						<tr>
-							<td>
-								<div class="thumbnail">
-									<img src="/img/iron1.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>钢结构1</p>
-									</div>
-								</div>
-							</td>
-							<td>
-							<div class="thumbnail">
-									<img src="/img/iron2.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>钢结构2</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="thumbnail">
-									<img src="/img/iron3.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>钢结构3</p>
-									</div>
-								</div>
-							</td>
-						</tr>
-					</table>		
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" tabindex="-1" id="concrete" role="dialog" aria-labelledby="gridSystemModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content"  style="width:950px;margin-left:-150px">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="gridSystemModalLabel">钢筋混凝土结构</h4>
-      </div>
-      <div class="modal-body" align="center">
-				<table class=".table-bordered"  style="margin-top:10px">
-						<tr>
-							<td>
-								<div class="thumbnail">
-									<img src="/img/concrete1.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>钢筋混凝土1</p>
-									</div>
-								</div>
-							</td>
-							<td>
-							<div class="thumbnail">
-									<img src="/img/concrete2.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>钢筋混凝土2</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="thumbnail">
-									<img src="/img/concrete3.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>钢筋混凝土3</p>
-									</div>
-								</div>
-							</td>
-						</tr>
-					</table>	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" tabindex="-1" id="brike" role="dialog" aria-labelledby="gridSystemModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content"  style="width:950px;margin-left:-150px">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="gridSystemModalLabel">砖砌结构</h4>
-      </div>
-      <div class="modal-body" align="center">
-				<table class=".table-bordered"  style="margin-top:10px">
-						<tr>
-							<td>
-								<div class="thumbnail">
-									<img src="/img/brike1.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>砖砌1</p>
-									</div>
-								</div>
-							</td>
-							<td>
-							<div class="thumbnail">
-									<img src="/img/brike2.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>砖砌2</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="thumbnail">
-									<img src="/img/brike3.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>砖砌3</p>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="thumbnail">
-									<img src="/img/brike4.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>砖砌4</p>
-									</div>
-								</div>
-							</td>
-							<td>
-							<div class="thumbnail">
-									<img src="/img/brike5.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>砖砌5</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="thumbnail">
-									<img src="/img/brike6.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>砖砌6</p>
-									</div>
-								</div>
-							</td>
-						</tr>
-					</table>	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" tabindex="-1" id="stone" role="dialog" aria-labelledby="gridSystemModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content"  style="width:950px;margin-left:-150px">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="gridSystemModalLabel">土石结构</h4>
-      </div>
-           <div class="modal-body" align="center">
-				<table class=".table-bordered" style="margin-top:10px">
-						<tr>
-							<td>
-								<div class="thumbnail">
-									<img src="/img/stone1.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>土石1</p>
-									</div>
-								</div>
-							</td>
-							<td>
-							<div class="thumbnail">
-									<img src="/img/stone2.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>土石2</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="thumbnail">
-									<img src="/img/stone3.png" class="img-rounded" style="width:270px;height:200px;margin:10px"/>
-									<div class="caption" align="center">
-        								<p>土石3</p>
-									</div>
-								</div>
-							</td>
-						</tr>
-					</table>	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" tabindex="-1" id="mapdiv" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width:950px;margin-left:-150px">
+        <div class="modal-content" style="width: 950px; margin-left: -150px">
             <div class="modal-header">
-                <h4 class="modal-title" id="gridSystemModalLabel">土石结构</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">钢结构</h4>
             </div>
-            <div class="modal-body" align="center">
-                <div id="map" style="width: 800px;height:  500px;"></div>
+            <div class="modal-body">
+                <div class="row" align="center">
+                    <table class=".table-bordered" style="margin-top: 10px">
+                        <tr>
+                            <td>
+                                <div class="thumbnail">
+                                    <img src="/img/iron1.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                    <div class="caption" align="center">
+                                        <p>钢结构1</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="thumbnail">
+                                    <img src="/img/iron2.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                    <div class="caption" align="center">
+                                        <p>钢结构2</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="thumbnail">
+                                    <img src="/img/iron3.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                    <div class="caption" align="center">
+                                        <p>钢结构3</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -365,125 +199,396 @@ a:link {
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4xondSLA3yfGD6tG9bTdpeWMKRhnsEAB" ></script>
+
+<div class="modal fade" tabindex="-1" id="concrete" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 950px; margin-left: -150px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">钢筋混凝土结构</h4>
+            </div>
+            <div class="modal-body" align="center">
+                <table class=".table-bordered" style="margin-top: 10px">
+                    <tr>
+                        <td>
+                            <div class="thumbnail">
+                                <img src="/img/concrete1.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                <div class="caption" align="center">
+                                    <p>钢筋混凝土1</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="thumbnail">
+                                <img src="/img/concrete2.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                <div class="caption" align="center">
+                                    <p>钢筋混凝土2</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="thumbnail">
+                                <img src="/img/concrete3.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                <div class="caption" align="center">
+                                    <p>钢筋混凝土3</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1" id="brike" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 950px; margin-left: -150px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">砖砌结构</h4>
+            </div>
+            <div class="modal-body" align="center">
+                <table class=".table-bordered" style="margin-top: 10px">
+                    <tr>
+                        <td>
+                            <div class="thumbnail">
+                                <img src="/img/brike1.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                <div class="caption" align="center">
+                                    <p>砖砌1</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="thumbnail">
+                                <img src="/img/brike2.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                <div class="caption" align="center">
+                                    <p>砖砌2</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="thumbnail">
+                                <img src="/img/brike3.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                <div class="caption" align="center">
+                                    <p>砖砌3</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="thumbnail">
+                                <img src="/img/brike4.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                <div class="caption" align="center">
+                                    <p>砖砌4</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="thumbnail">
+                                <img src="/img/brike5.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                <div class="caption" align="center">
+                                    <p>砖砌5</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="thumbnail">
+                                <img src="/img/brike6.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                <div class="caption" align="center">
+                                    <p>砖砌6</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1" id="stone" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 950px; margin-left: -150px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">土石结构</h4>
+            </div>
+            <div class="modal-body" align="center">
+                <table class=".table-bordered" style="margin-top: 10px">
+                    <tr>
+                        <td>
+                            <div class="thumbnail">
+                                <img src="/img/stone1.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                <div class="caption" align="center">
+                                    <p>土石1</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="thumbnail">
+                                <img src="/img/stone2.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                <div class="caption" align="center">
+                                    <p>土石2</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="thumbnail">
+                                <img src="/img/stone3.png" class="img-rounded" style="width: 270px; height: 200px; margin: 10px"/>
+                                <div class="caption" align="center">
+                                    <p>土石3</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1" id="mapdiv" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 950px; margin-left: -150px">
+            <div class="modal-header">
+                <h4 class="modal-title" id="model-title">选择位置</h4>
+            </div>
+            <div class="modal-body" align="center">
+                            <div id="map" style="width: 800px; height: 500px;"></div>
+            </div>
+            <div class="modal-footer">
+                <img id="loading-img" src="/img/loading.gif" style="width: 20px; height: 20px; float: left;margin-top: 5px"> <h5 class="modal-title" id="address-title" style="; float: left;"></h5><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4xondSLA3yfGD6tG9bTdpeWMKRhnsEAB"></script>
 
 <script type="text/javascript">
     var map;
     var marker;
+    var geoc;
+    var province = '';
+    var city = '';
+    var region = '';
     //map Started
 
     function initializeMap() {
         if (map !== undefined) {
             return;
         }
+
         map = new BMap.Map('map');
+        geoc= new BMap.Geocoder();
         map.enableScrollWheelZoom(true);
 
-      var centerPoint = new BMap.Point(113.275105, 23.16455);
-        map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
-        map.addControl(new BMap.ScaleControl());   //添加地图类型控件
+        var centerPoint = new BMap.Point(113.275105, 23.16455);
+        map.addControl(new BMap.MapTypeControl()); //添加地图类型控件
+        map.addControl(new BMap.ScaleControl()); //添加地图类型控件
         map.centerAndZoom(centerPoint, 11);
-       
-      
-        marker = new BMap.Marker(centerPoint);  // 创建标注
-        map.addOverlay(marker);               // 将标注添加到地图中
-       // marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-        marker.enableDragging();
+
+
+        marker = new BMap.Marker(centerPoint); // 创建标注
+        map.addOverlay(marker); // 将标注添加到地图中
         map.addEventListener("click", clickInCenter);
+        if (window.navigator.geolocation) {
+            var options = {
+                enableHighAccuracy: true
+            };
+
+            window.navigator.geolocation.getCurrentPosition(handleSuccess, handleError, options);
+        } else {
+            alert("您的浏览器不支持定位");
+        }
+      
+  
+        geoc.getLocation(centerPoint, function (rs) {
+            var addComp = rs.addressComponents;
+            $('#address-title').show();
+            var address = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+            $('#address-title').html(address);
+            $('#loading-img').hide();
+            $('#Address').val(address);
+        });
+       
     }
 
+    function handleSuccess(position) {
+        console.log(position);
+                
+                     var lng = position.coords.longitude; 
+                     var lat = position.coords.latitude; 
+                     // 调用百度地图api显示 
+                     var map = new BMap.Map("map"); 
+                     var ggPoint = new BMap.Point(lng, lat); 
+                     // 将google地图中的经纬度转化为百度地图的经纬度 
+                    BMap.Convertor.translate(ggPoint, 2, function(point) {
+                        marker.setPosition(point);
+                        map.panTo(point, true);
+                    }); 
+                 } 
+             
+            function handleError(error){ 
+                
+                } 
+
     function clickInCenter(e) {
+        $('#address-title').hide();
+        $('#loading-img').show();
         marker.setPosition(e.point);
         map.panTo(e.point, true);
+
+        geoc.getLocation(e.point, function (rs) {
+            var addComp = rs.addressComponents;
+            $('#address-title').show();
+            console.log(addComp);
+
+            province = addComp.province;
+            city = addComp.city;
+            region = addComp.district;
+
+            var address = addComp.province  + addComp.city  + addComp.district  + addComp.street  + addComp.streetNumber;
+
+            var addressIn = '';
+            console.log(addComp.street + '道');
+            console.log($('#Street option:selected').text());
+            if (addComp.street === $('#Street  option:selected').text()) {
+
+                addressIn = addComp.streetNumber;
+            } else if (addComp.street.indexOf($('#Street  option:selected').text().replace('道', '')) == 0) {
+                addressIn = addComp.street.replace($('#Street  option:selected').text().replace('道', ''), '');
+            } else {
+                addressIn = addComp.street + addComp.streetNumber;
+            }
+           
+
+            $('#address-title').html(address);
+            $('#loading-img').hide();
+            $('#Address').val(addressIn);
+        });
     }
 
     function centerMap() {
         setTimeout('initializeMap()', 500);
     }
-  
+
 
     //map ended
 
 
-    $(document).ready(function () {
-        getAreaInformation($('#City'), $('#Provincial').val());
-        $('#City').append('<option value="">---选择市县---</option>');
-        $('#Region').append('<option value="">---选择区域---</option>');
-		 		for(var i=1;i<=200;i++){
-		 			$('#BuildLevel').append('<option value="'+i+'">'+i+'层</option>');
-		 		}
-		 	});
+    $(document)
+        .ready(function() {
+            getAreaInformation($('#City'), $('#Provincial').val(),1);
+            $('#City').append('<option value="">---选择市---</option>');
+            $('#Region').append('<option value="">---选择区域---</option>');
+            $('#Street').append('<option value="">---选择街道---</option>');
+            for (var i = 1; i <= 200; i++) {
+                $('#BuildLevel').append('<option value="' + i + '">' + i + '层</option>');
+            }
+        });
 
-    $('#calculate').on('click', function () {
-        if ($('#Address').val() === '') {
-            alert('区县级以下详细地址不能为空');
-            return false;
-        }
+    $('#calculate')
+        .on('click',
+            function() {
+                if ($('#Address').val() === '') {
+                    alert('区县级以下详细地址不能为空');
+                    return false;
+                }
 
-		 		if($('#Provincial').val()==='' || $('#City').val()==='' ||$('#Region').val()===''){
-		 			alert('请选择您所在的地理位置');
-		 			return false;
-		 		}
-		 		
-		 		if($('#BuildLevel').val() == ''){
-		 			alert('请选择您所在建筑层数');
-		 			return false;
-		 		}
+                if ($('#Provincial').val() === '' || $('#City').val() === '' || $('#Region').val() === '') {
+                    alert('请选择您所在的地理位置');
+                    return false;
+                }
 
-				var structLevel = $("input[name='StructLevel']:checked").val();
+                if ($('#BuildLevel').val() == '') {
+                    alert('请选择您所在建筑层数');
+                    return false;
+                }
 
-				if($('#BuildLevel').val() >10 && structLevel=="3"){
-					alert("砖砌房屋总层数不能超过10层！")
-					return false;
-				}
+                var structLevel = $("input[name='StructLevel']:checked").val();
 
-				if($('#BuildLevel').val() >1 && structLevel=="4"){
-					alert("土石房屋总层数不能超过1层！")
-					return false;
-				}
+                if ($('#BuildLevel').val() > 10 && structLevel == "3") {
+                    alert("砖砌房屋总层数不能超过10层！")
+                    return false;
+                }
 
-				$('#calculate').submit();
-		 	});
-	$(document).ready(function(){
- 
-	$('#Provincial').change(function(){
-	    $('#City').empty();
-	    getAreaInformation($('#City'), $('#Provincial').val());
-	    $('#City').append('<option value="">---选择市县---</option>');
-	   
-	    $('#Region').empty();
-	    $('#Region').append('<option value="">---选择区域---</option>');
-		
-	});
+                if ($('#BuildLevel').val() > 1 && structLevel == "4") {
+                    alert("土石房屋总层数不能超过1层！")
+                    return false;
+                }
 
-	    $('#City')
-	        .change(function() {
-	            $('#Region').empty();
-	            getAreaInformation($('#Region'), $('#City').val());
-	            $('#Region').append('<option value="">---选择区域---</option>');
-	            
-	        });
-	});
-	
-	function getAreaInformation(control, parentId) {
+                if (province != $('#Provincial option:selected').text() ||
+                    city != $('#City option:selected').text() ||
+                    region !== $('#Region option:selected').text()) {
+                    alert("选择的的区域和您设定的区域不一致！");
+                    return false;
+                }
 
-	    $.ajax({
-	        url: '/quake/GetAreaParamsById?parentId='+parentId,
-	        type: 'GET',
-	        success: function (data) {
-	            //control.append('<option value="">' + defaultString + '</option>');
-	            if (data.result.success) {
-	                var options = "";
-	                for (var i = 0; i < data.result.areas.length; i++){	               
-	                    var area = data.result.areas[i];
-	                        options = options + "<option value='" + area.Id + "'>"+ area.Name + '</option>';
-	                }
-	                control.append(options);
-	            }
-	        }
-	    });
+                $('#calculate').submit();
+            });
+    $(document)
+        .ready(function() {
 
-	}
+            $('#Provincial')
+                .change(function() {
+                    $('#City').empty();
+                    getAreaInformation($('#City'), $('#Provincial').val(),1);
+                    $('#City').append('<option value="">---选择市县---</option>');
 
-	
-	</script>
+                    $('#Region').empty();
+                    $('#Region').append('<option value="">---选择区域---</option>');
+
+                });
+
+            $('#City')
+                .change(function() {
+                    $('#Region').empty();
+                    getAreaInformation($('#Region'), $('#City').val(),2);
+                    $('#Region').append('<option value="">---选择区域---</option>');
+
+                });
+
+            $('#Region')
+                .change(function () {
+                    $('#Street').empty();
+                    getAreaInformation($('#Street'), $('#Region').val(), 3);
+                    $('#Street').append('<option value="">---选择街道---</option>');
+
+                });
+        });
+
+    function getAreaInformation(control, parentId,type) {
+        $.ajax({
+            url: '/quake/GetAreaParamsById?parentId=' + parentId+'&type='+type,
+            type: 'GET',
+            success: function(data) {
+                //control.append('<option value="">' + defaultString + '</option>');
+                if (data.result.success) {
+                    var options = "";
+                    for (var i = 0; i < data.result.areas.length; i++) {
+                        var area = data.result.areas[i];
+                        options = options + "<option value='" + area.Id + "'>" + area.Name + '</option>';
+                    }
+                    control.append(options);
+                }
+            }
+        });
+
+    }
+
+
+</script>

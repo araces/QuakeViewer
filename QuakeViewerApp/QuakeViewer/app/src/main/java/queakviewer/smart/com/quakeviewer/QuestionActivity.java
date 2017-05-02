@@ -1,5 +1,6 @@
 package queakviewer.smart.com.quakeviewer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,6 +51,8 @@ public class QuestionActivity extends AppCompatActivity {
 
     public final static String ID = "QuestionActivity";
 
+    public final static int REQUEST_ID = 100;
+
     @BindView(R.id.province)
     Spinner province;
 
@@ -58,6 +61,9 @@ public class QuestionActivity extends AppCompatActivity {
 
     @BindView(R.id.region)
     Spinner region;
+
+    @BindView(R.id.street)
+    Spinner street;
 
     @BindView(R.id.buildLevel)
     Spinner buildLevel;
@@ -111,6 +117,13 @@ public class QuestionActivity extends AppCompatActivity {
     public List<SelectItem> provinceList;
     public List<SelectItem> cityList;
     public List<SelectItem> regionList;
+    public List<SelectItem> streetList;
+
+    String provinceTxt = "";
+    String cityTxt = "";
+    String districtTxt = "";
+    String streetTxt = "";
+    String street_numberTxt = "";
 
     private LoadingDialog loading;
 
@@ -132,6 +145,7 @@ public class QuestionActivity extends AppCompatActivity {
         provinceList = new ArrayList<SelectItem>();
         cityList = new ArrayList<SelectItem>();
         regionList = new ArrayList<SelectItem>();
+        streetList = new ArrayList<SelectItem>();
 
         //structLevelGroup.check(R.id.structLevel);
         designedGroup.check(R.id.designed);
@@ -160,8 +174,12 @@ public class QuestionActivity extends AppCompatActivity {
         province.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    return;
+                }
                 SelectItem item = provinceList.get(position);
                 QuestionActivity.this.setCity(item.getKey());
+
             }
 
             @Override
@@ -173,8 +191,12 @@ public class QuestionActivity extends AppCompatActivity {
         city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    return;
+                }
                 SelectItem item = cityList.get(position);
                 QuestionActivity.this.setRegion(item.getKey());
+
             }
 
             @Override
@@ -183,40 +205,99 @@ public class QuestionActivity extends AppCompatActivity {
             }
         });
 
-        BuildLevelSpinnerAdapter levelsAdapter =new BuildLevelSpinnerAdapter(this.getApplicationContext());
+        region.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    return;
+                }
+                SelectItem item = regionList.get(position);
+                QuestionActivity.this.setStreet(item.getKey());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        BuildLevelSpinnerAdapter levelsAdapter = new BuildLevelSpinnerAdapter(this.getApplicationContext());
         buildLevel.setAdapter(levelsAdapter);
         buildLevel.setSelection(0);
 
         structLevel.setChecked(true);
     }
 
-    @OnCheckedChanged({R.id.structLevel,R.id.shuini_radio,R.id.brike_radio,R.id.stone_radio})
-    public void radioButtonGroupSelections(RadioButton button){
-        if(button.isChecked() && button.getId()==R.id.structLevel){
+    @OnCheckedChanged({R.id.structLevel, R.id.shuini_radio, R.id.brike_radio, R.id.stone_radio})
+    public void radioButtonGroupSelections(RadioButton button) {
+        if (button.isChecked() && button.getId() == R.id.structLevel) {
             shuini_radio.setChecked(false);
             brike_radio.setChecked(false);
             stone_radio.setChecked(false);
         }
 
-        if(button.isChecked() && button.getId()==R.id.shuini_radio){
+        if (button.isChecked() && button.getId() == R.id.shuini_radio) {
             structLevel.setChecked(false);
             brike_radio.setChecked(false);
             stone_radio.setChecked(false);
         }
 
-        if(button.isChecked() &&  button.getId()==R.id.brike_radio){
+        if (button.isChecked() && button.getId() == R.id.brike_radio) {
             structLevel.setChecked(false);
             shuini_radio.setChecked(false);
             stone_radio.setChecked(false);
         }
 
-        if(button.isChecked() && button.getId()==R.id.stone_radio){
+        if (button.isChecked() && button.getId() == R.id.stone_radio) {
             structLevel.setChecked(false);
             shuini_radio.setChecked(false);
             brike_radio.setChecked(false);
         }
     }
 
+    @OnClick(R.id.address_detail)
+    public void GetAddress() {
+        Intent intent = new Intent(QuestionActivity.this, MapActivity.class);
+        QuestionActivity.this.startActivityForResult(intent, REQUEST_ID);
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_ID) {
+            provinceTxt = data.getStringExtra("province");
+            cityTxt = data.getStringExtra("city");
+            districtTxt = data.getStringExtra("district");
+            streetTxt = data.getStringExtra("street");
+            street_numberTxt = data.getStringExtra("street_number");
+
+            String message = null;
+
+            if (!provinceTxt.equals(((SelectItem) province.getSelectedItem()).getName())) {
+                message = "您选择的省份不一致，请重新选择";
+            } else if (!cityTxt.equals(((SelectItem) city.getSelectedItem()).getName())) {
+                message = "您选择的城市不一致，请重新选择";
+            } else if (!districtTxt.equals(((SelectItem) region.getSelectedItem()).getName())) {
+                message = "您选择的区县不一致，请重新选择";
+            }
+
+            if (message != null) {
+                Toast.makeText(QuestionActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+
+
+            if (streetTxt.equals(streetTxt) && !TextUtils.isEmpty(street_numberTxt)) {
+                address_detail.setText(street_numberTxt);
+            }
+
+            address_detail.setText(streetTxt + street_numberTxt);
+
+        }
+    }
 
     @OnClick({R.id.iron_msg, R.id.shuini_msg, R.id.brike_msg, R.id.stone_msg})
     public void showMsg(Button button) {
@@ -336,6 +417,12 @@ public class QuestionActivity extends AppCompatActivity {
         item3.setKey("");
         regionList.add(item3);
 
+        SelectItem item4 = new SelectItem();
+        item4.setKey("");
+        item4.setName("选择街道");
+        item4.setKey("");
+        streetList.add(item4);
+
 
         for (int i = 0; i < areaList.size(); i++) {
             if (areaList.get(i).getParentId().equals("0")) {
@@ -348,20 +435,27 @@ public class QuestionActivity extends AppCompatActivity {
             public void run() {
                 ExtendSpinnerAdapter provinceAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, provinceList);
                 province.setAdapter(provinceAdapter);
-                province.setSelection(0);
+
 
                 ExtendSpinnerAdapter cityAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, cityList);
                 city.setAdapter(cityAdapter);
-                city.setSelection(0);
+
 
                 ExtendSpinnerAdapter regionAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, regionList);
                 region.setAdapter(regionAdapter);
-                region.setSelection(0);
+
+
+                ExtendSpinnerAdapter streetAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, streetList);
+                street.setAdapter(streetAdapter);
+
             }
         });
     }
 
     private void setCity(String provinceId) {
+        if (TextUtils.isEmpty(provinceId)) {
+            return;
+        }
 
         cityList.clear();
 
@@ -379,6 +473,33 @@ public class QuestionActivity extends AppCompatActivity {
         item3.setKey("");
         regionList.add(item3);
 
+        SelectItem item4 = new SelectItem();
+        item4.setKey("");
+        item4.setName("选择街道");
+        item4.setKey("");
+        streetList.add(item4);
+
+        if (TextUtils.isEmpty(provinceId)) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    ExtendSpinnerAdapter cityAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, cityList);
+                    city.setAdapter(cityAdapter);
+
+
+                    ExtendSpinnerAdapter regionAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, regionList);
+                    region.setAdapter(regionAdapter);
+
+
+                    ExtendSpinnerAdapter streetAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, streetList);
+                    street.setAdapter(streetAdapter);
+
+                }
+            });
+            return;
+        }
+
+
         for (int i = 0; i < areaList.size(); i++) {
             if (areaList.get(i).getParentId().equals(provinceId)) {
                 cityList.add(areaList.get(i));
@@ -389,16 +510,25 @@ public class QuestionActivity extends AppCompatActivity {
             public void run() {
                 ExtendSpinnerAdapter cityAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, cityList);
                 city.setAdapter(cityAdapter);
-                city.setSelection(0);
+
 
                 ExtendSpinnerAdapter regionAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, regionList);
                 region.setAdapter(regionAdapter);
-                region.setSelection(0);
+
+
+                ExtendSpinnerAdapter streetAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, streetList);
+                street.setAdapter(streetAdapter);
+
             }
         });
     }
 
     private void setRegion(String cityId) {
+
+        if (TextUtils.isEmpty(cityId)) {
+            return;
+        }
+
         regionList.clear();
 
         SelectItem item3 = new SelectItem();
@@ -406,6 +536,15 @@ public class QuestionActivity extends AppCompatActivity {
         item3.setName("选择区");
         item3.setKey("");
         regionList.add(item3);
+
+        streetList.clear();
+
+        SelectItem item4 = new SelectItem();
+        item4.setKey("");
+        item4.setName("选择街道");
+        item4.setKey("");
+        streetList.add(item4);
+
 
         for (int i = 0; i < areaList.size(); i++) {
             if (areaList.get(i).getParentId().equals(cityId)) {
@@ -418,11 +557,48 @@ public class QuestionActivity extends AppCompatActivity {
             public void run() {
                 ExtendSpinnerAdapter regionAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, regionList);
                 region.setAdapter(regionAdapter);
-                region.setSelection(0);
+
+
+                ExtendSpinnerAdapter streetAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, streetList);
+                street.setAdapter(streetAdapter);
+
             }
         });
 
     }
+
+    private void setStreet(String regionId) {
+
+        if (TextUtils.isEmpty(regionId)) {
+            return;
+        }
+
+        streetList.clear();
+
+        SelectItem item4 = new SelectItem();
+        item4.setKey("");
+        item4.setName("选择街道");
+        item4.setKey("");
+        streetList.add(item4);
+
+
+        for (int i = 0; i < areaList.size(); i++) {
+            if (areaList.get(i).getParentId().equals(regionId)) {
+                streetList.add(areaList.get(i));
+            }
+        }
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                ExtendSpinnerAdapter streetAdapter = new ExtendSpinnerAdapter(QuestionActivity.this, streetList);
+                street.setAdapter(streetAdapter);
+
+            }
+        });
+
+    }
+
 
     class ExtendSpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
         private Context context;
@@ -468,10 +644,10 @@ public class QuestionActivity extends AppCompatActivity {
 
         public BuildLevelSpinnerAdapter(Context _context) {
             this.context = _context;
-            items =new ArrayList<String>();
+            items = new ArrayList<String>();
             items.add("选择楼层");
-            for(Integer i=1;i<=200;i++){
-                items.add(i+"层");
+            for (Integer i = 1; i <= 200; i++) {
+                items.add(i + "层");
             }
         }
 
@@ -513,23 +689,45 @@ public class QuestionActivity extends AppCompatActivity {
         RadioButton designedButton = (RadioButton) designedGroup.findViewById(designedGroup.getCheckedRadioButtonId());
         RadioButton jobstatusButton = (RadioButton) jobstatusGroup.findViewById(jobstatusGroup.getCheckedRadioButtonId());
         RadioButton yearlevelButton = (RadioButton) yearlevelGroup.findViewById(yearlevelGroup.getCheckedRadioButtonId());
-        RadioButton structLevelButton =null ;
+        RadioButton structLevelButton = null;
 
-        if(structLevel.isChecked()){
-            structLevelButton =structLevel;
+        if (structLevel.isChecked()) {
+            structLevelButton = structLevel;
         }
-        if(shuini_radio.isChecked()){
-            structLevelButton =shuini_radio;
+        if (shuini_radio.isChecked()) {
+            structLevelButton = shuini_radio;
         }
-        if(brike_radio.isChecked()){
-            structLevelButton =brike_radio;
+        if (brike_radio.isChecked()) {
+            structLevelButton = brike_radio;
         }
-        if(stone_radio.isChecked()){
-            structLevelButton =stone_radio;
+        if (stone_radio.isChecked()) {
+            structLevelButton = stone_radio;
+        }
+
+        String message = null;
+
+        if (!provinceTxt.equals(((SelectItem) province.getSelectedItem()).getName())) {
+            message = "您选择的省份不一致，请重新选择";
+        } else if (!cityTxt.equals(((SelectItem) city.getSelectedItem()).getName())) {
+            message = "您选择的城市不一致，请重新选择";
+        } else if (!districtTxt.equals(((SelectItem) region.getSelectedItem()).getName())) {
+            message = "您选择的区县不一致，请重新选择";
+        }
+
+        if (message != null) {
+            final String finalMessage = message;
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(QuestionActivity.this, finalMessage, Toast.LENGTH_LONG).show();
+
+                }
+            });
+            return;
         }
 
 
-        if(TextUtils.isEmpty(address_detail.getText())){
+        if (TextUtils.isEmpty(address_detail.getText())) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -580,7 +778,7 @@ public class QuestionActivity extends AppCompatActivity {
             String token = Utils.GetContent(getApplicationContext(), "token");
             param.put("token", token);
 
-            SelectItem item = (SelectItem) region.getSelectedItem();
+            SelectItem item = (SelectItem) street.getSelectedItem();
             if (item.getKey().equals("")) {
                 handler.post(new Runnable() {
                     @Override
@@ -598,7 +796,7 @@ public class QuestionActivity extends AppCompatActivity {
             param.put("isDesigned", designedButton.getTag());
             param.put("contructionQuality", jobstatusButton.getTag());
             param.put("builtYearGroup", yearlevelButton.getTag());
-            param.put("address",address_detail.getText());
+            param.put("address", address_detail.getText());
         } catch (JSONException ex) {
             ex.printStackTrace();
             Log.e(ID, ex.getMessage());
