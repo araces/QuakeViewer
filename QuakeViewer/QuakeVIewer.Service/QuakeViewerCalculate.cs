@@ -88,12 +88,12 @@ namespace QuakeViewer.Utils
             MaxAlpha = GetMaxAlphaMajor(DesignIntensity);
             T = GetT(storyNum, struType);
 
-            if (builtYearGroup == 1) reduction = 0.5 * reduction;
+            if (builtYearGroup == 1) reduction = 0.55 * reduction;
             else if (builtYearGroup == 2) reduction = 0.7 * reduction;
             else if (builtYearGroup == 3) reduction = 0.9 * reduction;
             else reduction = 1.0 * reduction;
 
-            if (contructionQuality == 1) reduction = 1.1 * reduction;
+            if (contructionQuality == 1) reduction = 1.3 * reduction;
             else if (contructionQuality == 2) reduction = 1.0 * reduction;
             else if (contructionQuality == 3) reduction = 0.6 * reduction;
             else
@@ -101,19 +101,19 @@ namespace QuakeViewer.Utils
             }
 
             Fy = reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05); //Unit: Acel,g,相当于无量纲
-            if (struType == 3) Fy = 0.9 * reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05);
+            if (struType == 3) Fy = 0.8 * reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05);
             else if (struType == 4) Fy = 0.5 * reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05);
-            else if (struType == 2) Fy = 1.1 * reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05);
+            else if (struType == 1) Fy = 1.1 * reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05);
 
             Dy = Fy * T * T * 9.8 / (4.0 * 3.14 * 3.14);//unit: m
                                                         //define ductility
 
-            if (struType == 1) Du = ductility * Dy;
-            else if (struType == 2) Du = 1.3 * ductility * Dy;
-            else if (struType == 3) Du = 0.9 * ductility * Dy;
-            else if (struType == 4) Du = 0.4 * ductility * Dy;
+            if (struType == 1) Du = 1.6*ductility * Dy;
+            else if (struType == 2) Du = 1.0 * ductility * Dy;
+            else if (struType == 3) Du = 0.7 * ductility * Dy;
+            else if (struType == 4) Du = 0.3 * ductility * Dy;
             else
-                Du = 0.4 * ductility * Dy;
+                Du = 1.0 * ductility * Dy;
 
             if (isDesigned == false)
             {

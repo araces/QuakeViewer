@@ -176,6 +176,13 @@ namespace QuakeViewer.Controllers
         public ActionResult GetAllProvince(string token)
         {
             Response.ContentType = "application/json";
+
+            if(null　!= StaticParams.AreaParam)
+            {
+                return Content(StaticParams.AreaParam.ToString());
+            }
+
+
             JObject result = new JObject();
             JObject obj = new JObject();
             /*
@@ -247,6 +254,8 @@ namespace QuakeViewer.Controllers
 
             result.Add("result", obj);
 
+            StaticParams.AreaParam = result;
+
             return Content(result.ToString());
         }
 
@@ -293,7 +302,7 @@ namespace QuakeViewer.Controllers
             return Content(result.ToString());
         }
 
-        [HttpPost]
+    
         public ActionResult QuestionsResult(string token, string regionId,
             int storyNum,
             int struType,

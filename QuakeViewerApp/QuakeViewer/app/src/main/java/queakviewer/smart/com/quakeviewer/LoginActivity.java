@@ -294,7 +294,6 @@ public class LoginActivity extends AppCompatActivity {
                 client.PostData(StaticParams.LOGIN_URL,param.toString());
             }catch (IOException ex) {
                 ex.printStackTrace();
-                Log.e(ID, ex.getMessage());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

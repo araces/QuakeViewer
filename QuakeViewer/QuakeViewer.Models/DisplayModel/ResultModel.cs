@@ -97,7 +97,7 @@ namespace QuakeViewer.Models
             {
                 switch (Reason3)
                 {
-                    case 3:
+                    case 1:
                         return "房屋的施工质量好";
                     case 2:
                         return "房屋的施工质量一般";

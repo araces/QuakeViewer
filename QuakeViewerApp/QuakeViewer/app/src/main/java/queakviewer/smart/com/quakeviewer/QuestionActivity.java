@@ -277,25 +277,44 @@ public class QuestionActivity extends AppCompatActivity {
 
             String message = null;
 
-            if (!provinceTxt.equals(((SelectItem) province.getSelectedItem()).getName())) {
-                message = "您选择的省份不一致，请重新选择";
-            } else if (!cityTxt.equals(((SelectItem) city.getSelectedItem()).getName())) {
-                message = "您选择的城市不一致，请重新选择";
-            } else if (!districtTxt.equals(((SelectItem) region.getSelectedItem()).getName())) {
-                message = "您选择的区县不一致，请重新选择";
-            }
+            String districtSpinnerName =((SelectItem) region.getSelectedItem()).getName();
+            String tempDistrictName = cityTxt + "市辖区";
+
+                if(districtSpinnerName.equals("市辖区")) {
+                    if (!provinceTxt.equals(((SelectItem) province.getSelectedItem()).getName())) {
+                        message = "您选择的省份不一致，请重新选择";
+                    } else if (!cityTxt.equals(((SelectItem) city.getSelectedItem()).getName())) {
+                        message = "您选择的城市不一致，请重新选择";
+                    } else if (!tempDistrictName.equals(districtTxt)) {
+                        message = "您选择的市区不一致，请重新选择";
+                    }
+                }
+                else{
+                    if (!provinceTxt.equals(((SelectItem) province.getSelectedItem()).getName())) {
+                        message = "您选择的省份不一致，请重新选择";
+                    } else if (!cityTxt.equals(((SelectItem) city.getSelectedItem()).getName())) {
+                        message = "您选择的城市不一致，请重新选择";
+                    } else if (!districtTxt.equals(((SelectItem) region.getSelectedItem()).getName())) {
+                        message = "您选择的市区不一致，请重新选择";
+                    }
+                }
+
+
 
             if (message != null) {
                 Toast.makeText(QuestionActivity.this, message, Toast.LENGTH_LONG).show();
             }
 
 
-            if (streetTxt.equals(streetTxt) && !TextUtils.isEmpty(street_numberTxt)) {
+            if (streetTxt.equals(((SelectItem)street.getSelectedItem()).getName()) && !TextUtils.isEmpty(street_numberTxt)) {
                 address_detail.setText(street_numberTxt);
             }
-
-            address_detail.setText(streetTxt + street_numberTxt);
-
+            else if(TextUtils.isEmpty(streetTxt) && TextUtils.isEmpty(street_numberTxt)){
+                address_detail.setText(districtTxt);
+            }
+            else {
+                address_detail.setText(streetTxt + street_numberTxt);
+            }
         }
     }
 
@@ -334,7 +353,13 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void queryAreas() {
-        loading.setMessage("加载区域信息");
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                loading.setMessage("加载区域信息").show();
+            }
+        });
+
         WebClient client = new WebClient();
         client.setOnDataArrivedListener(new OnFinishedCallBack() {
             @Override
@@ -364,13 +389,19 @@ public class QuestionActivity extends AppCompatActivity {
                     }
                 } catch (JSONException ex) {
                     ex.printStackTrace();
-                    Log.e(ID, ex.getMessage());
+
                     Toast.makeText(getApplicationContext(), "服务出错，请稍后再试", Toast.LENGTH_LONG).show();
 
                 } finally {
-                    if (loading.isShowing()) {
-                        loading.dismiss();
-                    }
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (loading.isShowing()) {
+                                loading.dismiss();
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -378,9 +409,10 @@ public class QuestionActivity extends AppCompatActivity {
         try {
             String token = Utils.GetContent(getApplicationContext(), "token");
             client.GetData(StaticParams.AREAS_URL + token);
+
         } catch (IOException ex) {
             ex.printStackTrace();
-            Log.e(ID, ex.getMessage());
+
             Toast.makeText(QuestionActivity.this, "网络错误，请稍后重试", Toast.LENGTH_LONG).show();
         }
     }
@@ -413,13 +445,13 @@ public class QuestionActivity extends AppCompatActivity {
 
         SelectItem item3 = new SelectItem();
         item3.setKey("");
-        item3.setName("选择区");
+        item3.setName("选择区域");
         item3.setKey("");
         regionList.add(item3);
 
         SelectItem item4 = new SelectItem();
         item4.setKey("");
-        item4.setName("选择街道");
+        item4.setName("选择乡镇街道");
         item4.setKey("");
         streetList.add(item4);
 
@@ -469,13 +501,13 @@ public class QuestionActivity extends AppCompatActivity {
 
         SelectItem item3 = new SelectItem();
         item3.setKey("");
-        item3.setName("选择区");
+        item3.setName("选择区域");
         item3.setKey("");
         regionList.add(item3);
 
         SelectItem item4 = new SelectItem();
         item4.setKey("");
-        item4.setName("选择街道");
+        item4.setName("选择乡镇街道");
         item4.setKey("");
         streetList.add(item4);
 
@@ -533,7 +565,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         SelectItem item3 = new SelectItem();
         item3.setKey("");
-        item3.setName("选择区");
+        item3.setName("选择区域");
         item3.setKey("");
         regionList.add(item3);
 
@@ -541,7 +573,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         SelectItem item4 = new SelectItem();
         item4.setKey("");
-        item4.setName("选择街道");
+        item4.setName("选择乡镇街道");
         item4.setKey("");
         streetList.add(item4);
 
@@ -577,7 +609,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         SelectItem item4 = new SelectItem();
         item4.setKey("");
-        item4.setName("选择街道");
+        item4.setName("选择乡镇街道");
         item4.setKey("");
         streetList.add(item4);
 
@@ -706,12 +738,26 @@ public class QuestionActivity extends AppCompatActivity {
 
         String message = null;
 
-        if (!provinceTxt.equals(((SelectItem) province.getSelectedItem()).getName())) {
-            message = "您选择的省份不一致，请重新选择";
-        } else if (!cityTxt.equals(((SelectItem) city.getSelectedItem()).getName())) {
-            message = "您选择的城市不一致，请重新选择";
-        } else if (!districtTxt.equals(((SelectItem) region.getSelectedItem()).getName())) {
-            message = "您选择的区县不一致，请重新选择";
+        String districtSpinnerName =((SelectItem) region.getSelectedItem()).getName();
+        String tempDistrictName = cityTxt + "市辖区";
+
+        if(districtSpinnerName.equals("市辖区")) {
+            if (!provinceTxt.equals(((SelectItem) province.getSelectedItem()).getName())) {
+                message = "您选择的省份不一致，请重新选择";
+            } else if (!cityTxt.equals(((SelectItem) city.getSelectedItem()).getName())) {
+                message = "您选择的城市不一致，请重新选择";
+            } else if (!tempDistrictName.equals(districtTxt)) {
+                message = "您选择的市区不一致，请重新选择";
+            }
+        }
+        else{
+            if (!provinceTxt.equals(((SelectItem) province.getSelectedItem()).getName())) {
+                message = "您选择的省份不一致，请重新选择";
+            } else if (!cityTxt.equals(((SelectItem) city.getSelectedItem()).getName())) {
+                message = "您选择的城市不一致，请重新选择";
+            } else if (!districtTxt.equals(((SelectItem) region.getSelectedItem()).getName())) {
+                message = "您选择的市区不一致，请重新选择";
+            }
         }
 
         if (message != null) {
@@ -799,7 +845,7 @@ public class QuestionActivity extends AppCompatActivity {
             param.put("address", address_detail.getText());
         } catch (JSONException ex) {
             ex.printStackTrace();
-            Log.e(ID, ex.getMessage());
+
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -845,7 +891,7 @@ public class QuestionActivity extends AppCompatActivity {
                     }
                 } catch (JSONException ex) {
                     ex.printStackTrace();
-                    Log.e(ID, ex.getMessage());
+
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -867,14 +913,13 @@ public class QuestionActivity extends AppCompatActivity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    loading.show();
+                    loading.setMessage("").show();
                 }
             });
 
             client.PostData(StaticParams.QUESTION_URL, param.toString());
         } catch (IOException ex) {
             ex.printStackTrace();
-            Log.e(ID, ex.getMessage());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

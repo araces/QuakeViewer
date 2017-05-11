@@ -34,7 +34,7 @@
 <div class="row">
     <div class=" col-sm-12">
         <div class="divider-header"></div>
-        @using (Html.BeginForm("Questions", "Quake", new {}, FormMethod.Post, new {@class = "form-horizontal", role = "form"})) {
+        @using (Html.BeginForm("Questions", "Quake", new {}, FormMethod.Post, new {@class = "form-horizontal", role = "form",@id="form"})) {
             @Html.AntiForgeryToken()
             <div class="form-group">
                 <label>房屋所在的位置：</label>
@@ -114,13 +114,13 @@
                 <label>房屋的施工质量情况:</label>
                 <div class="col-sm-offset-1">
                     <div class="col-sm-3">
-                        @Html.RadioButtonFor(p => p.Jobstatus, 3, new {@checked = "checked"})&nbsp;&nbsp;好
+                        @Html.RadioButtonFor(p => p.Jobstatus, 1, new {@checked = "checked"})&nbsp;&nbsp;好
                     </div>
                     <div class="col-sm-3">
                         @Html.RadioButtonFor(p => p.Jobstatus, 2)&nbsp;&nbsp;一般
                     </div>
                     <div class="col-sm-3">
-                        @Html.RadioButtonFor(p => p.Jobstatus, 1)&nbsp;&nbsp;差
+                        @Html.RadioButtonFor(p => p.Jobstatus, 3)&nbsp;&nbsp;差
                     </div>
                 </div>
             </div>
@@ -145,7 +145,7 @@
             <div class="divider-div"></div>
             <div class="form-group" style="margin-top: 50px;">
                 <div class="col-sm-offset-4 col-sm-4">
-                    <button type="submit" class="btn btn-lg btn-success" id="calculate">房屋抗震能力查询</button>
+                    <button type="button" class="btn btn-lg btn-success" id="calculate">房屋抗震能力查询</button>
                 </div>
             </div>
         }
@@ -464,17 +464,18 @@
             var address = addComp.province  + addComp.city  + addComp.district  + addComp.street  + addComp.streetNumber;
 
             var addressIn = '';
-            console.log(addComp.street + '道');
+          
             console.log($('#Street option:selected').text());
-            if (addComp.street === $('#Street  option:selected').text()) {
-
-                addressIn = addComp.streetNumber;
-            } else if (addComp.street.indexOf($('#Street  option:selected').text().replace('道', '')) == 0) {
-                addressIn = addComp.street.replace($('#Street  option:selected').text().replace('道', ''), '');
+            if ("" != addComp.streetNumber) {
+                if (addComp.street === $('#Street  option:selected').text()) {
+                    addressIn = addComp.streetNumber;
+                } else {
+                    addressIn = addComp.street + addComp.streetNumber;
+                }
             } else {
-                addressIn = addComp.street + addComp.streetNumber;
+                addressIn = addComp.street;
             }
-           
+            console.log(addressIn);
 
             $('#address-title').html(address);
             $('#loading-img').hide();
@@ -531,14 +532,22 @@
                     return false;
                 }
 
-                if (province != $('#Provincial option:selected').text() ||
-                    city != $('#City option:selected').text() ||
-                    region !== $('#Region option:selected').text()) {
+
+                if ($('#Region option:selected').text()=='市辖区') {
+                    if (province != $('#Provincial option:selected').text() ||
+                        city != $('#City option:selected').text() ||
+                        region != ($('#City option:selected').text() + '市辖区')) {
+                        alert("选择的的区域和您设定的区域不一致！");
+                        return false;
+                    }
+                }
+                else  if (province != $('#Provincial option:selected').text() ||
+                  city != $('#City option:selected').text() ||
+                  region != $('#Region option:selected').text()) {
                     alert("选择的的区域和您设定的区域不一致！");
                     return false;
                 }
-
-                $('#calculate').submit();
+                $('#form').submit();
             });
     $(document)
         .ready(function() {

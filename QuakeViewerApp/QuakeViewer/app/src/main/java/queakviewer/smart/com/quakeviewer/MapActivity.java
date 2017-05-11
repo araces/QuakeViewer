@@ -120,7 +120,7 @@ public class MapActivity extends Activity {
         mCurrentMarker = BitmapDescriptorFactory
                 .fromResource(R.drawable.icon_marka);
 
-        Log.d(Id, "start service");
+
 
 
         selfRequestPermission();
@@ -450,7 +450,7 @@ public class MapActivity extends Activity {
             }
             mLocationClient.unRegisterLocationListener(myListener);
             mLocationClient.stop();
-            Log.d("Id", sb.toString());
+
         }
 
         @Override
@@ -554,7 +554,7 @@ public class MapActivity extends Activity {
             client.GetData(url);
         } catch (IOException ex) {
             ex.printStackTrace();
-            Log.e(Id, ex.getMessage());
+
             handler.post(new Runnable() {
                 @Override
                 public void run() {

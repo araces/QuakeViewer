@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 
 public class ResultActivity extends AppCompatActivity {
 
-    private final static String format = "<p>&nbsp;&nbsp;&nbsp;&nbsp;尊敬的<strong><u>@UserName@</u></strong>先生/女士，您通过广东省地震局提供的“建筑房屋抗震能力即时评估系统”查询的房屋，" +
+    private final static String format = "<p>&nbsp;&nbsp;&nbsp;&nbsp;尊敬的<strong><u>@UserName@</u></strong>先生/女士，您通过广东省地震局提供的“建筑房屋抗震能力即时简易评估系统”查询的房屋，" +
             "其在设防地震作用下为<strong><u>@DisplayMinorLevel@</u></strong>。" ;
 
     @BindView(R.id.description_result)

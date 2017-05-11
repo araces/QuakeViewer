@@ -97,7 +97,7 @@ public class RegistActivity extends AppCompatActivity {
             param.put("password", mPassword.getText());
             //param.put("mobile", mEmail.getText());
         } catch (JSONException ex) {
-            Log.e(ID, ex.getMessage());
+
             Toast.makeText(RegistActivity.this, "系统错误，请重试", Toast.LENGTH_LONG).show();
         }
 
@@ -136,7 +136,7 @@ public class RegistActivity extends AppCompatActivity {
                         });
                     }
                 } catch (Exception ex) {
-                    Log.e(ID, ex.getMessage());
+
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -161,7 +161,7 @@ public class RegistActivity extends AppCompatActivity {
             });
             client.PostData(StaticParams.REGIST_URL, param.toString());
         } catch (IOException ex) {
-            Log.e(ID, ex.getMessage());
+
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -229,8 +229,6 @@ public class RegistActivity extends AppCompatActivity {
             return false;
         }
 
-        Log.e(ID, confirmPassword.getText().toString());
-        Log.e(ID, password.getText().toString());
 
         if (!confirmPassword.getText().toString().equals(password.getText().toString())) {
             handler.post(new Runnable() {

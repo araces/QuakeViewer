@@ -94,7 +94,7 @@ namespace QuakeViewer.Models
             {
                 switch (this.FifthChoice)
                 {
-                    case 3:
+                    case 1:
                         return "好";
                     case 2:
                         return "一般";
