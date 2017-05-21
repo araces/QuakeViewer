@@ -78,7 +78,7 @@ namespace QuakeViewer.Utils
         }
         void FormStructure()
         {
-            double ductility = 5.0;
+            double ductility = 10.0;
             double reduction = 0.35;
 
             double DesignIntensity = intensityDegree;
@@ -88,30 +88,35 @@ namespace QuakeViewer.Utils
             MaxAlpha = GetMaxAlphaMajor(DesignIntensity);
             T = GetT(storyNum, struType);
 
-            if (builtYearGroup == 1) reduction = 0.55 * reduction;
-            else if (builtYearGroup == 2) reduction = 0.7 * reduction;
+            if (builtYearGroup == 1) reduction = 0.7 * reduction;
+            else if (builtYearGroup == 2) reduction = 0.8 * reduction;
             else if (builtYearGroup == 3) reduction = 0.9 * reduction;
             else reduction = 1.0 * reduction;
 
             if (contructionQuality == 1) reduction = 1.3 * reduction;
-            else if (contructionQuality == 2) reduction = 1.0 * reduction;
+           // else if (contructionQuality == 2) reduction = 1.0 * reduction;
             else if (contructionQuality == 3) reduction = 0.6 * reduction;
             else
             {
+                //add
+                reduction = 1.0*reduction;
+                //end
             }
 
-            Fy = reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05); //Unit: Acel,g,相当于无量纲
+           // Fy = reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05); //Unit: Acel,g,相当于无量纲
             if (struType == 3) Fy = 0.8 * reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05);
             else if (struType == 4) Fy = 0.5 * reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05);
-            else if (struType == 1) Fy = 1.1 * reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05);
+            else if (struType == 1) Fy = 1.2 * reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05);
+            else if (struType == 2) Fy = 1.0 * reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05);//1.1->1.2
+            else Fy = 1.0 * reduction * GetSpectralSeismicFactor(T, Tg, MaxAlpha, 0.05);
 
             Dy = Fy * T * T * 9.8 / (4.0 * 3.14 * 3.14);//unit: m
                                                         //define ductility
 
-            if (struType == 1) Du = 1.6*ductility * Dy;
-            else if (struType == 2) Du = 1.0 * ductility * Dy;
-            else if (struType == 3) Du = 0.7 * ductility * Dy;
-            else if (struType == 4) Du = 0.3 * ductility * Dy;
+            if (struType == 1) Du = 1.8*ductility * Dy;
+            else if (struType == 2) Du = 1.2 * ductility * Dy;
+            else if (struType == 3) Du = 0.9 * ductility * Dy;
+            else if (struType == 4) Du = 0.25 * ductility * Dy;
             else
                 Du = 1.0 * ductility * Dy;
 
@@ -121,6 +126,10 @@ namespace QuakeViewer.Utils
                 Dy = Fy * T * T * 9.8 / (4.0 * 3.14 * 3.14);
                 Du = 0.5 * ductility * Dy;
             }
+
+            //********添加新代码
+            Du = (1.0 + 0.02 * storyNum) * Du;
+            //********
 
             structureDataIsFormed = true;
 
@@ -144,33 +153,42 @@ namespace QuakeViewer.Utils
             if (Fy >= MaxAlpha)
             {
                 DamageDgreeMinor = 0; //no damage
-                if (0.6 * Fy < GetSpectralSeismicFactor(T, Tg, MaxAlpha, DampingRatio))
+                if (0.3 * Fy < GetSpectralSeismicFactor(T, Tg, MaxAlpha, DampingRatio))
                     DamageDgreeMinor = 1;
             }
             else
             {
-                for (int i = 0; i < 20; i++)
+                //************从这里增加的代码
+                T1 = GetTbaseAlpha(Fy, Tg, MaxAlpha, DampingRatio);
+                d1 = T1 * T1 * Fy * 9.8 / (4.0 * 3.14 * 3.14);
+                if (d1 <= 0.3 * Dy)
+                    DamageDgreeMinor = 0; //no damage
+                else if (d1 > 0.3*Dy && d1 <= Dy)
+                    DamageDgreeMinor = 1; //no damage
+                else
                 {
-                    DampingRatio = ADampingRatio1 + 0.05;
-                    T1 = GetTbaseAlpha(Fy, Tg, MaxAlpha, DampingRatio);
-                    d1 = T1 * T1 * Fy * 9.8 / (4.0 * 3.14 * 3.14);
-                    ADampingRatio2 = GetAdditionalDampingRatio(Dy, d1);
-                    if (Math.Abs(ADampingRatio1 - ADampingRatio2) < 0.05 * ADampingRatio1)
-                        break;
-                    else
-                        ADampingRatio1 = 0.5 * (ADampingRatio1 + ADampingRatio2);
-                }
+                    for (int i = 0; i < 20; i++)
+                    {
+                        DampingRatio = ADampingRatio1 + 0.05;
+                        T1 = GetTbaseAlpha(Fy, Tg, MaxAlpha, DampingRatio);
+                        d1 = T1*T1*Fy*9.8/(4.0*3.14*3.14);
+                        ADampingRatio2 = GetAdditionalDampingRatio(Dy, d1);
+                        if (Math.Abs(ADampingRatio1 - ADampingRatio2) < 0.05*ADampingRatio1)
+                            break;
+                        else
+                            ADampingRatio1 = 0.5*(ADampingRatio1 + ADampingRatio2);
+                    }
 
-                if (d1 > (Dy + Du) * 0.5 && d1 < Du)
-                {
-                    DamageDgreeMinor = 3;
+                    if (d1 > (Dy + Du)*0.5 && d1 < Du)
+                    {
+                        DamageDgreeMinor = 3;
+                    }
+                    else if (d1 > Du)
+                    {
+                        DamageDgreeMinor = 4;
+                    }
+                    else DamageDgreeMinor = 2;
                 }
-                else if (d1 > Du)
-                {
-                    DamageDgreeMinor = 4;
-                }
-                else DamageDgreeMinor = 2;
-
             }
         }
         public void ResponseMajor()
@@ -186,32 +204,44 @@ namespace QuakeViewer.Utils
             double T1 = 0;
             double d1 = 0;
             MaxAlpha = GetMaxAlphaMajor(intensityDegree);
+            DamageDgreeMajor = 0;
 
             //判断是否弹性
             if (Fy >= MaxAlpha)
             {
                 DamageDgreeMajor = 0; //no damage
-                if (0.6 * Fy < GetSpectralSeismicFactor(T, Tg, MaxAlpha, DampingRatio))
+                if (0.3 * Fy < GetSpectralSeismicFactor(T, Tg, MaxAlpha, DampingRatio))
                     DamageDgreeMajor = 1;
             }
             else
             {
-                for (int i = 0; i < 20; i++)
+                //************从这里增加的代码
+                T1 = GetTbaseAlpha(Fy, Tg, MaxAlpha, DampingRatio);
+                d1 = T1 * T1 * Fy * 9.8 / (4.0 * 3.14 * 3.14);
+                if (d1 <= 0.3 * Dy)
+                    DamageDgreeMajor = 0; //no damage
+                else if (d1 > 0.3*Dy && d1 <= Dy)
+                    DamageDgreeMajor = 1; //no damage
+                else
                 {
-                    DampingRatio = ADampingRatio1 + 0.05;
-                    T1 = GetTbaseAlpha(Fy, Tg, MaxAlpha, DampingRatio);
-                    d1 = T1 * T1 * Fy * 9.8 / (4.0 * 3.14 * 3.14);
-                    ADampingRatio2 = GetAdditionalDampingRatio(Dy, d1);
-                    if (Math.Abs(ADampingRatio1 - ADampingRatio2) < 0.05 * ADampingRatio1)
-                        break;
-                    else
-                        ADampingRatio1 = 0.5 * (ADampingRatio1 + ADampingRatio2);
+
+                    //************增加代码结束  
+                    for (int i = 0; i < 20; i++)
+                    {
+                        DampingRatio = ADampingRatio1 + 0.05;
+                        T1 = GetTbaseAlpha(Fy, Tg, MaxAlpha, DampingRatio);
+                        d1 = T1*T1*Fy*9.8/(4.0*3.14*3.14);
+                        ADampingRatio2 = GetAdditionalDampingRatio(Dy, d1);
+                        if (Math.Abs(ADampingRatio1 - ADampingRatio2) < 0.05*ADampingRatio1)
+                            break;
+                        else
+                            ADampingRatio1 = 0.5*(ADampingRatio1 + ADampingRatio2);
+                    }
+
+                    if (d1 > (Dy + Du)*0.5 && d1 < Du) DamageDgreeMajor = 3;
+                    else if (d1 > Du) DamageDgreeMajor = 4;
+                    else DamageDgreeMajor = 2;
                 }
-
-                if (d1 > (Dy + Du) * 0.5 && d1 < Du) DamageDgreeMajor = 3;
-                else if (d1 > Du) DamageDgreeMajor = 4;
-                else DamageDgreeMajor = 2;
-
             }
         }
 
@@ -301,9 +331,9 @@ namespace QuakeViewer.Utils
         {
             double T;
             if (struType == 1)
-                T = 0.1 * storyNum;
-            else if (struType == 2)
                 T = 0.15 * storyNum;
+            else if (struType == 2)
+                T = 0.1 * storyNum;
             else if (struType == 3)
                 T = 0.1 * storyNum;
             else if (struType == 4)
@@ -322,9 +352,15 @@ namespace QuakeViewer.Utils
             double eta1 = 0.02;
             double eta2 = 1.0;
 
+
             gama = 0.9 + (0.05 - DampingRatio) / (0.3 + 6.0 * DampingRatio);
             eta1 = 0.02 + (0.05 - DampingRatio) / (4.0 + 32.0 * DampingRatio);
             eta2 = 1.0 + (0.05 - DampingRatio) / (0.08 + 1.6 * DampingRatio);
+
+
+            //add 
+            if (eta1 < 0.03) eta1 = 0.03;
+            //
 
             if (Alpha < MaxAlpha && Alpha >= Math.Pow(0.2, gama) * eta2 * MaxAlpha)
                 T = Tg / Math.Pow((Alpha / eta2 / MaxAlpha), 1.0 / gama);
