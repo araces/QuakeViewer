@@ -28,6 +28,15 @@ body {
     border-radius:10px
 }
 
+.form-container-download {
+    background: rgba(255,255,255,0.2);
+    width:800px;
+    height: 500px;
+    margin: 0px auto 50px auto;
+    -ms-border-radius:5px;
+    border-radius:10px
+}
+
 .form-container-regist {
     background: rgba(255,255,255,0.2);
     width:400px;

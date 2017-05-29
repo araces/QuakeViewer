@@ -35,6 +35,8 @@ namespace QuakeViewer.Controllers
             return View(model);
         }
 
+     
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -100,6 +102,12 @@ namespace QuakeViewer.Controllers
             ModelState.AddModelError("login_error", "用户名或密码错误！");
             model.HasError = true;
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Download()
+        {
+            return View();
         }
 
         [HttpGet]
