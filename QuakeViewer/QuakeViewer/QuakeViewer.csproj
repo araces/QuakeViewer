@@ -109,6 +109,7 @@
     <Compile Include="Models\StaticParams.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="img\download_logo.png" />
     <Content Include="img\first.png" />
     <Content Include="img\loading.gif" />
     <Content Include="img\Point.png" />

@@ -23,7 +23,7 @@ body {
     background: rgba(255,255,255,0.2);
     width:400px;
     height: 300px;
-    margin:100px auto;
+    margin:20px auto;
     -ms-border-radius:5px;
     border-radius:10px
 }
@@ -41,7 +41,7 @@ body {
     background: rgba(255,255,255,0.2);
     width:400px;
     height: 400px;
-    margin:100px auto;
+    margin:20px auto;
     -ms-border-radius:5px;
     border-radius:10px
 }

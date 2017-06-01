@@ -21,11 +21,11 @@
 </head>
 <body>
     <div class="page-container">
-        <h1>下载App</h1>
+        <div><h1 style="font-size: 22px">下载建筑房屋抗震能力即时简易评估系统手机移动端APP</h1></div>
         <div class="form-container-download">
             @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { }))
             {
-                <img id="imgStep" src="/img/first.png" data="0" style="float:left; height: 430px; margin-left: -240px;" />
+                <img id="imgStep" src="/img/download_logo.png" data="0" style="float:left; height: 430px; margin-left: -240px;" />
                 <div style="align:left;margin-top:10px;"><a href="/download/%e6%88%bf%e5%b1%8b%e6%8a%97%e9%9c%87.apk" target="_self" title="注册账号">下载</a></div>
             }
         </div>
@@ -41,7 +41,7 @@
     var imgArray = [ "/img/first.png", "/img/second.png", "/img/third.png" ];
 
     $(document).ready(function() {
-        setInterval('clock()', 5000);
+        //setInterval('clock()', 5000);
     })
 
     function clock() {

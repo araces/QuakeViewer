@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using QuakeViewer.Models;
 using System.Web.Mvc;
@@ -267,5 +268,117 @@ namespace QuakeViewer.Controllers
 
             return Content(array.ToString());
         }
+
+        public ActionResult queryDataToExcel(string startTime, string endTime,string fileName)
+        {
+            JObject result = new JObject();
+            JObject obj = new JObject();
+
+
+            DateTime? startTimeDate = null;
+            DateTime? endTimeDate = null;
+
+            if (string.IsNullOrEmpty(startTime))
+            {
+                startTimeDate = DateTime.Now.AddDays(-30);
+            }
+            else if (startTime.Length == 8)
+            {
+                startTimeDate =
+                    DateTime.Parse(
+                        $"{startTime.Substring(0, 4)}-{startTime.Substring(4, 2)}-{startTime.Substring(6, 2)}");
+            }
+            else
+            {
+                obj.Add("success", false);
+                obj.Add("msg", "日期格式错误，请重新输入");
+                result.Add("result", obj);
+                return Content(result.ToString());
+            }
+
+            if (string.IsNullOrEmpty(endTime))
+            {
+                endTimeDate = DateTime.Now;
+            }
+            else if (endTime.Length == 8)
+            {
+                endTimeDate =
+                    DateTime.Parse($"{endTime.Substring(0, 4)}-{endTime.Substring(4, 2)}-{endTime.Substring(6, 2)}")
+                        .AddDays(1);
+            }
+            else
+            {
+                obj.Add("success", false);
+                obj.Add("msg", "日期格式错误，请重新输入");
+                result.Add("result", obj);
+                return Content(result.ToString());
+            }
+
+
+            var choices = choiceService.GetChoiceByTime(startTimeDate.Value, endTimeDate.Value);
+
+            var dict = areaExtendParamsService.GetAreaDict();
+
+            JArray array = new JArray();
+            StringBuilder builder = new StringBuilder();
+            builder.Append("<table border='1' cellspacing='0' cellpadding='0'>");
+            builder.Append("<thead><th>时间</th><th>用户名</th><th>区域</th><th>楼层</th><th>房屋结构</th><th>是否专业设计</th><th>施工质量</th><th>建造年代</th><th>输出结果</th><th>来源</th></thead>");
+            foreach (var q in choices)
+            {
+                DisplayChoice display = DisplayChoice.GetDisplayChoiceFromNormakChoice(q);
+                Console.WriteLine(q.Id);
+                display.FirstChoice = dict[q.FirstChoice];
+                builder.Append("<tr><td>");
+                builder.Append(display.DisplayCreateDate);
+                builder.Append("</td><td>");
+                builder.Append(display.DisplayUserName);
+                builder.Append("</td>");
+
+                builder.Append("<td>");
+                builder.Append(display.FirstChoice);
+                builder.Append("</td>");
+
+                builder.Append("<td>");
+                builder.Append(display.Address);
+                builder.Append("</td>");
+
+                builder.Append("<td>");
+                builder.Append(display.DisplaySecondChoice);
+                builder.Append("</td>");
+
+                builder.Append("<td>");
+                builder.Append(display.DisplayThirdChoice);
+                builder.Append("</td>");
+
+                builder.Append("<td>");
+                builder.Append(display.DisplayForthChoice);
+                builder.Append("</td>");
+
+
+                builder.Append("<td>");
+                builder.Append(display.DisplayFifthChoice);
+                builder.Append("</td>");
+
+                builder.Append("<td>");
+                builder.Append(display.DisplaySixth);
+                builder.Append("</td>");
+
+                builder.Append("<td>");
+                builder.Append(display.DisplayMinorResult);
+                builder.Append("</td>");
+
+                builder.Append("<td>");
+                builder.Append(display.DisplayFromType);
+                builder.Append("</td></tr>");
+
+            }
+
+            builder.Append("</tbody>");
+            builder.Append("</table>");
+
+            byte[] fileContents = Encoding.GetEncoding("GB2312").GetBytes(builder.ToString());
+            return File(fileContents, "application/vnd.ms-excel", fileName);
+        }
+
     }
 }
